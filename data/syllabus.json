@@ -1,0 +1,942 @@
+[
+  {
+    "id": "140720-UND202511001-statistika-inferensial",
+    "order": 1,
+    "code": "140720-UND202511001",
+    "title": "Statistika Inferensial",
+    "credits": 3,
+    "group": "Wajib",
+    "description": "Mata kuliah ini membahas konsep, prinsip, dan metode dasar serta lanjutan dalam statistika inferensial, meliputi evaluasi dan optimalisasi penaksiran, berbagai metode penaksiran dan pengujian hipotesis, baik sederhana maupun komposit. Materi juga mencakup pendekatan likelihood dan Bayesian, penaksiran serta pengujian pada model-model lanjut, evaluasi robustnes dan efisiensi estimator, serta aplikasi komputasi dalam inferensi statistik. Selain itu, dibahas pula keterkaitan antara desain pengumpulan data dan validitas inferensi statistik. Mata kuliah ini dirancang untuk membekali mahasiswa dalam mengelola, menganalisis, dan mengembangkan solusi inovatif berbasis inferensi statistik pada berbagai permasalahan nyata di bidang industri, sosial, aktuaria, biostatistik, dan sains data.",
+    "topics": [
+      "Evaluasi Sebuah Penaksiran",
+      "Optimalisasi Sebuah Penaksiran",
+      "Pengaruh Desain Pengumpulan Data terhadap Inferensi Statistik",
+      "Metode-Metode Penaksiran",
+      "Penaksiran Interval",
+      "Pengujian Hipotesis Sederhana dan Komposit",
+      "Penaksiran dan Pengujian pada Model Lanjut",
+      "Pendekatan Likelihood dan Bayesian pada Penaksiran dan Pengujian",
+      "Evaluasi Robustness dan Efisiensi Estimator",
+      "Pengujian Hipotesis Lanjut",
+      "Aplikasi Komputasi dalam Inferensi Statistik"
+    ],
+    "references": [
+      "Hogg and Craig. 1978. Introduction to Mathematical Statistics, Second Edition. London : Collier Macmilan Publishers",
+      "Mood, Alexander M. 1974. Introduction to Theory of Statistics. London : McGraw-Hill Publishing Company",
+      "Bickel, P.J. and Doksum, K.A. (1977). Mathematical Statistics. Holden-Day, Inc., California.",
+      "Dudewicz, E.J. and Mishra, S.N. (1988). Modern mathematical Statistics. Wiley, New York.",
+      "Casella, G & Berger, R.L. 2002. Statistical Inference. Second Edition. Duxbury."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511002-komputasi-statistik-dan-optimasi",
+    "order": 2,
+    "code": "140720-UND202511002",
+    "title": "Komputasi Statistik dan Optimasi",
+    "credits": 3,
+    "group": "Wajib",
+    "description": "Mata kuliah ini membahas konsep, metode, dan aplikasi komputasi statistik serta teknik-teknik optimasi dalam penyelesaian masalah statistika modern. Mahasiswa akan mempelajari berbagai strategi pengumpulan data berbasis komputasi, penerapan algoritma statistik dan optimasi, serta pengembangan solusi statistik menggunakan perangkat lunak statistik (seperti R dan Python). Selain itu, mahasiswa juga akan dilatih untuk mengembangkan algoritma sendiri, melakukan analisis data kompleks lintas disiplin, serta menyusun dan mempresentasikan hasil riset komputasi statistik dan optimasi secara sistematis dan inovatif sesuai standar nasional maupun internasional.",
+    "topics": [
+      "Review metode pengumpulan data (SRS, stratified, cluster sampling)",
+      "Simulasi sampling dengan R/Python",
+      "Studi kasus desain sampling optimal",
+      "Pengantar komputasi statistik (Monte Carlo, Bootstrap, Resampling)",
+      "Metode optimasi (gradient descent, stochastic optimization, genetic algorithm)",
+      "Implementasi metode dengan software statistik",
+      "Pengembangan algoritma: simulasi, EM algorithm, MCMC, optimasi non-linear",
+      "Implementasi dengan R/Python (custom function, package/library)",
+      "Komputasi Bayesian (dasar-dasar teori & aplikasi)",
+      "Implementasi MCMC/Gibbs Sampling pada kasus nyata",
+      "Struktur & penulisan laporan ilmiah, etika publikasi"
+    ],
+    "references": [
+      "Robert, C.P. & Casella, G. Monte Carlo Statistical Methods.",
+      "Hastie, T., Tibshirani, R., & Friedman, J. The Elements of Statistical Learning"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511003-analisis-multivariat-tingkat-lanjut",
+    "order": 3,
+    "code": "140720-UND202511003",
+    "title": "Analisis Multivariat Tingkat Lanjut",
+    "credits": 3,
+    "group": "Wajib",
+    "description": "Mata kuliah ini membahas teori, metode, dan aplikasi lanjutan dalam analisis data multivariat. Topik utama meliputi pengujian mean vektor, regresi multivariat dengan respon ganda, reduksi dimensi (PCA, analisis faktor), diskriminan, klasifikasi, clustering, hingga analisis korespondensi dan biplot. Mahasiswa akan mempelajari konsep, asumsi, dan teknik analisis multivariate secara mendalam, serta mengaplikasikannya untuk menyelesaikan permasalahan nyata di berbagai bidang. Selain itu, mata kuliah ini menekankan keterampilan kritis dalam merancang penelitian, mengolah data kompleks, interpretasi hasil, serta menyusun laporan ilmiah yang inovatif sesuai standar nasional dan internasional.",
+    "topics": [
+      "Konsep Dasar Analisis Multivariat dan Distribusi Multivariat",
+      "Uji Vektor Rata-rata (Hotelling's T² dan generalisasi)",
+      "Analisis Regresi Multivariat dengan Respon Ganda",
+      "Analisis Komponen Utama (Principal Component Analysis/PCA) dan Analisis Faktor",
+      "Analisis Diskriminan dan Klasifikasi Multivariat",
+      "Analisis Cluster dan Segmentasi Data Multivariat",
+      "Analisis Korespondensi dan Biplot"
+    ],
+    "references": [
+      "Johnson, R. A., & Wichern, D. W. (2019). Applied Multivariate Statistical Analysis (7th Edition). Pearson.",
+      "Hair, J. F., Black, W. C., Babin, B. J., & Anderson, R. E. (2019). Multivariate Data Analysis (8th Edition). Cengage"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511004-analisis-regresi-tingkat-lanjut",
+    "order": 4,
+    "code": "140720-UND202511004",
+    "title": "Analisis Regresi Tingkat Lanjut",
+    "credits": 3,
+    "group": "Wajib",
+    "description": "Mata kuliah ini membahas teori dan aplikasi model-model regresi tingkat lanjut, termasuk regresi nonlinier, penalized, robust, dan Bayesian. Mahasiswa akan mempelajari teknik pengumpulan data, penerapan analisis regresi pada berbagai bidang, serta penyusunan dan presentasi laporan ilmiah. Pembelajaran menekankan kemampuan analitis, evaluatif, dan inovatif dalam pemecahan masalah statistik nyata.",
+    "topics": [
+      "Konsep dan Teori Regresi Tingkat Lanjut",
+      "Regresi Nonlinier: Model, Estimasi, dan Aplikasi",
+      "Regresi Penalized dan Robust (Ridge, Lasso, Elastic Net, M-estimator, RANSAC)",
+      "Regresi Bayesian: Konsep, Inferensi, dan Implementasi Dasar",
+      "Teknik Sampling dan Desain Eksperimen untuk Regresi",
+      "Aplikasi Analisis Regresi Lanjutan pada Data Nyata Penyusunan Laporan, Visualisasi, dan Presentasi Hasil Analisis Regresi"
+    ],
+    "references": [
+      "Montgomery, D. C., Peck, E. A., & Vining, G. G. (2021). Introduction to linear regression analysis (6th ed.). Wiley.",
+      "Fahrmeir, L., Kneib, T., Lang, S., & Marx, B. (2013). Regression: Models, methods and applications. Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511005-proses-stokastik-tingkat-lanjut",
+    "order": 5,
+    "code": "140720-UND202511005",
+    "title": "Proses Stokastik Tingkat Lanjut",
+    "credits": 3,
+    "group": "Wajib",
+    "description": "Mata kuliah Proses Stokastik Tingkat Lanjut membahas konsep dan aplikasi lanjutan proses stokastik dalam statistika, mencakup analisis peluang dan ekspektasi bersyarat, pemodelan rantai Markov diskrit, proses Poisson (termasuk proses majemuk), proses kelahiran dan kematian, proses antrian, serta proses pembaharuan (renewal process). Mahasiswa akan mempelajari teknik evaluasi, simulasi, dan pengembangan model stokastik untuk berbagai aplikasi nyata di bidang industri, biostatistik, aktuaria, dan sains data. Pembelajaran menekankan kemampuan berpikir analitis, evaluatif, serta inovatif dalam merancang solusi berbasis proses stokastik, baik secara teoretis maupun komputasional.",
+    "topics": [
+      "Peluang dan ekspektasi bersyarat",
+      "Rantai Markov diskrit",
+      "Matriks transisi dan analisis status",
+      "Limit distribusi dan waktu penyerapan",
+      "Proses Poisson",
+      "Proses Poisson majemuk",
+      "Proses kelahiran dan kematian",
+      "Proses antrian",
+      "Proses pembaharuan (Renewal Process)",
+      "Aplikasi dan simulasi proses stokastik"
+    ],
+    "references": [
+      "Ross, S. M. (2014). Introduction to Probability Models (11th ed.). Amsterdam: Elsevier.",
+      "Cinlar, E. (2011). Probability and Stochastics. New York: Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511006-analisis-deret-waktu-tingkat-lanjut",
+    "order": 6,
+    "code": "140720-UND202511006",
+    "title": "Analisis Deret Waktu Tingkat Lanjut",
+    "credits": 3,
+    "group": "Wajib",
+    "description": "Mata kuliah ini membahas konsep, metode, dan aplikasi pemodelan data deret waktu tingkat lanjut. Topik utama mencakup identifikasi pola dan karakteristik data deret waktu, model long memory, Singular Spectrum Analysis (SSA), analisis spektral, model VAR, Transfer Function, serta pemodelan berbasis Machine Learning dan Neural Network. Mahasiswa juga akan dilatih untuk mengintegrasikan berbagai pendekatan inovatif dalam pemodelan dan peramalan deret waktu pada berbagai bidang, serta mampu menyusun dan mempresentasikan hasil analisis secara sistematis sesuai standar ilmiah.",
+    "topics": [
+      "Konsep dan Karakteristik Data Deret Waktu Tingkat Lanjut",
+      "Model Klasik ARIMA untuk Deret Waktu",
+      "Model Long Memory (ARFIMA) pada Deret Waktu",
+      "Singular Spectrum Analysis (SSA)",
+      "Analisis Spektral pada Deret Waktu",
+      "Pemodelan Machine Learning dan Neural Network untuk Deret Waktu",
+      "Pemodelan Multivariat dan Spasial-Temporal: VAR, Transfer Function, dan GSTAR"
+    ],
+    "references": [
+      "Hamilton, J.D. (1994). Time Series Analysis. Princeton University Press.",
+      "Shumway, R.H., & Stoffer, D.S. (2017). Time Series Analysis and Its Applications: With R Examples (4th Edition). Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511007-sistematika-literature-review",
+    "order": 7,
+    "code": "140720-UND202511007",
+    "title": "Sistematika Literature Review",
+    "credits": 6,
+    "group": "By Research",
+    "description": "Mata kuliah Systematic Literature Review (SLR) membahas metodologi pengumpulan, penelaahan, dan sintesis literatur ilmiah secara sistematis dan terstruktur. Mahasiswa akan mempelajari teknik pencarian literatur, penilaian kualitas studi, serta analisis dan pelaporan temuan berdasarkan protokol yang terstandarisasi. Mata kuliah ini bertujuan membekali mahasiswa dengan kemampuan untuk merangkum pengetahuan ilmiah secara objektif, transparan, dan dapat direplikasi, sehingga hasil tinjauan dapat dijadikan dasar pengambilan keputusan penelitian selanjutnya.",
+    "topics": [
+      "Pendahuluan dan Konsep Dasar SLR (Definisi, tujuan, dan pentingnya SLR dalam riset ilmiah.)",
+      "Perbedaan SLR dengan Literatur Naratif (Karakteristik, keunggulan, dan keterbatasan masing-masing metode.)",
+      "Merumuskan Pertanyaan Penelitian (Research Question) (Teknik merumuskan pertanyaan dengan kerangka PICO, SPICE, dsb.)",
+      "Pengembangan Protokol SLR (Standar dan komponen protokol SLR.)",
+      "Strategi Pencarian Literatur (Identifikasi basis data, penggunaan keyword, dan logika boolean.)",
+      "Proses Seleksi Studi (Screening & Eligibility) (Kriteria inklusi/eksklusi, PRISMA Flow Diagram.)",
+      "Penilaian Kualitas Studi (Critical Appraisal) (Tools dan checklist penilaian kualitas artikel.)",
+      "Ekstraksi Data (Data Extraction) (Membuat form ekstraksi data, manajemen data.)",
+      "Sintesis dan Analisis Data (Metode naratif dan kuantitatif (misal: meta-analisis).)",
+      "Pelaporan Hasil SLR (Struktur dan pedoman penulisan (PRISMA Statement).)",
+      "Etika dan Replikasi dalam SLR (Isu plagiarisme, transparansi, dan open science dalam SLR.)"
+    ],
+    "references": [
+      "Peters, M. D. J., Godfrey, C. M., McInerney, P., Munn, Z., Tricco, A. C., & Khalil, H. (2020). Chapter 11: Scoping Reviews (2020 version). Dalam JBI Manual for Evidence Synthesis. JBI. [Link: https://synthesismanual.jbi.global]",
+      "Moher, D., Liberati, A., Tetzlaff, J., Altman, D. G., & The PRISMA Group. (2009). Preferred Reporting Items for Systematic Reviews and Meta-Analyses: The PRISMA Statement. PLoS Medicine, 6(7): e1000097. [Link: https://doi.org/10.1371/journal.pmed.1000097]"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202511008-asistensi-perkuliahan",
+    "order": 8,
+    "code": "140720-UND202511008",
+    "title": "Asistensi Perkuliahan",
+    "credits": 3,
+    "group": "By Research",
+    "description": "Asistensi perkuliahan merupakan kegiatan pendampingan yang bertujuan membantu mahasiswa dalam memahami materi kuliah, menyelesaikan tugas, serta mengembangkan keterampilan akademik dan soft skills yang relevan dengan mata kuliah. Kegiatan asistensi dilakukan secara terjadwal, baik secara individu maupun kelompok, dengan melibatkan asisten dosen atau mahasiswa senior di bawah supervisi dosen pengampu.",
+    "topics": [
+      "Pengenalan dan Orientasi Mata Kuliah (Pengantar tujuan, kontrak kuliah, dan mekanisme asistensi.)",
+      "Strategi Efektif Membaca dan Mencatat Materi Kuliah (Cara memahami bacaan akademik dan membuat ringkasan.)",
+      "Manajemen Waktu dan Perencanaan Studi akademik. (Teknik mengatur waktu belajar, penjadwalan tugas, dan penggunaan kalender)",
+      "Pemahaman Materi Pokok Kuliah (Diskusi dan penjelasan konsep-konsep utama pada setiap topik/minggu.)",
+      "Teknik Mengerjakan Tugas dan Studi Kasus (Strategi menyelesaikan tugas individu, kelompok, maupun kasus nyata.)",
+      "Penggunaan Software/Aplikasi Pendukung R, Mendeley, dll). (Pelatihan aplikasi/software yang menunjang perkuliahan (misal: Excel, SPSS,)",
+      "Keterampilan Presentasi dan Komunikasi Ilmiah (Tips membuat presentasi efektif dan menyampaikan ide secara jelas.)",
+      "Teknik Menulis Laporan/Makalah Akademik (Struktur penulisan laporan, makalah, dan penggunaan referensi.)",
+      "Diskusi dan Pemecahan Masalah (Sesi tanya jawab, brainstorming, dan solusi permasalahan tugas/ujian.)",
+      "Simulasi Ujian/Kuis (Latihan soal, pembahasan jawaban, dan strategi menjawab soal ujian.)",
+      "Evaluasi Progres dan Refleksi Pembelajaran (Monitoring perkembangan, umpan balik, dan refleksi capaian belajar.)"
+    ],
+    "references": [
+      "Suryabrata, S. (2012). Pengantar Penelitian Pendidikan. Jakarta: Rajawali Pers.",
+      "Davis, B. G. (2009). Tools for Teaching (2nd Edition). San Francisco: Jossey-Bass."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522001-statistika-nonparametrik-dan-pemodelan-fleksibel",
+    "order": 9,
+    "code": "140720-UND202522001",
+    "title": "Statistika Nonparametrik dan Pemodelan Fleksibel",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Matakuliah ini membahas teori dan aplikasi metode statistik nonparametrik serta flexible modeling untuk analisis data yang tidak memenuhi asumsi klasik statistik parametrik. Materi mencakup pengujian hipotesis nonparametrik, uji perbedaan dua atau lebih kelompok, analisis hubungan nonparametrik, estimasi fungsi distribusi dan kerapatan, serta regresi nonparametrik dan teknik flexible modeling seperti smoothing spline, kernel regression, dan generalized additive models (GAM). Mahasiswa juga akan dilatih dalam penerapan metode ini pada data nyata menggunakan perangkat lunak statistik, serta mengembangkan kemampuan berpikir kritis, evaluatif, dan inovatif melalui studi kasus dan seminar. Matakuliah ini dirancang untuk mempersiapkan mahasiswa dalam mengatasi permasalahan data kompleks di berbagai bidang secara komputasional dan interdisipliner.",
+    "topics": [
+      "Pengantar statistika nonparametrik",
+      "Uji hipotesis dua sampel (berpasangan dan independen)",
+      "Uji untuk tiga atau lebih kelompok (Kruskal-Wallis, Friedman)",
+      "Uji kesamaan varians nonparametrik",
+      "Uji kecocokan distribusi",
+      "Analisis korelasi dan asosiasi nonparametrik",
+      "Estimasi fungsi distribusi empiris",
+      "Estimasi fungsi kerapatan nonparametrik",
+      "Bootstrap dan teknik resampling nonparametrik",
+      "Regresi nonparametrik (kernel, spline, LOESS)",
+      "Flexible modeling (Generalized Additive Models, Quantile Regression)"
+    ],
+    "references": [
+      "Hollander, M., Wolfe, D. A., & Chicken, E. (2014). Nonparametric Statistical Methods (3rd Edition). Wiley..",
+      "Hastie, T., Tibshirani, R., & Friedman, J. (2009). The Elements of Statistical Learning: Data Mining, Inference, and Prediction (2nd Edition). Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522002-penambangan-data-dan-kecerdasan-buatan",
+    "order": 10,
+    "code": "140720-UND202522002",
+    "title": "Penambangan Data dan Kecerdasan Buatan",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Matakuliah ini membahas konsep, metodologi, dan aplikasi penambangan data (data mining) serta kecerdasan buatan (artificial intelligence) dalam bidang statistika. Mahasiswa akan mempelajari teknik dasar hingga lanjutan dalam ekstraksi pengetahuan dari data, termasuk competitive intelligence, pemilihan dan pengembangan algoritma, serta penerapan metode machine learning seperti Artificial Neural Network (ANN) dan Support Vector Machine (SVM). Selain itu, matakuliah ini menekankan inovasi analisis data tekstual (text mining) dan pemanfaatan data mining patent untuk pengembangan riset. Pembelajaran dirancang untuk membekali mahasiswa dengan kemampuan analitis, evaluatif, dan kreatif dalam menyelesaikan permasalahan nyata berbasis data secara interdisipliner dan komputasional.",
+    "topics": [
+      "Konsep dasar data mining",
+      "Competitive intelligence dalam data mining",
+      "Metodologi penambangan data",
+      "Fungsi-fungsi utama data mining",
+      "Pemilihan dan evaluasi algoritma data mining",
+      "Pengenalan machine learning dalam data mining",
+      "Artificial Neural Network (ANN)",
+      "Support Vector Machine (SVM)",
+      "Implementasi data mining dengan software statistik",
+      "Text mining",
+      "Data mining patent dan inovasi riset"
+    ],
+    "references": [
+      "Han, J., Kamber, M., & Pei, J. (2012). Data Mining: Concepts and Techniques (3rd ed.). Elsevier.",
+      "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522003-pemodelan-persamaan-struktural",
+    "order": 11,
+    "code": "140720-UND202522003",
+    "title": "Pemodelan Persamaan Struktural",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Pemodelan Persamaan Struktural merupakan mata kuliah yang membahas konsep, teori, dan aplikasi Pemodelan Persamaan Struktural dalam analisis data multidisipliner. Mata kuliah ini mencakup pemahaman hubungan kausalitas, penyusunan model pengukuran (reflective dan formative), perancangan model first-order dan second-order, serta analisis model konfirmatori dan struktural. Mahasiswa juga dibekali keterampilan mengembangkan, mengimplementasikan, dan menginterpretasikan model SEM menggunakan perangkat lunak statistik mutakhir. Selain itu, mahasiswa diarahkan untuk mampu mengkomunikasikan hasil penelitian SEM secara profesional dalam bentuk publikasi ilmiah dan presentasi.",
+    "topics": [
+      "Pendahuluan SEM dan Kausalitas (Konsep dasar SEM; Hubungan kausalitas dalam riset multidisipliner)",
+      "Model Pengukuran: Reflektif dan Formatif (Indikator reflektif vs. formatif; Identifikasi variabel laten dan manifest)",
+      "Path Diagram dan Spesifikasi Model (Penyusunan path diagram; Translasi fenomena ke dalam model SEM)",
+      "Model First-Order dan Second-Order (Perbedaan model first-order dan second-order; Implementasi dalam studi kasus)",
+      "Model Pengukuran (Measurement Model) dan Model Struktural (Structural Model) (Konsep Confirmatory Factor Analysis (CFA); Spesifikasi model pengukuran dan struktural)",
+      "Identifikasi dan Evaluasi Model (Uji identifikasi model SEM; Asumsi dasar (normalitas, multikolinearitas, dsb.))",
+      "Estimasi Parameter SEM (Metode estimasi (ML, GLS, Bayesian, dsb.); Kelebihan dan kekurangan setiap metode)",
+      "Implementasi SEM Menggunakan Software Statistik (Sintaks dan workflow di LISREL/AMOS/R/SmartPLS; Studi kasus implementasi)",
+      "Evaluasi Kecocokan Model (Goodness of Fit) (Indeks kecocokan model (CFI, RMSEA, SRMR, dsb.); Modifikasi model dan interpretasi hasil)",
+      "Model-model Khusus dalam SEM (SEM multilevel; SEM longitudinal; SEM untuk data non-normal dan non-linear)",
+      "Interpretasi dan Komunikasi Hasil SEM (Interpretasi hasil estimasi; Penyusunan laporan dan publikasi ilmiah)",
+      "Etika Penelitian dan Publikasi dalam SEM (Integritas akademik dan plagiarisme)"
+    ],
+    "references": [
+      "Bollen, K. A. (1989). Structural Equations with Latent Variables. New York: Wiley.",
+      "Kline, R. B. (2016). Principles and Practice of Structural Equation Modeling (4th Edition). New York: The Guilford Press."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522004-analisis-spasial",
+    "order": 12,
+    "code": "140720-UND202522004",
+    "title": "Analisis Spasial",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Analisis Spasial merupakan mata kuliah yang membahas teori, konsep, dan metode analisis data spasial modern pada tingkat lanjut. Materi mencakup konsep dasar data spasial, pengukuran lokasi dan jarak, autokorelasi spasial, visualisasi data spasial, model regresi spasial (SLM, SEM), diagnostik model, model spasial lokal (GWR), serta metode geostatistik seperti variogram dan kriging. Selain itu, dibahas juga model spasial-temporal berbasis Bayesian untuk aplikasi riset terkini di berbagai bidang seperti lingkungan, kesehatan, dan sosial. Mahasiswa diharapkan mampu menganalisis, mengembangkan, serta mengaplikasikan metode statistik spasial dengan pendekatan komputasi untuk memecahkan masalah nyata secara kritis, inovatif, dan interdisipliner.",
+    "topics": [
+      "Konsep dasar data spasial, lokasi, dan jarak",
+      "Keterkaitan spasial dan autokorelasi (Moran's I, Geary's C)",
+      "Visualisasi data spasial (peta choropleth, scatterplot spasial)",
+      "Eksplorasi dan pemrosesan data spasial",
+      "Model regresi spasial: Spatial Lag Model (SLM)",
+      "Model regresi spasial: Spatial Error Model (SEM)",
+      "Uji diagnostik dan pemilihan model spasial",
+      "Model spasial lokal: Geographically Weighted Regression (GWR)",
+      "Interpolasi spasial dan geostatistik (variogram, kriging)",
+      "Bayesian spatiotemporal modeling dan aplikasi lanjut"
+    ],
+    "references": [
+      "Bivand, R., Pebesma, E., & Gomez-Rubio, V. (2013). Applied Spatial Data Analysis with R. Springer.",
+      "Anselin, L. (1988). Spatial Econometrics: Methods and Models. Kluwer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522005-analisis-multilevel-dan-longitudinal",
+    "order": 13,
+    "code": "140720-UND202522005",
+    "title": "Analisis Multilevel dan Longitudinal",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Analisis Multilevel dan Longitudinal merupakan mata kuliah yang membahas konsep, teori, dan aplikasi model statistik untuk data yang memiliki struktur bertingkat (hierarkis) dan/atau diukur secara berulang dalam rentang waktu tertentu. Mata kuliah ini mencakup pemahaman karakteristik data multilevel dan longitudinal, pemilihan serta implementasi model yang sesuai (seperti random effects, mixed models, dan growth curve modeling), serta interpretasi hasil analisis menggunakan perangkat lunak statistik. Mahasiswa juga dilatih untuk mengidentifikasi permasalahan, melakukan diagnosis model, dan merancang riset inovatif berbasis metode multilevel maupun longitudinal dalam berbagai bidang terapan.",
+    "topics": [
+      "Pendahuluan Analisis Multilevel dan Longitudinal (Konsep dasar data bertingkat (multilevel) dan longitudinal; Contoh aplikasi di berbagai bidang)",
+      "Eksplorasi Data Multilevel dan Longitudinal (Identifikasi struktur data hierarkis dan repeated measures; Masalah dependency, missing data, dan outlier)",
+      "Model Linier Sederhana dan Keterbatasannya (Model regresi linier klasik; Mengapa model linier tidak memadai untuk data multilevel/longitudinal)",
+      "Model Multilevel Dasar (Model two-level (random intercept); Model random slope; Estimasi parameter dan interpretasi)",
+      "Pengembangan Model Multilevel (Model three-level; Variance components; Intraclass correlation coefficient (ICC); Diagnosis dan evaluasi model multilevel)",
+      "Model Longitudinal (Growth Curve Modeling) (Model pertumbuhan linier sederhana; Model pertumbuhan non-linier; Fixed vs random effects)",
+      "Generalized Linear Mixed Models (GLMM) (Model multilevel untuk data non-normal (binomial, Poisson, dll); Link function dan penerapannya)",
+      "Estimasi Parameter dan Uji Model (Maximum likelihood & restricted maximum likelihood (REML); Goodness-of-fit, AIC/BIC; Uji signifikansi efek tetap dan acak)",
+      "Implementasi dengan Perangkat Lunak Statistik (Analisis dengan R (lme4, nlme), SPSS, atau SAS; Simulasi data multilevel/longitudinal; Interpretasi output perangkat lunak)",
+      "Aplikasi Kasus Nyata (Studi kasus di bidang pendidikan, kesehatan, dan sosial; Pelaporan hasil analisis)",
+      "Rancangan Riset Multilevel/Longitudinal (Penentuan desain penelitian yang sesuai; Penyusunan proposal riset)",
+      "Presentasi dan Komunikasi Ilmiah (Penulisan laporan penelitian; Presentasi hasil riset)"
+    ],
+    "references": [
+      "Goldstein, H. (2011). Multilevel Statistical Models (4th ed.). Chichester: Wiley.",
+      "Singer, J. D., & Willett, J. B. (2003). Applied Longitudinal Data Analysis: Modeling Change and Event Occurrence. New York: Oxford University Press."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522006-model-linear-generalisasi",
+    "order": 14,
+    "code": "140720-UND202522006",
+    "title": "Model Linear Generalisasi",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Model Linear Generalisasi membahas teori, metodologi, dan aplikasi pemodelan statistik yang menggeneralisasi model linear klasik untuk data dengan distribusi non-normal, seperti data kategori, data cacah, maupun data ordinal. Matakuliah ini mencakup pemahaman konsep Generalized Linear Models (GLM), eksplorasi karakteristik data kategori, pembangunan dan evaluasi model tabel kontingensi, serta pengembangan solusi inovatif berbasis GLM untuk berbagai permasalahan kompleks di bidang bisnis, industri, biostatistika, dan sains data. Melalui pendekatan interdisipliner, mahasiswa akan mengasah kemampuan analisis kritis, evaluasi model, dan komunikasi ilmiah hasil penelitian secara profesional dan inovatif.",
+    "topics": [
+      "Pendahuluan Model Linear Generalisasi (Konsep dasar Generalized Linear Models (GLM); Perbedaan model linear klasik dan GLM; Ruang lingkup aplikasi GLM di berbagai bidang)",
+      "Karakteristik Data Kategori dan Cacah (Tipe data kategori (biner, multinomial, ordinal); Tipe data cacah dan distribusinya; Eksplorasi dan analisis struktur data kategori)",
+      "Distribusi Eksponensial dan Link Function (Keluarga distribusi eksponensial; Fungsi link pada GLM (logit, probit, log, dll); Pemilihan fungsi link yang sesuai)",
+      "Analisis Tabel Kontingensi (Teori dan aplikasi tabel kontingensi dua dan tiga arah; Model log-linear untuk data kategori; Pengujian interaksi dan asosiasi dalam tabel kontingensi)",
+      "Pemodelan GLM untuk Data Respons Biner (Model regresi logistik; Interpretasi koefisien dan odds ratio; Goodness-of-fit dan diagnosa model)",
+      "Pemodelan GLM untuk Data Respons Multinom dan Ordinal (Model regresi multinomial; Model regresi ordinal (proportional odds, adjacent categories); Studi kasus aplikasi dan interpretasi)",
+      "Pemodelan GLM untuk Data Cacah (Model Poisson dan Negative Binomial; Overdispersion dan zero-inflated model; Studi kasus pemodelan data cacah)",
+      "Evaluasi dan Diagnostik Model GLM (Uji kecocokan model (goodness-of-fit); Analisis residual dan identifikasi outlier; Model selection dan informasi criteria (AIC, BIC))",
+      "Implementasi GLM dengan Software Statistika (Penerapan GLM dengan R atau Python; Interpretasi output software; Pelaporan hasil analisis)",
+      "Pengembangan Solusi Inovatif dengan GLM (Integrasi GLM dalam workflow riset lintas disiplin; Presentasi dan komunikasi ilmiah hasil GLM; Studi literatur dan best practice terkini dalam pemodelan GLM)"
+    ],
+    "references": [
+      "Agresti, A. (2015), Foundation of Linear and Generalized Linear Models, John Wiley & Sons, New York.",
+      "Olsson, U. (2002), Generalized Linear Models: an applied approach, Studentlitteratur, Grove."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522007-matematika-keuangan",
+    "order": 15,
+    "code": "140720-UND202522007",
+    "title": "Matematika Keuangan",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah Matematika Keuangan membahas konsep, teori, dan aplikasi statistika dalam bidang keuangan, dengan penekanan pada pengelolaan investasi, analisis risiko, model portofolio, dan penentuan harga instrumen derivatif. Mahasiswa akan mempelajari prinsip- prinsip dasar pasar keuangan, manajemen risiko, Value at Risk, diversifikasi portofolio, teori Markowitz, serta pemodelan dan algoritma penentuan harga opsi menggunakan pendekatan stokastik seperti Binomial Tree dan Black-Scholes. Melalui perpaduan teori dan praktik, mahasiswa diharapkan mampu menganalisis, mengembangkan model, serta melakukan inovasi dalam menyelesaikan permasalahan nyata di industri keuangan dengan pendekatan statistika modern dan komputasi.",
+    "topics": [
+      "Pendahuluan Matematika Keuangan (Pengertian dan ruang lingkup matematika keuangan; Definisi investasi dan pengelolaan investasi; Pasar keuangan dan instrumen keuangan; Tingkat bunga, premi risiko)",
+      "Instrumen Investasi & Manajemen Risiko (Jenis-jenis instrumen investasi (saham, obligasi, SBI, dsb.); Pengukuran dan pengelolaan risiko investasi; Value at Risk (VaR); Simulasi historis dan Monte Carlo untuk risiko)",
+      "Analisis Portofolio dan Diversifikasi (Konsep risiko dan risk aversion; Utility function dan toleransi risiko; Alokasi aset antara portofolio berisiko dan bebas risiko; Capital Market Line (CML); Diversifikasi dan risiko portofolio; Portofolio dua aset berisiko; Model portofolio Markowitz; Alokasi aset dalam saham, obligasi, dan SBI; Optimalisasi portofolio dengan pembatasan aset bebas risiko)",
+      "Teori dan Penilaian Opsi (Pengertian opsi (Eropa, Amerika), hak dan kewajiban; Nilai intrinsik opsi; Put-call parity; Strategi defensif dan spekulatif menggunakan opsi; Faktor penentu harga opsi)",
+      "Model Penentuan Harga Opsi (Perhitungan harga call/put dengan portofolio tanpa risiko; Penentuan harga call/put dalam risk-neutral world; Model Binomial Tree untuk opsi Eropa dan Amerika; Implementasi dan simulasi algoritma penentuan harga opsi)",
+      "Proses Stokastik dalam Keuangan (Brownian motion dan random walk; Brownian motion dengan drift; Proses Ito dan Ito Lemma; Pemodelan stokastik harga aset keuangan)",
+      "Model Black-Scholes (Turunan rumus Black-Scholes untuk opsi Eropa (call dan put); Aplikasi dan evaluasi model Black-Scholes; Pengembangan model inovatif untuk harga opsi)",
+      "Studi Kasus dan Inovasi dalam Matematika Keuangan (Penerapan model-model matematika keuangan pada kasus nyata; Analisis kritis hasil simulasi dan interpretasi bisnis/industri; Mini project riset inovasi model keuangan)"
+    ],
+    "references": [
+      "Bodie, Zvi, Alex Kane, and Alan J. Marcus. Investments (11th Edition). McGraw-Hill Education, 2021.",
+      "Hull, John C. Options, Futures, and Other Derivatives (11th Edition). Pearson, 2022."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522008-desain-eksperimen",
+    "order": 16,
+    "code": "140720-UND202522008",
+    "title": "Desain Eksperimen",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah ini membahas prinsip, metode, dan aplikasi desain eksperimen statistik dalam penelitian multidisiplin. Mahasiswa akan mempelajari berbagai rancangan eksperimen seperti faktorial, faktorial fraksional, split plot, desain tersarang, dan metode permukaan respon, serta konsep analisis varians (ANAVA) dan kovarians (ANCOVA). Penekanan diberikan pada pemilihan desain yang efisien, analisis data dengan perangkat lunak statistik, serta interpretasi dan komunikasi hasil secara profesional untuk pemecahan masalah nyata di berbagai bidang.",
+    "topics": [
+      "Pendahuluan Desain Eksperimen",
+      "Eksperimen Faktorial: Faktor Kuantitatif dan Kualitatif",
+      "Eksperimen Faktorial 2k dan 3k",
+      "Ekspektasi Kuadrat Tengah (EKT) pada Model Tetap, Acak, dan Campuran",
+      "Model Satterthwaite pada Desain Eksperimen",
+      "Pembauran pada Desain Faktorial 2k dan 3k (Pembauran dalam replikasi; Desain baur parsial; Pembauran tanpa replikasi)",
+      "Faktorial Fraksional untuk Eksperimen Faktorial 2k dan 3k",
+      "Analisis Varians (ANAVA) pada Desain Fraksional",
+      "Model dan Asumsi Eksperimen Tersarang",
+      "Analisis Varians pada Eksperimen Tersarang dan Faktorial Tersarang",
+      "Pembatasan dalam Pengacakan pada Desain Faktorial",
+      "Desain Split Plot",
+      "Analisis Kovarians (ANCOVA) dalam Desain Eksperimen",
+      "Metode Permukaan Respon (Response Surface Methodology)",
+      "Optimasi Titik Faktor pada Permukaan Respon",
+      "Interpretasi, Kesimpulan, dan Komunikasi Hasil Eksperimen"
+    ],
+    "references": [
+      "Montgomery, D. C. (2017). Design and Analysis of Experiments (9th Edition). Wiley.",
+      "Box, G. E. P., Hunter, J. S., & Hunter, W. G. (2005). Statistics for Experimenters: Design, Innovation, and Discovery (2nd Edition). Wiley."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522009-teori-antrian",
+    "order": 17,
+    "code": "140720-UND202522009",
+    "title": "Teori Antrian",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah ini membahas konsep, prinsip, dan aplikasi teori antrian secara mendalam untuk menganalisis berbagai sistem pelayanan yang melibatkan proses kedatangan, antrian, dan pelayanan dalam bidang bisnis, industri, kesehatan, transportasi, dan layanan publik. Mahasiswa akan mempelajari model-model dasar antrian, teknik pemodelan berbasis data nyata, serta penerapan simulasi komputer menggunakan perangkat lunak statistika. Selain itu, mahasiswa didorong untuk mengembangkan inovasi model atau algoritma antrian serta mampu mengkaji literatur terbaru dan mengkomunikasikan hasil analisis secara ilmiah. Melalui pembelajaran ini, mahasiswa diharapkan mampu memecahkan masalah nyata yang kompleks dan memberikan solusi berbasis teori antrian yang efektif dan efisien.",
+    "topics": [
+      "Pendahuluan dan Konsep Dasar Teori Antrian system capacity, calling population (Definisi, sejarah, dan ruang lingkup teori antrian; Komponen sistem antrian: arrival process, service mechanism, queue discipline,; Notasi Kendall dan klasifikasi sistem antrian; Parameter dan karakteristik utama sistem antrian (λ, μ, ρ, Lq, Ls, Wq, Ws, dll); Aplikasi teori antrian di berbagai bidang)",
+      "Model-model Antrian Klasik (Model antrian M/M/1, M/M/c, M/M/∞; Model M/G/1, G/M/1, dan variasinya; Antrian dengan sistem prioritas dan batas kapasitas; Analisis performa sistem antrian (steady-state dan transient))",
+      "Pemodelan dan Analisis Sistem Antrian Berbasis Data layanan publik) (Identifikasi permasalahan nyata yang relevan dengan teori antrian; Pengumpulan dan eksplorasi data antrian dari kasus nyata (bisnis, industri,; Estimasi parameter model dan validasi model antrian dengan data riil; Studi kasus pemodelan antrian di berbagai bidang)",
+      "Simulasi Komputer Sistem Antrian (Pengantar simulasi diskret-event untuk antrian; Algoritma dasar simulasi antrian; Implementasi simulasi menggunakan software statistik (R/Python/Simul8); Analisis dan interpretasi hasil simulasi, perbandingan dengan model analitik; Studi kasus simulasi skenario sistem antrian kompleks)",
+      "Model Lanjutan dan Inovasi Teori Antrian rumah sakit) (Jaringan antrian (queueing networks); Antrian dengan kendala khusus (prioritas, reneging, balking, blocking, retrial); Model antrian dalam sistem pelayanan modern (misal: call center, manufaktur,; Kajian literatur model-model terbaru dan aplikasi inovatif teori antrian; Pengembangan model atau algoritma baru berbasis riset dan kebutuhan aplikasi)",
+      "Penulisan Ilmiah dan Presentasi Hasil Analisis inovasi teori antrian (Penyusunan laporan ilmiah, makalah, dan presentasi hasil analisis/simulasi/riset; Etika akademik, pengutipan literatur, dan komunikasi ilmiah)"
+    ],
+    "references": [
+      "Gross, D., Shortle, J. F., Thompson, J. M., & Harris, C. M. (2018). Fundamentals of Queueing Theory (5th Edition). Wiley. ISBN: 978-1-119-45812-9",
+      "Kleinrock, L. (1975). Queueing Systems, Volume I: Theory. Wiley-Interscience. ISBN: 978-0-471-49110-8"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522010-matematika-aktuaria-1",
+    "order": 18,
+    "code": "140720-UND202522010",
+    "title": "Matematika Aktuaria 1",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah Matematika Aktuaria 1 membahas konsep-konsep dasar matematika keuangan dan probabilistik yang digunakan dalam praktik aktuaria, khususnya dalam bidang asuransi jiwa. Topik meliputi nilai waktu uang, bunga, annuitas, peluang hidup dan kematian, tabel kehidupan, hukum-hukum mortalitas, hingga penghitungan premi dan cadangan asuransi. Mahasiswa juga diperkenalkan pada pemodelan aktuaria dengan bantuan perangkat lunak statistik. Melalui mata kuliah ini, mahasiswa diharapkan mampu menganalisis, membangun model, serta merancang solusi inovatif dalam permasalahan aktuaria berbasis riset dan studi kasus nyata.",
+    "topics": [
+      "Kontrak Pembelajaran dan Pengantar Matematika Aktuaria (Penjelasan ruang lingkup aktuaria; Peran matematika aktuaria dalam asuransi dan keuangan)",
+      "Konsep Nilai Waktu Uang (Pengertian bunga: simple interest dan compound interest; Nilai tunai (present value) dan nilai akumulasi (future value); Diskonto dan faktor diskonto)",
+      "Annuitas (Annuitas pasti: biasa, jatuh tempo, dan anuitas bertumbuh; Rumus dan aplikasi annuitas dalam kontrak asuransi; Studi kasus perhitungan annuitas)",
+      "Peluang Usia pada Saat Meninggal (Survival probability dan mortality probability; Fungsi distribusi waktu hidup)",
+      "Tabel Kehidupan (Konstruksi dan interpretasi tabel kehidupan; Karakteristik tabel kehidupan: lx, dx, qx, px, ex, dsb)",
+      "Asumsi Fractional Age (Metode interpolasi antar umur (uniform, constant force of mortality, dsb); Implikasi asumsi pada perhitungan asuransi)",
+      "Analisis Hukum-hukum Mortalitas (Hukum Gompertz, Makeham, dan model lainnya; Penerapan hukum mortalitas dalam aktuaria)",
+      "Asuransi Jiwa Sederhana (diskrit) (Produk asuransi dengan pembayaran santunan pada saat meninggal (kontinu); Produk asuransi dengan pembayaran santunan pada akhir tahun meninggal; Hubungan asuransi kontinu dan diskrit)",
+      "Anuitas Hidup (Anuitas hidup kontinu dan diskrit; Anuitas hidup dengan pembayaran m kali per tahun; Hubungan anuitas hidup dengan asuransi)",
+      "Penghitungan Premi Asuransi Jiwa (Premi fully continuous, fully discrete, dan semi-continuous; Konsep ekivalensi premi dan faktor yang mempengaruhi premi)",
+      "Cadangan (Reserves) Asuransi Jiwa (Cadangan manfaat fully continuous, fully discrete, dan semi-continuous; Dinamika cadangan dan metode perhitungan)",
+      "Pemodelan Komputasi dalam Aktuaria (R/Python/Excel) (Implementasi pemodelan premi dan cadangan dengan software statistik; Simulasi kasus aktuaria)",
+      "Studi Kasus & Inovasi Produk Asuransi (Kajian produk asuransi modern (unit link, mikroasuransi, dll); Riset mini: solusi inovatif berbasis aktuaria)"
+    ],
+    "references": [
+      "Dickson, D.C.M., Hardy, M.R., & Waters, H.R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd Edition). Cambridge University Press.",
+      "Bowers, N.L., Gerber, H.U., Hickman, J.C., Jones, D.A., & Nesbitt, C.J. (1997). Actuarial Mathematics (2nd Edition). Society of Actuaries."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522011-matematika-aktuaria-2",
+    "order": 19,
+    "code": "140720-UND202522011",
+    "title": "Matematika Aktuaria 2",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah Matematika Aktuaria 2 membahas konsep-konsep lanjutan aktuaria terkait multiple life functions, asuransi dan anuitas dua kehidupan, serta teori multiple decrement. Topik meliputi perhitungan probabilitas dan ekspektasi hidup gabungan, produk asuransi joint- life dan last survivor, anuitas khusus, analisis fungsi kontingen, serta pemodelan tabel multiple decrement. Selain itu, mahasiswa juga mempelajari prinsip penetapan premi dan cadangan manfaat untuk produk-produk asuransi lanjutan. Melalui mata kuliah ini, mahasiswa diharapkan mampu menganalisis, membangun model, serta merancang solusi inovatif berbasis riset untuk masalah aktuaria tingkat lanjut menggunakan pendekatan komputasi dan studi kasus nyata.",
+    "topics": [
+      "Pendahuluan Multiple Life Functions (Pengantar dan ruang lingkup multiple life functions; Notasi dan definisi joint life dan last survivor status; Pentingnya multiple life dalam asuransi jiwa dan anuitas)",
+      "Joint Distributions of Future Lifetimes (Distribusi gabungan waktu hidup dua orang (joint and last survivor); Fungsi probabilitas dan ekspektasi hidup gabungan; Aplikasi pada asuransi pasangan dan keluarga)",
+      "Probabilitas dan Ekspektasi Dua Kehidupan (Peluang kelangsungan hidup dan kematian dua kehidupan; Hubungan antara joint life dan last survivor dengan single life; Penentuan nilai harapan dan variansi untuk dua kehidupan)",
+      "Produk Asuransi dan Anuitas Dua Kehidupan (Konsep produk asuransi joint life dan last survivor; Anuitas dua kehidupan: biasa, khusus, dan varian lainnya; Fungsi kontingen sederhana (simple contingent function); Evaluasi produk dan implikasi asumsi mortalitas khusus)",
+      "Asumsi Mortalitas Khusus (Penjelasan dan perbandingan asumsi mortalitas khusus; Evaluasi dampak asumsi terhadap nilai premi dan manfaat)",
+      "Multiple Decrement Theory (Pengantar teori multiple decrement; Dua variabel acak dalam survivorship group; Associated single decrement table; Relasi dasar antar tabel decrement)",
+      "Central Rates of Multiple Decrement (Definisi dan perhitungan central rates; Asumsi constant force dan uniform distribution untuk MD; Simulasi pengaruh asumsi pada nilai manfaat)",
+      "Konstruksi Tabel Multiple Decrement (MD Table) (Teknik membangun tabel decrement dari data kasus; Aplikasi pada produk asuransi dengan penyusutan manfaat)",
+      "Pemodelan Komputasi Multiple Decrement (R/Python/Excel) (Implementasi model dan simulasi menggunakan software statistik; Studi kasus pemodelan risiko multiple decrement pada portofolio asuransi)",
+      "Insurance & Annuity: Continuous dan Discrete diskrit (Perhitungan nilai asuransi dan anuitas dua kehidupan, baik kontinu maupun; Pengaruh struktur pembayaran pada nilai manfaat)",
+      "Perhitungan Benefit Premium & Benefit Reserve survivor (Prinsip dan metode penetapan premi manfaat lanjutan; Penghitungan cadangan manfaat untuk produk asuransi joint life dan last)",
+      "Solusi Inovatif Produk Asuransi Tingkat Lanjut (Studi literatur dan kajian inovasi produk asuransi dua kehidupan; Pengembangan solusi premi/cadangan untuk produk asuransi modern; Penyusunan laporan mini riset dan presentasi hasil inovasi)"
+    ],
+    "references": [
+      "Dickson, D.C.M., Hardy, M.R., & Waters, H.R. (2013). Actuarial Mathematics for Life Contingent Risks (2nd Edition). Cambridge University Press.",
+      "Bowers, N.L., Gerber, H.U., Hickman, J.C., Jones, D.A., & Nesbitt, C.J. (1997). Actuarial Mathematics (2nd Edition). Society of Actuaries."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522012-analisis-survival",
+    "order": 20,
+    "code": "140720-UND202522012",
+    "title": "Analisis Survival",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah ini membahas konsep, teori, dan aplikasi metode survival dalam analisis data waktu hingga kejadian (time-to-event data). Mahasiswa akan mempelajari teknik dasar tabel kehidupan, distribusi waktu kegagalan, model survival parametrik dan non-parametrik, serta metode untuk data survival tidak lengkap (censored dan truncated data). Selain itu, mata kuliah ini menekankan pada pengembangan algoritma komputasi survival, analisis data nyata menggunakan perangkat lunak statistika, dan penerapan model survival dalam berbagai bidang, seperti biostatistika, aktuaria, dan ilmu sosial. Mahasiswa juga akan dilatih untuk berpikir kritis, inovatif, serta mampu mempresentasikan hasil analisis survival secara profesional.",
+    "topics": [
+      "Pendahuluan Analisis Survival (Konsep waktu-kejadian (time-to-event); Aplikasi analisis survival di berbagai bidang)",
+      "Tabel Kehidupan (Life Table) dan Survival Function (Pengenalan tabel kehidupan; Fungsi survival dan hazard; Penggunaan dan interpretasi tabel kehidupan)",
+      "Interpolasi Usia dalam Survival (Metode interpolasi: linear, eksponensial, hiperbolik; Implementasi interpolasi pada life table)",
+      "Studi Desain pada Survival Analysis (Desain penelitian survival: cohort, case-control, clinical trial; Pengumpulan dan pengelolaan data survival)",
+      "Distribusi Waktu Kegagalan (Time-to-Failure Distribution) (Distribusi dasar (Exponential, Weibull, Log-normal, dsb.); Estimasi parameter distribusi survival)",
+      "Data Survival Tidak Lengkap (Censoring: right, left, interval censoring; Truncated data)",
+      "Estimasi Survival Non-Parametrik (Kaplan-Meier estimator; Nelson-Aalen estimator; Log-rank test dan uji komparatif survival)",
+      "Model Survival Parametrik (Model exponential, Weibull, log-logistic, dan lain-lain; Pemilihan model dan penyesuaian data)",
+      "Model Survival Semi-parametrik (Cox proportional hazards model; Uji asumsi dan interpretasi hasil)",
+      "Metode Estimasi pada Survival Analysis (Maximum likelihood estimation; Metode Bayes dalam survival)",
+      "Analisis Data Survival dengan Software Statistika (Implementasi analisis survival menggunakan R/Python; Visualisasi kurva survival)",
+      "Survival Multivariat dan Komplikasi (Competing risks; Multiple decrement tables; Multistate models)",
+      "Aplikasi Survival di Bidang Tertentu (Biostatistika (progression of disease); Aktuaria (estimasi umur hidup, asuransi); Industri dan sosial (failure time analysis))",
+      "Pengembangan Algoritma & Inovasi Survival Analysis (Automasi workflow analisis survival; Inovasi aplikasi survival di era data besar (big data))",
+      "Komunikasi Ilmiah & Presentasi Hasil Analisis Survival (Penulisan laporan riset survival; Presentasi dan interpretasi hasil kepada non-statistisi)",
+      "Studi Kasus dan Proyek Akhir",
+      "Penyusunan dan presentasi proyek akhir berbasis data nyata"
+    ],
+    "references": [
+      "Kleinbaum, D.G., & Klein, M. (2012). Survival Analysis: A Self-Learning Text (3rd Edition). Springer. ISBN: 978-1-4419-6645-2",
+      "Collett, D. (2015). Modelling Survival Data in Medical Research (3rd Edition). CRC Press. ISBN: 978-1-4987-0277-9"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522013-teori-risiko",
+    "order": 21,
+    "code": "140720-UND202522013",
+    "title": "Teori Risiko",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah Teori Risiko membahas konsep dasar risiko, identifikasi dan pengukuran risiko, serta penerapan model probabilitas dalam analisis risiko, khususnya pada bidang aktuaria, keuangan, dan asuransi. Mahasiswa akan mempelajari berbagai jenis risiko, metode kuantifikasi risiko, model agregasi risiko, hingga pengembangan strategi mitigasi risiko berdasarkan analisis data. Selain itu, mata kuliah ini juga menekankan penggunaan perangkat lunak statistik untuk simulasi dan analisis risiko serta pengembangan solusi inovatif dalam pengelolaan risiko di dunia nyata. Mata kuliah ini bertujuan membekali mahasiswa dengan pengetahuan, keterampilan analisis, serta kemampuan berpikir kritis dan sistematis dalam mengelola dan menyelesaikan permasalahan risiko secara profesional.",
+    "topics": [
+      "Pendahuluan Teori Risiko (Pengertian risiko dan ketidakpastian; Perbedaan risiko murni dan risiko spekulatif; Peran teori risiko di bidang aktuaria dan keuangan)",
+      "Klasifikasi dan Identifikasi Risiko (Jenis-jenis risiko (individu, bisnis, keuangan, operasional, sosial, dsb); Sumber dan penyebab risiko; Siklus manajemen risiko)",
+      "Pengukuran Risiko kurtosis (Ukuran-ukuran risiko: nilai harapan, variansi, standar deviasi, skewness,; Nilai Kerugian Ekspektasi (Expected Loss); Ukuran risiko lainnya: VaR (Value at Risk), TVaR, ruin probability)",
+      "Model Probabilitas untuk Risiko eksponensial, normal, dll) (Distribusi probabilitas diskrit dan kontinu dalam risiko (binomial, Poisson,; Model frekuensi dan severitas klaim; Penentuan model distribusi terbaik untuk data risiko)",
+      "Agregasi dan Diversifikasi Risiko (Konsep agregasi risiko dan korelasi antar risiko; Model portofolio risiko; Diversifikasi dan efek portofolio)",
+      "Simulasi dan Analisis Risiko dengan Software Statistik (Penerapan perangkat lunak (R/Python) dalam simulasi risiko; Monte Carlo simulation untuk estimasi kerugian agregat; Interpretasi hasil simulasi)",
+      "Strategi Pengelolaan dan Mitigasi Risiko (Identifikasi alternatif mitigasi risiko; Asuransi dan re-asuransi; Manajemen risiko operasional dan strategis)",
+      "Evaluasi dan Inovasi Solusi Risiko (Penyusunan laporan dan presentasi hasil analisis risiko; Studi kasus aplikasi teori risiko di dunia nyata; Pengembangan solusi inovatif dalam pengelolaan risiko)"
+    ],
+    "references": [
+      "Klugman, S. A., Panjer, H. H., & Willmot, G. E. (2012). Loss Models: From Data to Decisions (4th Edition). Wiley.",
+      "Dickson, D. C. M. (2012). Insurance Risk and Ruin (2nd Edition). Cambridge University Press."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522014-epidemiologi",
+    "order": 22,
+    "code": "140720-UND202522014",
+    "title": "Epidemiologi",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah ini membahas konsep dasar, metode, dan aplikasi epidemiologi dalam analisis data kesehatan masyarakat. Mahasiswa akan mempelajari sejarah dan definisi epidemiologi, proses terjadinya penyakit, serta jenis-jenis kejadian penyakit dalam masyarakat. Mata kuliah ini juga membekali mahasiswa dengan keterampilan menganalisis ukuran-ukuran statistik epidemiologi, memvisualisasikan distribusi spasial penyakit, melakukan surveilans, serta mengelola dan menganalisis data epidemiologi menggunakan software statistika. Selain itu, mahasiswa didorong untuk merancang penelitian inovatif berbasis pendekatan interdisipliner guna mendukung pengambilan keputusan di bidang kesehatan masyarakat.",
+    "topics": [
+      "Pendahuluan Epidemiologi (Sejarah dan perkembangan epidemiologi; Definisi dan ruang lingkup epidemiologi; Peran epidemiologi dalam kesehatan masyarakat)",
+      "Proses Terjadinya Penyakit (Konsep agent-host-environment; Model penyebab penyakit (multifaktor); Proses transmisi dan dinamika penyakit)",
+      "Jenis Kejadian Penyakit dalam Masyarakat (Epidemi, endemi, pandemi, outbreak; Kasus, insiden, prevalensi)",
+      "Ukuran-ukuran Statistik Epidemiologi (Prevalensi, insidensi, attack rate; Risk ratio, odds ratio, attributable risk; Ukuran mortalitas dan morbiditas)",
+      "Metode Pengumpulan Data Epidemiologi (Surveilans epidemiologi (aktif & pasif); Sumber data primer dan sekunder; Teknik pengumpulan data lapangan dan registrasi kasus)",
+      "Desain Studi Epidemiologi (Studi observasional (cross-sectional, case-control, cohort); Studi eksperimental/intervensi (randomized controlled trial); Kelebihan dan kelemahan masing-masing desain)",
+      "Analisis Data Epidemiologi (Pengolahan dan pembersihan data epidemiologi; Analisis deskriptif dan inferensial pada data epidemiologi; Uji hipotesis dalam epidemiologi)",
+      "Visualisasi Distribusi Penyakit (Pembuatan dan interpretasi peta distribusi spasial penyakit; Aplikasi software statistik dan GIS (misal: R, QGIS))",
+      "Manajemen Data Epidemiologi dengan R (Struktur data epidemiologi; Cleaning, validasi, dan transformasi data menggunakan R)",
+      "Surveilans dan Sistem Peringatan Dini (Konsep dan implementasi surveilans; Deteksi dini outbreak dan analisis tren kejadian penyakit)",
+      "Penelitian dan Publikasi Epidemiologi (Penyusunan proposal penelitian epidemiologi; Pengembangan hipotesis dan metodologi riset; Etika penelitian dan penulisan ilmiah di bidang epidemiologi)",
+      "Aplikasi Statistik Lanjut pada Epidemiologi (Analisis regresi, spasial, dan machine learning pada data epidemiologi; Studi kasus aplikasi data besar (big data) dan epidemiologi digital)"
+    ],
+    "references": [
+      "Bulger. B, Greenspan. J, Wall. D., (2004)., MySQL/PHP Basis data Applications 2nd Edition., Wiley Publishing.",
+      "Ramakrishnan. R, Gehrke. J., (2002)., Basis data Management System 3rd Edition., McGraw-Hil Publisher."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522015-pembelajaran-mesin",
+    "order": 23,
+    "code": "140720-UND202522015",
+    "title": "Pembelajaran Mesin",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah ini membahas konsep, metode, dan aplikasi machine learning dalam penyelesaian permasalahan nyata di berbagai bidang seperti bisnis, industri, sosial, aktuaria, biostatistik, dan sains data. Mahasiswa akan mempelajari teknik supervised dan unsupervised learning, termasuk regresi, klasifikasi, reduksi dimensi, serta neural network dan deep learning. Selain memahami teori, mahasiswa juga akan mengimplementasikan algoritma menggunakan software statistik dan pemrograman, melakukan evaluasi model, serta menginterpretasikan dan mengkomunikasikan hasil analisis secara logis, kritis, dan inovatif. Mata kuliah ini dirancang untuk membekali mahasiswa dengan kemampuan analitik dan komputasi dalam mengelola data kompleks secara interdisipliner, serta mengembangkan solusi berbasis machine learning yang dapat diakses dan dipahami oleh pemangku kepentingan",
+    "topics": [
+      "Pendahuluan Machine Learning (Definisi, ruang lingkup, dan aplikasi machine learning di berbagai bidang; Perbedaan machine learning dengan statistik klasik)",
+      "Analisis Kebutuhan dan Karakteristik Data (Identifikasi tipe data (numerik, kategorik, time series, dsb); Pemilihan metode ML berdasarkan karakteristik dan tujuan data)",
+      "Supervised Learning - Regresi (Regresi linier dan polynomial; Ridge, Lasso, dan Elastic Net Regression; Gradient Descent & Optimasi)",
+      "Supervised Learning - Klasifikasi (Logistic Regression; Decision Tree & Random Forest; Support Vector Machine (SVM); K-Nearest Neighbors (KNN); Naive Bayes)",
+      "Unsupervised Learning t-SNE (Clustering: K-Means, Hierarchical, Fuzzy C-Means (FCM), K-Medoid; Dimensional Reduction: Principal Component Analysis (PCA), Analisis Faktor,)",
+      "Neural Network & Deep Learning (Dasar-dasar Neural Network; Pengenalan Deep Learning)",
+      "Gradient Boosting dan Ensemble Learning (Konsep Ensemble Learning (Bagging, Boosting); Gradient Boosting untuk regresi dan time series)",
+      "Feature Engineering & Selection (Teknik ekstraksi, seleksi, dan transformasi fitur)",
+      "Model Evaluation & Validation Precision, Recall, F1 Score, ROC-AUC) (K-Fold Cross Validation, Hold-Out, Confusion Matrix; Metrik evaluasi untuk regresi dan klasifikasi (MSE, RMSE, Accuracy,)",
+      "Hyperparameter Tuning (Grid Search, Random Search, dan teknik tuning lain)",
+      "End-to-End Pipeline Machine Learning deployment (Integrasi proses preprocessing, modelling, evaluasi, interpretasi, dan)",
+      "Interpretasi & Komunikasi Hasil Analisis (Visualisasi hasil model; Pelaporan ilmiah dan presentasi hasil machine learning)"
+    ],
+    "references": [
+      "James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An Introduction to Statistical Learning with Applications in R (2nd ed.). Springer. Link Download Gratis (Springer Open Access)",
+      "Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. MIT Press. Link Download Gratis (MIT Press)"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522016-analisis-image",
+    "order": 24,
+    "code": "140720-UND202522016",
+    "title": "Analisis Image",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Matakuliah ini membahas teori dan aplikasi lanjutan dalam analisis data citra digital, mencakup representasi citra, operasi dasar, filtering, konvolusi, morfologi, serta metode segmentasi dan klasifikasi citra. Mahasiswa juga akan mempelajari pemodelan berbasis deep learning (Convolutional Neural Networks/CNN), serta mengembangkan solusi inovatif untuk permasalahan nyata berbasis citra di berbagai bidang, seperti industri, biostatistika, dan sains data. Selain pemahaman teknis, matakuliah ini menekankan pada kemampuan analisis kritis, kolaborasi interdisipliner, serta keterampilan komunikasi ilmiah melalui presentasi dan penulisan proposal riset",
+    "topics": [
+      "Pendahuluan Analisis Citra Digital (Pengertian dan ruang lingkup analisis citra; Peran analisis citra dalam statistik, industri, biostatistika, dan data science; Studi kasus aplikasi lintas bidang)",
+      "Representasi dan Karakteristik Data Citra dasar) (Representasi citra digital (grayscale, RGB, multi-channel, dan lain-lain); Sifat dan karakteristik data citra (dimensi, resolusi, histogram, dan statistik; Exploratory Data Analysis (EDA) pada data citra)",
+      "Operasi Dasar pada Data Citra (Operasi aljabar citra (penjumlahan, pengurangan, perkalian, normalisasi); Operasi geometri (rotasi, translasi, scaling); Operasi himpunan (union, intersection, complement pada citra biner))",
+      "Histogram dan Transformasi Histogram (Analisis histogram citra; Stretching, equalization, dan thresholding; Studi kasus transformasi histogram pada analisis citra medis/industri)",
+      "Filtering dan Konvolusi (Konsep filtering spasial (mean, median, Gaussian); Kernel dan proses konvolusi; Implementasi filtering untuk denoising dan enhancement)",
+      "Morfologi Citra (Operasi morfologi dasar (dilation, erosion, opening, closing); Aplikasi morfologi pada citra biner dan grayscale; Studi kasus segmentasi objek sederhana)",
+      "Konsep dan Struktur Convolutional Neural Network (CNN) (Pengenalan deep learning untuk citra; Arsitektur dasar CNN (convolution, pooling, fully connected); Persiapan data untuk model CNN)",
+      "Matematika dalam CNN dan Berbagai Arsitektur (Fungsi aktivasi, backpropagation, optimisasi; Arsitektur populer: LeNet, AlexNet, VGG, ResNet, dsb.; Transfer learning dan fine-tuning model CNN)",
+      "Klasifikasi Citra dengan CNN dan Metode Statistik (Implementasi model klasifikasi citra; Evaluasi performa (akurasi, confusion matrix, ROC); Perbandingan dengan metode statistik klasik (misal, PCA, LDA))",
+      "Segmentasi Citra (Segmentasi berbasis threshold, edge detection; Segmentasi berbasis clustering dan region growing; Segmentasi berbasis deep learning (U-Net, Mask R-CNN))",
+      "Object Detection dan Advanced Applications (Konsep object detection dan bounding box; Metode modern: YOLO, SSD, Faster R-CNN; Aplikasi deteksi objek di industri/biomedis)",
+      "Identifikasi dan Analisis Gap Riset dalam Image Analysis (Review literatur riset terbaru; Identifikasi tantangan dan peluang riset citra digital; Penyusunan pertanyaan riset)",
+      "Perancangan Proposal Riset Analisis Citra (Penulisan proposal riset inovatif; Penyusunan metodologi dan roadmap penelitian; Review dan diskusi proposal)",
+      "Presentasi Proposal Riset dan Peer Review (Presentasi proposal riset oleh mahasiswa; Sesi peer review dan umpan balik; Rangkuman, evaluasi akhir, dan refleksi pembelajaran)"
+    ],
+    "references": [
+      "R. C. Gonzalez and R. E. Woods, Digital Image Processing, 4th ed. Boston, MA: Pearson, 2018.",
+      "R. Szeliski, Computer Vision: Algorithms and Applications, 2nd ed. Cham: Springer, 2022.",
+      "A. A. Pravitasari, Modul Ajar Analisis Data Image, Departemen Statistika Universitas Padjadjaran, 2024"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522017-analisis-teks",
+    "order": 25,
+    "code": "140720-UND202522017",
+    "title": "Analisis Teks",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah Analisis Teks membahas konsep, teknik, dan metode untuk mengolah dan menganalisis data teks yang bersifat tidak terstruktur, dengan penekanan pada aplikasi di berbagai bidang seperti bisnis, kesehatan, sosial, dan sains data. Mahasiswa akan mempelajari mulai dari eksplorasi, praproses data teks, hingga pengembangan model machine learning dan deep learning untuk analisis sentimen, klasifikasi, serta ekstraksi informasi. Praktik dilakukan menggunakan bahasa pemrograman Python dan berbagai paket analitik teks, dengan penugasan berbasis proyek yang mendorong inovasi dan penerapan nyata pada permasalahan di dunia industri maupun riset.",
+    "topics": [
+      "Pengenalan Analisis Data Teks a. Konsep dasar data teks (terstruktur, semi-terstruktur, tidak terstruktur) b. Peran dan aplikasi text analytics di berbagai bidang",
+      "Eksplorasi dan Akuisisi Data Teks a. Mining, scrapping, dan crawling data teks b. Eksplorasi data teks dari berbagai sumber",
+      "Praproses Data Teks a. Data cleaning, tokenisasi, stopword removal b. Stemming, lemmatization c. Representasi teks: Bag of Words (BoW), TF-IDF, Word Embedding",
+      "Visualisasi dan Eksplorasi Data Teks a. Visualisasi distribusi kata dan topik b. Word cloud, analisis frekuensi, asosiasi kata",
+      "Klasifikasi dan Analisis Sentimen a. Algoritma klasifikasi: Naive Bayes, SVM, Logistic Regression b. Penerapan analisis sentimen",
+      "Machine Learning & Deep Learning untuk Analisis Teks a. Neural Network, Recurrent Neural Network (RNN), LSTM, GRU b. Transformer-based models",
+      "Balancing Data, Data Augmentation, dan Advanced Text Analytics a. Paraphrasing, backtranslation, text generation b. Topic modeling dan clustering",
+      "Studi Kasus & Proyek Inovatif Analisis Teks a. Penerapan analitik teks pada bidang bisnis, kesehatan, sosial, dsb. b. Presentasi hasil, refleksi, dan etika penggunaan analisis data teks"
+    ],
+    "references": [
+      "Jurafsky, D., & Martin, J. H. (2023).Speech and Language Processing (3rd Edition, Draft). Prentice Hall. https://web.stanford.edu/~jurafsky/slp3/",
+      "Miner, G., Elder IV, J., Fast, A., Hill, T., Nisbet, R., Delen, D., & Burton, N. (2012).Practical Text Mining and Statistical Analysis for Non-structured Text Data Applications. Academic Press."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522018-basis-data",
+    "order": 26,
+    "code": "140720-UND202522018",
+    "title": "Basis data",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Matakuliah ini membahas konsep lanjutan mengenai sistem Basis data, data warehouse, dan implementasinya dalam pengelolaan serta analisis data berskala besar untuk kebutuhan riset statistik. Cakupan materi meliputi desain dan arsitektur Basis data multidisiplin, pemodelan data relasional, perancangan ER-diagram, penerapan SQL dan MySQL tingkat lanjut, serta integrasi dengan software statistik. Mahasiswa juga akan mempelajari otomasi proses pengolahan data (ETL), pengembangan aplikasi Basis data berbasis web, dan pelaporan hasil analisis statistik secara interaktif. Selain itu, matakuliah ini menekankan pada evaluasi kualitas, keamanan, serta inovasi aplikasi Basis data dalam mendukung riset kolaboratif lintas bidang.",
+    "topics": [
+      "Pendahuluan Sistem Basis data dan Data Warehouse (Peran Basis data dalam riset statistik multidisiplin; Arsitektur sistem Basis data vs data warehouse; Studi kasus integrasi data)",
+      "Model Data Relasional dan Perancangan ER-Diagram (Konsep model data relasional tingkat lanjut; Perancangan Entity-Relationship Diagram (ERD) untuk kebutuhan riset; Studi desain basis data multidisiplin)",
+      "Sistem Manajemen Basis data Lanjutan (Struktur dan organisasi Basis data; Keamanan, integritas, dan interoperabilitas data; Optimasi struktur Basis data untuk analisis statistik)",
+      "Aljabar dan Kalkulus Relasional (Teori aljabar relasional untuk query; Kalkulus relasional dan aplikasinya; Penyusunan query kompleks berbasis logika)",
+      "Structured Query Language (SQL) dan MySQL Lanjutan (Penerapan query tingkat lanjut (join, subquery, agregasi, trigger); Optimasi query untuk data berskala besar; Praktikum SQL/MySQL dengan XAMPP)",
+      "Manipulasi, Manajemen, dan Integrasi Data (Data wrangling dan pembersihan data (cleaning); Integrasi data multi-sumber; Workflow manajemen data statistik)",
+      "ETL (Extract, Transform, Load) dan Automasi Basis data (Proses ETL dalam pengelolaan data statistik; Scripting automasi (menggunakan SQL, Python, atau R); Monitoring dan scheduling proses ETL)",
+      "Agregasi Data dan Pelaporan Statistik (Penerapan agregat data dalam laporan statistik; Statistik deskriptif berbasis basis data; Penyusunan laporan otomatis dan dashboard sederhana)",
+      "Pengembangan Aplikasi Basis data Berbasis Web (Dasar-dasar basis data web (PHP-MySQL, API, XAMPP); Pembuatan aplikasi web sederhana untuk analisis statistik; Visualisasi data dan pelaporan interaktif berbasis web)",
+      "Evaluasi, Audit, dan Inovasi Basis data untuk Riset (Audit kualitas dan keamanan Basis data; Best practice interoperabilitas dan open data riset; Pengembangan proposal inovasi aplikasi Basis data untuk kolaborasi riset)"
+    ],
+    "references": [
+      "Bulger. B, Greenspan. J, Wall. D., (2004)., MySQL/PHP Basis data Applications 2nd Edition., Wiley Publishing.",
+      "Ramakrishnan. R, Gehrke. J., (2002)., Basis data Management System 3rd Edition., McGraw-Hil Publisher."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202522019-sampling-survey",
+    "order": 27,
+    "code": "140720-UND202522019",
+    "title": "Sampling Survey",
+    "credits": 3,
+    "group": "Pilihan",
+    "description": "Mata kuliah ini membahas prinsip dan teknik dalam merancang survei berbasis sampling, mencakup teori dan aplikasi berbagai metode sampling probabilistik seperti sampling acak sederhana (SRS), sistematis, stratifikasi, klaster, dan multistage sampling. Topik lanjutan mencakup penaksir rasio, difference, regresi, analisis data dari complex survey, serta isu praktis seperti non-response dan kesalahan sampling. Mahasiswa juga diperkenalkan pada pendekatan non-probabilistik dan penerapan perangkat lunak statistik untuk perancangan dan analisis survei. Mata kuliah ini dirancang untuk membekali mahasiswa dengan kemampuan merancang, mengimplementasikan, dan mengevaluasi studi survei dalam berbagai konteks multidisipliner.",
+    "topics": [
+      "Pendahuluan Sampling Survey (Tujuan pembelajaran dan kontrak perkuliahan; Konsep populasi, sampel, dan parameter; Peran sampling dalam penelitian)",
+      "Distribusi Sampling (Konsep distribusi sampling dan estimasi parameter; Standar error dan prinsip inferensi)",
+      "Sampling Acak Sederhana (Simple Random Sampling - SRS) (Desain dan implementasi SRS; Estimasi rata-rata, total, dan proporsi)",
+      "Sampling Sistematis (Prosedur pengambilan sampel sistematis; Estimasi dan perbandingan dengan SRS)",
+      "Sampling Stratifikasi (Stratified Sampling) (Alasan stratifikasi; Alokasi proporsional dan optimal; Estimasi dan efisiensi)",
+      "Sampling Klaster (Cluster Sampling) (Desain satu tahap dan dua tahap; Estimasi rata-rata dan total; Efisiensi relatif terhadap SRS)",
+      "Multistage Sampling dan Complex Sampling Design (Desain bertingkat; Pertimbangan desain dalam survei besar; Kombinasi teknik sampling)",
+      "Penaksir Rasio, Difference, dan Regresi (Rasio estimator dan regresi estimator; Efisiensi dan bias; Aplikasi pada data nyata)",
+      "Analisis Data dari Complex Survey (Penanganan weight, strata, dan PSU; Penggunaan perangkat lunak statistik (misalnya R: survey package))",
+      "Penanganan Non-Response (Tipe non-response; Metode imputasi dan penyesuaian bobot)",
+      "Double Sampling (Konsep dan penerapan; Estimasi dalam two-phase sampling)",
+      "Kesalahan dalam Sampling (Sampling error dan nonsampling error; Evaluasi kualitas survei)",
+      "Teknik Sampling Lainnya (Systematic PPS sampling; Adaptive sampling (jika relevan))",
+      "Non-Probability Sampling (Purposive, quota, dan snowball sampling; Keterbatasan inferensi)"
+    ],
+    "references": [],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202503001-pembicara-seminar-nasional-internasional",
+    "order": 28,
+    "code": "140720-UND202503001",
+    "title": "Pembicara Seminar Nasional/ Internasional",
+    "credits": 3,
+    "group": "By Research",
+    "description": "Mata kuliah ini dirancang untuk membekali mahasiswa dengan pengetahuan, keterampilan, dan pengalaman menjadi pembicara pada seminar nasional maupun internasional. Mahasiswa akan mempelajari teknik penyusunan materi presentasi ilmiah, strategi komunikasi efektif, etika dan budaya akademik, serta praktek menjadi pembicara pada forum ilmiah. Mata kuliah ini juga mendorong mahasiswa untuk aktif berpartisipasi dan berjejaring dalam komunitas keilmuan nasional maupun internasional.",
+    "topics": [
+      "Peran dan Tantangan Pembicara Seminar Ilmiah",
+      "Karakteristik Seminar Nasional vs. Internasional",
+      "Teknik Penyusunan Abstrak dan Full Paper untuk Seminar",
+      "Struktur dan Desain Presentasi Ilmiah",
+      "Keterampilan Komunikasi Verbal dan Nonverbal",
+      "Etika Akademik dan Hak Kekayaan Intelektual",
+      "Public Speaking dan Mengelola Grogi",
+      "Strategi Menjawab Pertanyaan dan Diskusi",
+      "Penggunaan Media Presentasi (PowerPoint, Poster, dsb.)",
+      "Networking dan Etiket dalam Forum Ilmiah",
+      "Simulasi dan Praktik Menjadi Pembicara (Mock Seminar)"
+    ],
+    "references": [
+      "Anderson, C. (2016). TED Talks: The Official TED Guide to Public Speaking. New York: Houghton Mifflin Harcourt.",
+      "Reynolds, G. (2020). Presentation Zen: Simple Ideas on Presentation Design and Delivery (3rd Edition). Berkeley, CA: New Riders."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202503002-seminar-usulan-riset-sur-berbasis-riset",
+    "order": 29,
+    "code": "140720-UND202503002",
+    "title": "Seminar Usulan Riset (SUR) Berbasis Riset",
+    "credits": 3,
+    "group": "Riset",
+    "description": "Seminar Usulan Riset (SUR) adalah mata kuliah yang bertujuan untuk membekali mahasiswa dalam merancang, menyusun, dan mempresentasikan proposal penelitian secara sistematis, inovatif, dan sesuai kaidah ilmiah. Melalui mata kuliah ini, mahasiswa diharapkan mampu mengidentifikasi masalah penelitian, merumuskan tujuan, merancang metodologi, serta mempertimbangkan aspek etika dan dampak sosial dari rencana riset yang akan dilakukan sebagai bagian awal dari penyusunan tesis magister.",
+    "topics": [
+      "Pengantar metodologi penelitian S2",
+      "Perkembangan dan isu terkini statistika terapan",
+      "Identifikasi dan perumusan masalah riset",
+      "Perumusan tujuan dan manfaat penelitian",
+      "Studi literatur dan inovasi statistika",
+      "Etika, integritas, dan dampak sosial dalam riset",
+      "Desain pengumpulan data (metode, sampling, instrumen)",
+      "Evaluasi berbagai metode pengumpulan data",
+      "Pendekatan analisis data: univariat, multivariat, time series, spatial, machine learning",
+      "Pemilihan perangkat lunak/statistik (R, Python, SPSS, SAS, dll)",
+      "Algoritma pemodelan dasar untuk penelitian terapan",
+      "Penyusunan proposal penelitian (struktur, sistematika, dan logika penulisan)",
+      "Critical thinking dan evaluasi proposal secara mandiri",
+      "Teknik presentasi ilmiah dan komunikasi proposal riset",
+      "Diskusi akademik, kolaborasi, dan komunikasi dengan pembimbing/tim riset",
+      "Simulasi seminar proposal dan persiapan menghadapi ujian proposal"
+    ],
+    "references": [
+      "Montgomery, D.C., & Runger, G.C. (2018). Applied Statistics and Probability for Engineers (7th Ed.). Wiley.",
+      "Kutner, M.H., Nachtsheim, C.J., Neter, J., & Li, W. (2005). Applied Linear Statistical Models (5th Ed.). McGraw-Hill.",
+      "Rencher, A.C., & Christensen, W.F. (2012). Methods of Multivariate Analysis (3rd Ed.). Wiley.",
+      "Creswell, J.W. (2014). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (4th Ed.). SAGE Publications.",
+      "Wasserman, L. (2004). All of Statistics: A Concise Course in Statistical Inference. Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202503003-seminar-usulan-riset-sur-berbasis-kuliah",
+    "order": 30,
+    "code": "140720-UND202503003",
+    "title": "Seminar Usulan Riset (SUR) Berbasis Kuliah",
+    "credits": 3,
+    "group": "Riset",
+    "description": "Seminar Usulan Riset (SUR) adalah mata kuliah yang bertujuan untuk membekali mahasiswa dalam merancang, menyusun, dan mempresentasikan proposal penelitian secara sistematis, inovatif, dan sesuai kaidah ilmiah. Melalui mata kuliah ini, mahasiswa diharapkan mampu mengidentifikasi masalah penelitian, merumuskan tujuan, merancang metodologi, serta mempertimbangkan aspek etika dan dampak sosial dari rencana riset yang akan dilakukan sebagai bagian awal dari penyusunan tesis magister.",
+    "topics": [
+      "Pengantar metodologi penelitian S2",
+      "Perkembangan dan isu terkini statistika terapan",
+      "Identifikasi dan perumusan masalah riset",
+      "Perumusan tujuan dan manfaat penelitian",
+      "Studi literatur dan inovasi statistika",
+      "Etika, integritas, dan dampak sosial dalam riset",
+      "Desain pengumpulan data (metode, sampling, instrumen)",
+      "Evaluasi berbagai metode pengumpulan data",
+      "Pendekatan analisis data: univariat, multivariat, time series, spatial, machine learning",
+      "Pemilihan perangkat lunak/statistik (R, Python, SPSS, SAS, dll)",
+      "Algoritma pemodelan dasar untuk penelitian terapan",
+      "Penyusunan proposal penelitian (struktur, sistematika, dan logika penulisan)",
+      "Critical thinking dan evaluasi proposal secara mandiri",
+      "Teknik presentasi ilmiah dan komunikasi proposal riset",
+      "Diskusi akademik, kolaborasi, dan komunikasi dengan pembimbing/tim riset",
+      "Simulasi seminar proposal dan persiapan menghadapi ujian proposal"
+    ],
+    "references": [
+      "Montgomery, D.C., & Runger, G.C. (2018). Applied Statistics and Probability for Engineers (7th Ed.). Wiley.",
+      "Kutner, M.H., Nachtsheim, C.J., Neter, J., & Li, W. (2005). Applied Linear Statistical Models (5th Ed.). McGraw-Hill.",
+      "Rencher, A.C., & Christensen, W.F. (2012). Methods of Multivariate Analysis (3rd Ed.). Wiley.",
+      "Creswell, J.W. (2014). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (4th Ed.). SAGE Publications.",
+      "Wasserman, L. (2004). All of Statistics: A Concise Course in Statistical Inference. Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202503004-seminar-kemajuan-riset-skr",
+    "order": 31,
+    "code": "140720-UND202503004",
+    "title": "Seminar Kemajuan Riset (SKR)",
+    "credits": 6,
+    "group": "Riset",
+    "description": "Seminar Kemajuan Riset (SKR) adalah mata kuliah yang dirancang untuk memfasilitasi mahasiswa dalam memonitor, mengevaluasi, dan mendiseminasikan perkembangan penelitian tesis secara sistematis. Melalui SKR, mahasiswa diharapkan mampu mengidentifikasi capaian dan hambatan penelitian, melakukan analisis data awal, serta mempresentasikan progres riset secara ilmiah dan komunikatif di forum akademik. Mata kuliah ini juga menekankan penerapan etika, integritas, dan tanggung jawab dalam setiap tahap pelaksanaan riset.",
+    "topics": [
+      "Evaluasi pelaksanaan metodologi penelitian (analisis ketercapaian rancangan dan implementasi riset)",
+      "Pembaruan tinjauan pustaka dan tujuan riset (penyesuaian berdasarkan temuan dan dinamika riset)",
+      "Pemilihan dan penggunaan perangkat lunak/statistika (eksplorasi dan aplikasi software statistik, automasi analisis)",
+      "Audit dan penerapan etika, integritas, dan tanggung jawab riset (identifikasi isu etika, audit integritas, tanggung jawab akademik)",
+      "Evaluasi proses dan kualitas pengumpulan data (validasi data, data cleaning, identifikasi sumber bias)",
+      "Identifikasi dan analisis hambatan dalam riset (brainstorming solusi, studi kasus hambatan riset)",
+      "Analisis data tahap kemajuan (awal) (univariat, multivariat, time series, spatial, dsb.)",
+      "Interpretasi hasil analisis awal dan visualisasi data (menyusun narasi progres riset dan visualisasi)",
+      "Teknik presentasi progres riset (penyusunan slide, strategi komunikasi hasil dan kendala)",
+      "Forum diskusi dan komunikasi ilmiah (simulasi tanya jawab, umpan balik dan diskusi dengan dosen/pembimbing)",
+      "Review dan revisi laporan kemajuan riset (penyusunan draft laporan progres, integrasi masukan pembimbing)",
+      "Simulasi seminar kemajuan riset (latihan presentasi, diskusi kelas, peer review)",
+      "Seminar kemajuan riset (ujian seminar progres) (presentasi dan evaluasi kemajuan riset di forum seminar)"
+    ],
+    "references": [
+      "Montgomery, D.C., & Runger, G.C. (2018). Applied Statistics and Probability for Engineers (7th Ed.). Wiley.",
+      "Kutner, M.H., Nachtsheim, C.J., Neter, J., & Li, W. (2005). Applied Linear Statistical Models (5th Ed.). McGraw-Hill.",
+      "Rencher, A.C., & Christensen, W.F. (2012). Methods of Multivariate Analysis (3rd Ed.). Wiley.",
+      "Creswell, J.W. (2014). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (4th Ed.). SAGE Publications.",
+      "Wasserman, L. (2004). All of Statistics: A Concise Course in Statistical Inference. Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202503005-publikasi",
+    "order": 32,
+    "code": "140720-UND202503005",
+    "title": "Publikasi",
+    "credits": 9,
+    "group": "Riset",
+    "description": "Mata kuliah ini membahas secara komprehensif tahapan, strategi, dan etika dalam melakukan publikasi ilmiah di jurnal nasional maupun internasional. Mahasiswa akan mempelajari proses penulisan naskah ilmiah, pemilihan jurnal yang tepat, manajemen referensi, serta penanganan revisi dan respon terhadap reviewer. Mata kuliah ini bertujuan membekali mahasiswa agar mampu mempublikasikan karya ilmiah secara mandiri sesuai standar akademik dan etika publikasi internasional.",
+    "topics": [
+      "Pengantar Publikasi Ilmiah dan Urgensinya",
+      "Jenis-jenis Publikasi Ilmiah (Jurnal, Prosiding, Buku, dsb.)",
+      "Struktur Naskah Ilmiah (IMRaD: Introduction, Methods, Results, and Discussion)",
+      "Teknik Menulis Abstrak dan Judul yang Efektif",
+      "Menulis Daftar Pustaka dan Manajemen Referensi",
+      "Etika Publikasi: Plagiarisme, Duplikasi, dan Konflik Kepentingan",
+      "Strategi Memilih Jurnal yang Tepat",
+      "Proses Submit Naskah dan Peer Review",
+      "Menanggapi Komentar Reviewer dan Revisi Naskah",
+      "Publikasi Open Access dan Hak Cipta",
+      "Meningkatkan Sitasi dan Jejak Publikasi Ilmiah"
+    ],
+    "references": [
+      "Day, R. A., & Gastel, B. (2016). How to Write and Publish a Scientific Paper (8th Edition). Cambridge: Cambridge University Press.",
+      "Elsevier Researcher Academy. Research and Publishing Ethics"
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  },
+  {
+    "id": "140720-UND202503006-sidang-akhir-magister-tesis",
+    "order": 33,
+    "code": "140720-UND202503006",
+    "title": "Sidang Akhir Magister (Tesis)",
+    "credits": 9,
+    "group": "Riset",
+    "description": "Sidang Akhir Magister (SAM) adalah mata kuliah yang dirancang sebagai puncak dari proses pendidikan magister, di mana mahasiswa mempresentasikan, mempertahankan, dan mendiseminasikan hasil akhir penelitian tesis secara ilmiah di hadapan tim penguji. Melalui SAM, mahasiswa diharapkan mampu mensintesis seluruh konsep dan hasil penelitian, menerapkan etika dan integritas akademik, serta berkomunikasi secara efektif dan argumentatif dalam forum ilmiah. Mata kuliah ini menilai kompetensi akhir mahasiswa dalam pengelolaan riset, inovasi, dan kontribusi pada pengembangan keilmuan statistika terapan.",
+    "topics": [
+      "Sintesis konsep dan hasil penelitian untuk penulisan tesis akhir (integrasi teori, metodologi, dan hasil riset dalam dokumen tesis)",
+      "Evaluasi dan dokumentasi perangkat lunak/statistik yang digunakan (reproducibility, pelaporan penggunaan software/statistika, validasi hasil)",
+      "Penerapan integritas, etika, dan tanggung jawab akademik dalam sidang akhir (etik sidang, orisinalitas karya, anti-plagiarisme, hak cipta, dan dampak sosial)",
+      "Evaluasi ketepatan dan kelayakan metode pengumpulan data (validasi metode, pelaporan data, audit lampiran dan kelengkapan data penelitian)",
+      "Latihan argumentasi, pertahanan inovasi, dan penyusunan kontribusi ilmiah (simulasi pertanyaan penguji, inovasi riset, argumentasi kontribusi terhadap keilmuan/statistika)",
+      "Penyajian dan interpretasi hasil penelitian secara komprehensif (penyusunan bab hasil & pembahasan, visualisasi data, narasi statistik utama)",
+      "Teknik presentasi ilmiah dan komunikasi efektif di forum sidang (penyusunan slide, latihan presentasi, respon pertanyaan, komunikasi dengan audiens)",
+      "Review dan revisi akhir laporan tesis (penyusunan laporan akhir, integrasi umpan balik pembimbing dan penguji, persiapan dokumen sidang)",
+      "Simulasi dan pelaksanaan Sidang Akhir Magister (latihan presentasi sidang, penguatan mental, ujian akhir di hadapan dewan penguji)"
+    ],
+    "references": [
+      "Montgomery, D.C., & Runger, G.C. (2018). Applied Statistics and Probability for Engineers (7th Ed.). Wiley.",
+      "Kutner, M.H., Nachtsheim, C.J., Neter, J., & Li, W. (2005). Applied Linear Statistical Models (5th Ed.). McGraw-Hill.",
+      "Rencher, A.C., & Christensen, W.F. (2012). Methods of Multivariate Analysis (3rd Ed.). Wiley.",
+      "Creswell, J.W. (2014). Research Design: Qualitative, Quantitative, and Mixed Methods Approaches (4th Ed.). SAGE Publications.",
+      "Wasserman, L. (2004). All of Statistics: A Concise Course in Statistical Inference. Springer."
+    ],
+    "source": "KURIKULUM S2 STATISTIKA 2025 - lengkap1.pdf",
+    "section": "2.5 Silabus Matakuliah"
+  }
+]
