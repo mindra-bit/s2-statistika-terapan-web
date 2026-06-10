@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 360" role="img" aria-label="Ilustrasi Materi Pembelajaran Analisis Survival">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8fbfd"/>
+      <stop offset="0.55" stop-color="#fffdf8"/>
+      <stop offset="1" stop-color="#eef8f6"/>
+    </linearGradient>
+    <linearGradient id="ribbon" x1="0" x2="1">
+      <stop offset="0" stop-color="#17395c"/>
+      <stop offset="0.62" stop-color="#0f766e"/>
+      <stop offset="1" stop-color="#f2a51a"/>
+    </linearGradient>
+  </defs>
+  <rect x="18" y="18" width="924" height="324" rx="8" fill="url(#bg)" stroke="#d7e2ea" stroke-width="2"/>
+  <rect x="48" y="48" width="864" height="92" rx="8" fill="url(#ribbon)"/>
+  <text x="84" y="72" font-size="15" font-weight="800" fill="#fff8dc">S2 Statistika Terapan - FMIPA Unpad</text>
+  <text x="84" y="98" font-size="24" font-weight="800" fill="#ffffff">Materi Pembelajaran Analisis Survival</text>
+  <rect x="730" y="68" width="150" height="42" rx="8" fill="#ffffff" opacity="0.94"/>
+  <text x="805" y="86" text-anchor="middle" font-size="13" font-weight="800" fill="#17395c">VALIDATED</text>
+  <text x="805" y="104" text-anchor="middle" font-size="12" fill="#17395c">REPRODUCIBLE</text>
+  <rect x="56" y="178" width="140" height="86" rx="8" fill="#17395c" opacity="0.96"/><text x="126" y="225" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Waktu kejadian</text><rect x="230" y="178" width="140" height="86" rx="8" fill="#0f766e" opacity="0.96"/><text x="300" y="225" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Sensoring</text><rect x="404" y="178" width="140" height="86" rx="8" fill="#f2a51a" opacity="0.96"/><text x="474" y="225" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Kaplan-Meier</text><rect x="578" y="178" width="140" height="86" rx="8" fill="#7c3aed" opacity="0.96"/><text x="648" y="225" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Cox PH</text><rect x="752" y="178" width="140" height="86" rx="8" fill="#b45309" opacity="0.96"/><text x="822" y="225" text-anchor="middle" font-size="15" font-weight="700" fill="#ffffff">Validasi hazard</text>
+  <rect x="86" y="292" width="788" height="34" rx="8" fill="#eef5f8" stroke="#d7e2ea"/>
+  <text x="480" y="315" text-anchor="middle" font-size="15" font-weight="700" fill="#17395c">alur belajar: konsep -> metode -> komputasi -> interpretasi -> komunikasi ilmiah</text>
+</svg>

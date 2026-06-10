@@ -22,6 +22,10 @@ const alumniPath = path.join(__dirname, "data", "alumni.json");
 const alumni = fs.existsSync(alumniPath)
   ? JSON.parse(fs.readFileSync(alumniPath, "utf8"))
   : null;
+const materialsPath = path.join(__dirname, "data", "materials.json");
+const materials = fs.existsSync(materialsPath)
+  ? JSON.parse(fs.readFileSync(materialsPath, "utf8"))
+  : { total: 0, materials: [], categories: [] };
 const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun s2 apa saja berapa".split(" "));
 const genericQueryTerms = new Set("silabus sylabus rps materi referensi deskripsi bahan kajian topik perkuliahan mata kuliah matakuliah course".split(" "));
 
@@ -138,6 +142,9 @@ function expandQuestion(question) {
   if (/(silabus|sylabus|rps|materi|referensi|bahan kajian)/.test(text)) {
     expansions.push("silabus rps deskripsi mata kuliah bahan kajian topik perkuliahan referensi");
   }
+  if (/(materi|bahan ajar|modul|html|katalog|slide|pertemuan)/.test(text)) {
+    expansions.push("materi html bahan ajar modul pembelajaran katalog kuliah file html");
+  }
   if (/(alumni|lulusan|judul tesis|tesis lulusan|pembimbing)/.test(text)) {
     expansions.push("alumni lulusan tesis judul tesis pembimbing tahun lulus riset lulusan");
   }
@@ -152,9 +159,13 @@ function scoreChunk(question, chunk) {
   const text = normalize(chunk.text);
   let score = chunk.id?.startsWith("manual") ? 2 : 0;
   const asksAlumni = /alumni|lulusan|judul tesis|tesis lulusan|data lulusan|pembimbing/.test(normalizedQuestion);
+  const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
+    && !/silabus|sylabus|rps/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
+  if (asksMaterial && chunk.id?.startsWith("material-")) score += 160;
+  if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
 
   for (const token of tokens) {
     if (text.includes(token)) score += 4;
@@ -178,6 +189,16 @@ function scoreChunk(question, chunk) {
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 55;
+  }
+
+  if (chunk.id?.startsWith("material-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 22;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
   }
 
   return score;
@@ -239,7 +260,7 @@ function numberedList(items = [], limit = 14) {
 
 function syllabusAnswer(question, hits) {
   const text = normalize(question);
-  const asksSyllabus = /silabus|sylabus|rps|materi kuliah|materi perkuliahan|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
+  const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   if (!asksSyllabus) return null;
 
   const entry = findSyllabusEntry(question, hits);
@@ -276,6 +297,105 @@ function syllabusAnswer(question, hits) {
   };
 }
 
+function formatFileSize(kb) {
+  const value = Number(kb || 0);
+  if (!value) return "HTML";
+  if (value >= 1024) return `${(value / 1024).toFixed(value >= 10240 ? 0 : 1).replace(/\.0$/, "")} MB`;
+  return `${value} KB`;
+}
+
+function materialFromHit(hit) {
+  const href = hit.sourceUrl || "";
+  const title = String(hit.title || hit.sourceTitle || "Materi HTML").replace(/^Materi HTML\s*/i, "").trim();
+  const known = materials.materials?.find((item) => item.viewerHref === href || item.href === href || item.title === title);
+  return known || {
+    title,
+    href,
+    category: "Materi Kuliah",
+    file: href.split("/").pop() || "",
+    sizeKb: 0
+  };
+}
+
+function materialScore(question, material) {
+  const queryTokens = tokenize(question).filter((token) => !genericQueryTerms.has(token));
+  const haystack = normalize([material.title, material.category, material.folder, material.file].join(" "));
+  let score = 0;
+  for (const token of queryTokens) {
+    if (haystack.includes(token)) score += 1;
+  }
+  const category = normalize(material.category);
+  const title = normalize(material.title);
+  const questionText = normalize(question);
+  if (category && questionText.includes(category)) score += 8;
+  if (title && questionText.includes(title)) score += 12;
+  return score;
+}
+
+function materialSuggestions(question, hits, limit = 8) {
+  const byHref = new Map();
+  const fromData = (materials.materials || [])
+    .map((material) => ({ ...material, score: materialScore(question, material) }))
+    .filter((material) => material.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  for (const material of fromData) byHref.set(material.href, material);
+
+  for (const hit of hits) {
+    if (!String(hit.id || "").startsWith("material-")) continue;
+    const material = materialFromHit(hit);
+    if (material.href && !byHref.has(material.href)) byHref.set(material.href, material);
+  }
+
+  if (!byHref.size && materials.materials?.length) {
+    for (const material of materials.materials.slice(0, limit)) byHref.set(material.href, material);
+  }
+
+  return [...byHref.values()].slice(0, limit);
+}
+
+function materialAnswer(question, hits) {
+  const text = normalize(question);
+  const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text)
+    && !/silabus|sylabus|rps/.test(text);
+  if (!asksMaterial) return null;
+
+  const suggestions = materialSuggestions(question, hits, 8);
+  if (!suggestions.length) return null;
+
+  const total = materials.total || materials.materials?.length || suggestions.length;
+
+  if (suggestions.length === 1 || materialScore(question, suggestions[0]) >= 2) {
+    const material = suggestions[0];
+    return {
+      answer: [
+        `Materi HTML ${material.title} tersedia di katalog materi kuliah.`,
+        `Kategori: ${material.category || "Materi Kuliah"}.`,
+        `File: ${material.file || material.href}.`,
+        `Ukuran: ${formatFileSize(material.sizeKb)}.`,
+        `Link: ${material.viewerHref || material.href}`
+      ].join("\n"),
+      sources: [{ title: `Materi HTML ${material.title}`, url: material.viewerHref || material.href }],
+      mode: "server retrieval"
+    };
+  }
+
+  const sources = suggestions.map((material) => ({
+    title: `Materi HTML ${material.title}`,
+    url: material.viewerHref || material.href
+  }));
+
+  const list = suggestions
+    .map((material, index) => `${index + 1}. ${material.title} (${material.category || "Materi Kuliah"}) - ${material.viewerHref || material.href}`)
+    .join("\n");
+
+  return {
+    answer: `Saat ini tersedia ${total} materi HTML di katalog Materi Kuliah. Beberapa materi yang bisa dibuka:\n\n${list}`,
+    sources,
+    mode: "server retrieval"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -283,7 +403,8 @@ function matchFact(question) {
   const asksJadwal = /jadwal|tanggal|gelombang|ujian|wawancara|pengumuman|kapan/.test(text);
   const asksSyarat = /persyaratan|syarat|tka|tpa|tkbi|toefl|ielts|statement|purpose/.test(text);
   const asksDayaTampung = /daya tampung|kuota|kapasitas/.test(text);
-  const asksSyllabus = /silabus|sylabus|rps|materi kuliah|materi perkuliahan|referensi mata kuliah|topik kuliah/.test(text);
+  const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
+  const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
   const asksAlumniData = /alumni|judul tesis|tesis lulusan|data lulusan|tahun lulus|pembimbing/.test(text);
   if (asksDayaTampung) return facts.dayaTampungSmup;
   if (asksBiaya && asksPendaftaran) return facts.smupAdministrasi;
@@ -292,6 +413,7 @@ function matchFact(question) {
   if (asksPendaftaran) return facts.pendaftaranSmup;
   if (asksSyarat) return facts.persyaratanSmup;
   if (asksSyllabus) return null;
+  if (asksMaterial) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return facts.rpl;
   if (/sks|jumlah kredit|beban studi/.test(text)) return facts.sks;
@@ -326,8 +448,10 @@ function localAnswer(question) {
   const fact = matchFact(question);
   const hits = retrieve(question, 5);
   const structuredSyllabus = syllabusAnswer(question, hits);
+  const structuredMaterial = materialAnswer(question, hits);
 
   if (structuredSyllabus) return structuredSyllabus;
+  if (structuredMaterial) return structuredMaterial;
 
   if (fact) {
     return {
@@ -351,7 +475,9 @@ function localAnswer(question) {
 
   const intro = hits[0]?.id?.startsWith("alumni-")
     ? "Saya menemukan data lulusan yang relevan:"
-    : "Saya menemukan potongan knowledge base yang relevan:";
+    : hits[0]?.id?.startsWith("material-")
+      ? "Saya menemukan materi HTML yang relevan:"
+      : "Saya menemukan potongan knowledge base yang relevan:";
   const answer = [
     intro,
     "",
@@ -371,6 +497,7 @@ app.get("/api/health", (_req, res) => {
     chunks: chunks.length,
     syllabus: syllabus.length,
     alumni: alumni?.summary?.total || 0,
+    materials: materials.total || materials.materials?.length || 0,
     apiReady: Boolean(client),
     model: client ? model : null
   });
@@ -384,12 +511,25 @@ app.get("/api/alumni", (_req, res) => {
   res.json(alumni || { records: [], summary: { total: 0 } });
 });
 
+app.get("/api/materials", (_req, res) => {
+  res.json(materials);
+});
+
 app.post("/api/chat", async (req, res) => {
   const question = String(req.body?.question || "").trim();
   if (!question) return res.status(400).json({ error: "Pertanyaan tidak boleh kosong." });
 
   const fact = matchFact(question);
   const hits = retrieve(question, 8);
+  const directAnswer = syllabusAnswer(question, hits) || materialAnswer(question, hits);
+
+  if (directAnswer) {
+    return res.json({
+      ...directAnswer,
+      sources: uniqueSources(directAnswer.sources || [])
+    });
+  }
+
   const sources = uniqueSources([
     ...(fact?.sources || []),
     ...hits.map(sourceFromHit)

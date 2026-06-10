@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "build:syllabus": "node scripts/build-syllabus.mjs",
+    "build:materials": "node scripts/build-materials.mjs",
     "dev": "node server.js",
     "start": "node server.js"
   },

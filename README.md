@@ -7,8 +7,9 @@ Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA
 - Landing page profesional dengan visual kampus/prodi, profil program, struktur kurikulum, profil lulusan, dan daftar mata kuliah.
 - Tabel mata kuliah dengan pencarian dan filter kelompok: Wajib, Pilihan, Riset, Keterampilan Riset, dan Publikasi.
 - Halaman silabus yang menampilkan deskripsi, bahan kajian, dan referensi dari PDF Kurikulum S2 Statistika 2026.
+- Katalog materi kuliah HTML dari folder `@Materi Kuliah`, lengkap dengan pencarian, kartu materi, dan link pembuka per file.
 - Halaman lulusan dan tesis yang menampilkan ringkasan tahun lulus, tema riset, dan daftar judul tesis dari `Lulusan.xlsx`.
-- Chatbot akademik yang menjawab berdasarkan `data/knowledge_chunks.json`, termasuk dokumen kurikulum dan ringkasan resmi SMUP Program Magister.
+- Chatbot akademik yang menjawab berdasarkan `data/knowledge_chunks.json`, termasuk dokumen kurikulum, katalog materi kuliah, data lulusan, dan ringkasan resmi SMUP Program Magister.
 - Endpoint server `/api/chat` dengan mode retrieval lokal dan mode OpenAI API jika `OPENAI_API_KEY` tersedia.
 - Sumber jawaban ditampilkan sebagai rujukan halaman agar chatbot tidak terasa seperti mengarang.
 - Pertanyaan PMB Magister, biaya/BPP, jadwal pendaftaran, persyaratan, dan daya tampung dijawab dari halaman resmi SMUP Program Magister. Pertanyaan RPL yang sangat spesifik tetap perlu ditambah dari halaman/dokumen RPL resmi.
@@ -27,12 +28,16 @@ Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA
 │   ├── knowledge_base.md
 │   ├── knowledge_chunks.json
 │   ├── alumni.json
+│   ├── materials.json
 │   └── syllabus.json
 ├── scripts/
+│   ├── build-materials.mjs
 │   └── build-syllabus.mjs
+├── @Materi Kuliah/
 ├── KURIKULUM S2 STATISTIKA 2026.pdf
 ├── Lulusan.xlsx
 ├── index.html
+├── materi.html
 ├── server.js
 ├── package.json
 └── .env.example
@@ -77,6 +82,22 @@ npm run build:syllabus
 ```
 
 Perintah ini akan membuat ulang `data/syllabus.json` dan membangun ulang `data/knowledge_chunks.json` dari PDF 2026, chunk SMUP, chunk alumni, dan chunk silabus, sehingga halaman Silabus dan chatbot memakai sumber yang sama.
+
+## Memperbarui Katalog Materi Kuliah
+
+Simpan file HTML materi di dalam folder:
+
+```text
+@Materi Kuliah/
+```
+
+Setiap subfolder dapat berisi satu atau lebih file `.html` beserta aset pendukungnya. Setelah menambah atau mengganti materi, jalankan:
+
+```bash
+npm run build:materials
+```
+
+Perintah ini membuat ulang `data/materials.json` dan menambahkan indeks `material-*` ke `data/knowledge_chunks.json`, sehingga halaman Materi Kuliah dan chatbot bisa menemukan link materi HTML terbaru.
 
 ## Cara Kerja Chatbot
 
@@ -128,6 +149,7 @@ Langkah ringkas:
 Catatan penting:
 
 - GitHub Pages hanya menjalankan file statis. `server.js`, `/api/chat`, dan OpenAI API tidak berjalan di sana.
-- Chatbot tetap bisa menjawab dari `data/knowledge_chunks.json` dan `data/syllabus.json` dengan mode local static retrieval.
+- Chatbot tetap bisa menjawab dari `data/knowledge_chunks.json`, `data/syllabus.json`, `data/materials.json`, dan `data/alumni.json` dengan mode local static retrieval.
+- Folder `@Materi Kuliah/` ikut di-upload ke repository agar link materi HTML bisa dibuka publik.
 - Jangan pernah menaruh `OPENAI_API_KEY` di file frontend seperti `index.html` atau `assets/app.js`.
 - Jika nanti ingin chatbot seperti ChatGPT, tetap perlu backend murah seperti Render, DigitalOcean App Platform, Railway, atau Cloudflare Workers.

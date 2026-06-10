@@ -122,6 +122,7 @@ const GENERIC_QUERY_TERMS = new Set("silabus sylabus rps materi referensi deskri
 let knowledge = FALLBACK_KNOWLEDGE;
 let syllabus = [];
 let alumniData = null;
+let materialsData = null;
 let activeFilter = "Semua";
 let serverChatAvailable = false;
 
@@ -135,6 +136,9 @@ const alumniRows = document.getElementById("alumniRows");
 const alumniCount = document.getElementById("alumniCount");
 const alumniYearBars = document.getElementById("alumniYearBars");
 const alumniThemeList = document.getElementById("alumniThemeList");
+const materialSearch = document.getElementById("materialSearch");
+const materialRows = document.getElementById("materialRows");
+const materialCount = document.getElementById("materialCount");
 const modeLabel = document.getElementById("modeLabel");
 const chatMessages = document.getElementById("chatMessages");
 const chatForm = document.getElementById("chatForm");
@@ -185,6 +189,9 @@ function expandQuestion(question) {
   if (/(silabus|sylabus|rps|materi|referensi|bahan kajian)/.test(normalized)) {
     synonyms.push("silabus rps deskripsi mata kuliah bahan kajian topik perkuliahan referensi");
   }
+  if (/(materi|bahan ajar|modul|html|katalog|slide|pertemuan)/.test(normalized)) {
+    synonyms.push("materi html bahan ajar modul pembelajaran katalog kuliah file html");
+  }
   if (/(alumni|lulusan|judul tesis|tesis lulusan|pembimbing)/.test(normalized)) {
     synonyms.push("alumni lulusan tesis judul tesis pembimbing tahun lulus riset lulusan");
   }
@@ -200,9 +207,13 @@ function scoreChunk(question, chunk) {
   const text = normalize(chunk.text);
   let score = chunk.id?.startsWith("manual") ? 2 : 0;
   const asksAlumni = /alumni|lulusan|judul tesis|tesis lulusan|data lulusan|pembimbing/.test(normalizedQuestion);
+  const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
+    && !/silabus|sylabus|rps/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
+  if (asksMaterial && chunk.id?.startsWith("material-")) score += 160;
+  if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
 
   for (const token of tokens) {
     if (text.includes(token)) score += 4;
@@ -226,6 +237,16 @@ function scoreChunk(question, chunk) {
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 55;
+  }
+
+  if (chunk.id?.startsWith("material-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !GENERIC_QUERY_TERMS.has(token));
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 22;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
   }
 
   return score;
@@ -287,7 +308,7 @@ function numberedText(items = [], limit = 14) {
 
 function buildSyllabusAnswer(question, hits) {
   const text = normalize(question);
-  const asksSyllabus = /silabus|sylabus|rps|materi kuliah|materi perkuliahan|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
+  const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   if (!asksSyllabus) return null;
 
   const entry = findSyllabusEntry(question, hits);
@@ -324,6 +345,105 @@ function buildSyllabusAnswer(question, hits) {
   };
 }
 
+function formatFileSize(kb) {
+  const value = Number(kb || 0);
+  if (!value) return "HTML";
+  if (value >= 1024) return `${(value / 1024).toFixed(value >= 10240 ? 0 : 1).replace(/\.0$/, "")} MB`;
+  return `${value} KB`;
+}
+
+function materialFromHit(hit) {
+  const href = hit.sourceUrl || "";
+  const title = String(hit.title || hit.sourceTitle || "Materi HTML").replace(/^Materi HTML\s*/i, "").trim();
+  const known = materialsData?.materials?.find((item) => item.viewerHref === href || item.href === href || item.title === title);
+  return known || {
+    title,
+    href,
+    category: "Materi Kuliah",
+    file: href.split("/").pop() || "",
+    sizeKb: 0
+  };
+}
+
+function materialScore(question, material) {
+  const queryTokens = tokenize(question).filter((token) => !GENERIC_QUERY_TERMS.has(token));
+  const haystack = normalize([material.title, material.category, material.folder, material.file].join(" "));
+  let score = 0;
+  for (const token of queryTokens) {
+    if (haystack.includes(token)) score += 1;
+  }
+  const category = normalize(material.category);
+  const title = normalize(material.title);
+  const questionText = normalize(question);
+  if (category && questionText.includes(category)) score += 8;
+  if (title && questionText.includes(title)) score += 12;
+  return score;
+}
+
+function materialSuggestions(question, hits, limit = 8) {
+  const byHref = new Map();
+  const fromData = (materialsData?.materials || [])
+    .map((material) => ({ ...material, score: materialScore(question, material) }))
+    .filter((material) => material.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  for (const material of fromData) byHref.set(material.href, material);
+
+  for (const hit of hits) {
+    if (!String(hit.id || "").startsWith("material-")) continue;
+    const material = materialFromHit(hit);
+    if (material.href && !byHref.has(material.href)) byHref.set(material.href, material);
+  }
+
+  if (!byHref.size && materialsData?.materials?.length) {
+    for (const material of materialsData.materials.slice(0, limit)) byHref.set(material.href, material);
+  }
+
+  return [...byHref.values()].slice(0, limit);
+}
+
+function buildMaterialAnswer(question, hits) {
+  const text = normalize(question);
+  const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text)
+    && !/silabus|sylabus|rps/.test(text);
+  if (!asksMaterial) return null;
+
+  const suggestions = materialSuggestions(question, hits, 8);
+  if (!suggestions.length) return null;
+
+  const total = materialsData?.total || materialsData?.materials?.length || suggestions.length;
+
+  if (suggestions.length === 1 || materialScore(question, suggestions[0]) >= 2) {
+    const material = suggestions[0];
+    return {
+      answer: [
+        `Materi HTML ${material.title} tersedia di katalog materi kuliah.`,
+        `Kategori: ${material.category || "Materi Kuliah"}.`,
+        `File: ${material.file || material.href}.`,
+        `Ukuran: ${formatFileSize(material.sizeKb)}.`,
+        `Link: ${material.viewerHref || material.href}`
+      ].join("\n"),
+      sources: [{ title: `Materi HTML ${material.title}`, url: material.viewerHref || material.href }],
+      mode: "Local knowledge base"
+    };
+  }
+
+  const sources = suggestions.map((material) => ({
+    title: `Materi HTML ${material.title}`,
+    url: material.viewerHref || material.href
+  }));
+
+  const list = suggestions
+    .map((material, index) => `${index + 1}. ${material.title} (${material.category || "Materi Kuliah"}) - ${material.viewerHref || material.href}`)
+    .join("\n");
+
+  return {
+    answer: `Saat ini tersedia ${total} materi HTML di katalog Materi Kuliah. Beberapa materi yang bisa dibuka:\n\n${list}`,
+    sources,
+    mode: "Local knowledge base"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -331,7 +451,8 @@ function matchFact(question) {
   const asksJadwal = /jadwal|tanggal|gelombang|ujian|wawancara|pengumuman|kapan/.test(text);
   const asksSyarat = /persyaratan|syarat|tka|tpa|tkbi|toefl|ielts|statement|purpose/.test(text);
   const asksDayaTampung = /daya tampung|kuota|kapasitas/.test(text);
-  const asksSyllabus = /silabus|sylabus|rps|materi kuliah|materi perkuliahan|referensi mata kuliah|topik kuliah/.test(text);
+  const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
+  const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
   const asksAlumniData = /alumni|judul tesis|tesis lulusan|data lulusan|tahun lulus|pembimbing/.test(text);
   if (asksDayaTampung) return FACTS.dayaTampungSmup;
   if (asksBiaya && asksPendaftaran) return FACTS.smupAdministrasi;
@@ -340,6 +461,7 @@ function matchFact(question) {
   if (asksPendaftaran) return FACTS.pendaftaranSmup;
   if (asksSyarat) return FACTS.persyaratanSmup;
   if (asksSyllabus) return null;
+  if (asksMaterial) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return FACTS.rpl;
   if (/sks|jumlah kredit|beban studi/.test(text)) return FACTS.sks;
@@ -359,8 +481,10 @@ function buildLocalAnswer(question) {
   const fact = matchFact(question);
   const hits = retrieve(question, 4);
   const structuredSyllabus = buildSyllabusAnswer(question, hits);
+  const structuredMaterial = buildMaterialAnswer(question, hits);
 
   if (structuredSyllabus) return structuredSyllabus;
+  if (structuredMaterial) return structuredMaterial;
 
   if (fact) {
     const sources = fact.sources.length || fact === FACTS.administrasi
@@ -384,7 +508,9 @@ function buildLocalAnswer(question) {
 
   const intro = hits[0]?.id?.startsWith("alumni-")
     ? "Saya menemukan data lulusan yang relevan:"
-    : "Saya menemukan potongan knowledge base yang relevan:";
+    : hits[0]?.id?.startsWith("material-")
+      ? "Saya menemukan materi HTML yang relevan:"
+      : "Saya menemukan potongan knowledge base yang relevan:";
 
   return {
     answer: `${intro}\n\n${excerpts}`,
@@ -548,6 +674,47 @@ function renderSyllabus() {
     .join("");
 }
 
+function renderMaterials() {
+  if (!materialRows) return;
+  const rows = materialsData?.materials || [];
+  const query = normalize(materialSearch?.value || "");
+  const filtered = rows.filter((material) => {
+    const haystack = [
+      material.title,
+      material.category,
+      material.folder,
+      material.file,
+      material.source
+    ].join(" ");
+    return !query || normalize(haystack).includes(query);
+  });
+
+  if (materialCount) materialCount.textContent = String(filtered.length);
+
+  if (!filtered.length) {
+    materialRows.innerHTML = '<p class="empty-note">Materi yang dicari belum ditemukan.</p>';
+    return;
+  }
+
+  materialRows.innerHTML = filtered
+    .map((material) => `
+      <article class="material-card">
+        <div class="material-card-head">
+          <span class="badge">${escapeHTML(material.category || "Materi Kuliah")}</span>
+          <span>${escapeHTML(formatFileSize(material.sizeKb))}</span>
+        </div>
+        <h3>${escapeHTML(material.title)}</h3>
+        <p class="syllabus-code">${escapeHTML(material.file || "File HTML")}</p>
+        <p>Folder: ${escapeHTML(material.folder || material.source || "@Materi Kuliah")}</p>
+        <div class="material-actions">
+          <a href="${escapeHTML(material.viewerHref || material.href)}" target="_blank" rel="noopener">Buka materi</a>
+          <button type="button" data-material-q="Ada materi kuliah ${escapeHTML(material.title)}?">Tanya chatbot</button>
+        </div>
+      </article>
+    `)
+    .join("");
+}
+
 function renderAlumni() {
   if (!alumniRows || !alumniData) return;
   const records = alumniData.records || [];
@@ -641,6 +808,19 @@ async function loadSyllabus() {
   renderSyllabus();
 }
 
+async function loadMaterials() {
+  try {
+    const response = await fetch("data/materials.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Katalog materi tidak dapat dimuat.");
+    const data = await response.json();
+    if (!data?.materials?.length) throw new Error("Katalog materi kosong.");
+    materialsData = data;
+  } catch (error) {
+    materialsData = { total: 0, materials: [], categories: [] };
+  }
+  renderMaterials();
+}
+
 async function loadKnowledge() {
   try {
     const response = await fetch("data/knowledge_chunks.json", { cache: "no-store" });
@@ -682,6 +862,12 @@ document.querySelectorAll("[data-q]").forEach((button) => {
 courseSearch.addEventListener("input", renderCourses);
 syllabusSearch?.addEventListener("input", renderSyllabus);
 alumniSearch?.addEventListener("input", renderAlumni);
+materialSearch?.addEventListener("input", renderMaterials);
+materialRows?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-material-q]");
+  if (!button) return;
+  ask(button.dataset.materialQ);
+});
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -694,4 +880,5 @@ chatForm.addEventListener("submit", (event) => {
 renderCourses();
 loadKnowledge();
 loadSyllabus();
+loadMaterials();
 loadAlumni();

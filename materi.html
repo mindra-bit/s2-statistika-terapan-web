@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Materi Kuliah - S2 Statistika Terapan FMIPA Unpad</title>
+  <meta name="description" content="Viewer materi kuliah HTML Program Magister Statistika Terapan FMIPA Universitas Padjadjaran." />
+  <link rel="stylesheet" href="assets/site.css" />
+</head>
+<body class="viewer-body">
+  <div class="topbar">
+    <div class="container topbar-inner">
+      <span>FMIPA Universitas Padjadjaran</span>
+      <span>Materi Kuliah HTML</span>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="./#home" aria-label="S2 Statistika Terapan FMIPA Unpad">
+        <img src="assets/logo-unpad.png" alt="Logo Universitas Padjadjaran" />
+        <span>
+          <strong>S2 Statistika Terapan</strong>
+          <small>FMIPA Universitas Padjadjaran</small>
+        </span>
+      </a>
+      <nav class="nav-links" aria-label="Navigasi materi">
+        <a href="./#materi">Materi</a>
+        <a href="./#silabus">Silabus</a>
+        <a href="./#chatbot">Chatbot</a>
+      </nav>
+      <a class="nav-action" href="./#materi">Katalog</a>
+    </div>
+  </header>
+
+  <main class="viewer-main">
+    <section class="viewer-head">
+      <div class="container viewer-head-inner">
+        <div>
+          <p class="section-kicker">Materi Kuliah</p>
+          <h1 class="viewer-title" id="viewerTitle">Materi Kuliah</h1>
+          <p id="viewerMeta">Memuat materi...</p>
+        </div>
+        <div class="viewer-actions">
+          <a href="./#materi">Kembali ke katalog</a>
+          <a id="directLink" href="./#materi" target="_blank" rel="noopener">Buka file asli</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="viewer-frame-section">
+      <div class="container">
+        <div class="viewer-frame-shell">
+          <iframe id="materialFrame" title="Materi kuliah"></iframe>
+          <div class="viewer-empty" id="viewerEmpty" hidden>
+            <h2>Materi tidak ditemukan</h2>
+            <p>Link materi tidak valid atau belum tersedia dalam katalog.</p>
+            <a href="./#materi">Kembali ke katalog materi</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const params = new URLSearchParams(window.location.search);
+      const src = params.get("src") || "";
+      const title = params.get("title") || "Materi Kuliah";
+      const safeSrc = src.endsWith(".html") && !src.includes("..") && !/^[a-z]+:/i.test(src);
+      const frame = document.getElementById("materialFrame");
+      const empty = document.getElementById("viewerEmpty");
+      const direct = document.getElementById("directLink");
+      const heading = document.getElementById("viewerTitle");
+      const meta = document.getElementById("viewerMeta");
+
+      document.title = `${title} - S2 Statistika Terapan FMIPA Unpad`;
+      heading.textContent = title;
+
+      if (!safeSrc) {
+        frame.hidden = true;
+        empty.hidden = false;
+        meta.textContent = "Materi belum dapat dimuat.";
+        return;
+      }
+
+      frame.src = src;
+      direct.href = src;
+      meta.textContent = "Ditampilkan dari katalog @Materi Kuliah.";
+    })();
+  </script>
+</body>
+</html>

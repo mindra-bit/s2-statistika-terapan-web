@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S2 Statistika Terapan FMIPA Unpad</title>
-  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026 dan data lulusan." />
+  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, data lulusan, silabus, dan materi kuliah HTML." />
   <link rel="preload" href="assets/campus-hero.jpg" as="image" />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
@@ -29,6 +29,7 @@
         <a href="#profil">Profil</a>
         <a href="#kurikulum">Kurikulum</a>
         <a href="#mata-kuliah">Mata Kuliah</a>
+        <a href="#materi">Materi</a>
         <a href="#lulusan">Lulusan</a>
         <a href="#silabus">Silabus</a>
         <a href="#chatbot">Chatbot</a>
@@ -225,7 +226,28 @@
       </div>
     </section>
 
-    <section class="section" id="silabus">
+    <section class="section" id="materi">
+      <div class="container">
+        <div class="course-head">
+          <div>
+            <p class="section-kicker">Materi Kuliah</p>
+            <h2>Katalog materi HTML per mata kuliah</h2>
+            <p>Materi dari folder @Materi Kuliah disusun sebagai katalog digital agar mahasiswa dapat mencari dan membuka bahan ajar dengan cepat.</p>
+          </div>
+          <label class="search-field">
+            <span>Cari materi</span>
+            <input id="materialSearch" type="search" placeholder="Spasial, aktuaria, regresi, epidemiologi..." autocomplete="off" />
+          </label>
+        </div>
+        <div class="materials-toolbar">
+          <span><strong id="materialCount">25</strong> materi tampil</span>
+          <a href="#chatbot">Tanyakan materi ke chatbot</a>
+        </div>
+        <div class="material-list" id="materialRows" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section section-muted" id="silabus">
       <div class="container">
         <div class="course-head">
           <div>
@@ -251,9 +273,9 @@
         <div class="chat-copy">
           <p class="section-kicker">Chatbot Akademik</p>
           <h2>Tanya Kurikulum S2 Statistika Terapan</h2>
-          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, silabus mata kuliah, data lulusan, dan ringkasan administratif dari SMUP Program Magister.</p>
+          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, silabus mata kuliah, katalog materi HTML, data lulusan, dan ringkasan administratif dari SMUP Program Magister.</p>
           <div class="source-note">
-            <strong id="knowledgeCount">387</strong>
+            <strong id="knowledgeCount">412</strong>
             <span>potongan pengetahuan terindeks</span>
           </div>
         </div>
@@ -272,13 +294,14 @@
             <button type="button" data-q="Apa profil lulusan S2 Statistika Terapan?">Profil lulusan</button>
             <button type="button" data-q="Apa saja mata kuliah sains data?">Sains data</button>
             <button type="button" data-q="Apa silabus Pembelajaran Mesin?">Silabus ML</button>
+            <button type="button" data-q="Ada materi kuliah Analisis Spasial?">Materi HTML</button>
             <button type="button" data-q="Berikan contoh judul tesis lulusan tentang spasial">Tesis lulusan</button>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="message bot">
               <strong>Asisten Prodi</strong>
-              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, silabus, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
-              <small>Sumber utama: Kurikulum OBE 2026 dan data lulusan</small>
+              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, silabus, materi kuliah HTML, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
+              <small>Sumber utama: Kurikulum OBE 2026, data lulusan, dan katalog materi kuliah</small>
             </div>
           </div>
           <form class="chat-form" id="chatForm">
