@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S2 Statistika Terapan FMIPA Unpad</title>
-  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, data lulusan, silabus, dan materi kuliah HTML." />
+  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, panduan tesis, data lulusan, silabus, dan materi kuliah HTML." />
   <link rel="preload" href="assets/campus-hero.jpg" as="image" />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
@@ -28,6 +28,7 @@
       <nav class="nav-links" aria-label="Navigasi utama">
         <a href="#profil">Profil</a>
         <a href="#kurikulum">Kurikulum</a>
+        <a href="#panduan-tesis">Panduan</a>
         <a href="#mata-kuliah">Mata Kuliah</a>
         <a href="#materi">Materi</a>
         <a href="#lulusan">Lulusan</a>
@@ -129,6 +130,21 @@
             </ul>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="section" id="panduan-tesis">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Panduan Tesis</p>
+          <h2>Dokumen panduan penulisan dan pelaksanaan tesis.</h2>
+          <p>Rujukan resmi untuk penyusunan naskah tesis, Seminar Usulan Riset, Seminar Kemajuan Riset, dan Sidang Akhir Magister.</p>
+        </div>
+        <div class="guide-toolbar">
+          <span><strong id="thesisGuideCount">2</strong> dokumen panduan</span>
+          <a href="#chatbot">Tanyakan panduan ke chatbot</a>
+        </div>
+        <div class="guide-grid" id="thesisGuideRows" aria-live="polite"></div>
       </div>
     </section>
 
@@ -273,9 +289,9 @@
         <div class="chat-copy">
           <p class="section-kicker">Chatbot Akademik</p>
           <h2>Tanya Kurikulum S2 Statistika Terapan</h2>
-          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, silabus mata kuliah, katalog materi HTML, data lulusan, dan ringkasan administratif dari SMUP Program Magister.</p>
+          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, dan ringkasan administratif dari SMUP Program Magister.</p>
           <div class="source-note">
-            <strong id="knowledgeCount">412</strong>
+            <strong id="knowledgeCount">562</strong>
             <span>potongan pengetahuan terindeks</span>
           </div>
         </div>
@@ -295,13 +311,15 @@
             <button type="button" data-q="Apa saja mata kuliah sains data?">Sains data</button>
             <button type="button" data-q="Apa silabus Pembelajaran Mesin?">Silabus ML</button>
             <button type="button" data-q="Ada materi kuliah Analisis Spasial?">Materi HTML</button>
+            <button type="button" data-q="Apa panduan penulisan tesis?">Panduan tesis</button>
+            <button type="button" data-q="Bagaimana alur SUR, SKR, dan SAM?">SUR SKR SAM</button>
             <button type="button" data-q="Berikan contoh judul tesis lulusan tentang spasial">Tesis lulusan</button>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="message bot">
               <strong>Asisten Prodi</strong>
-              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, silabus, materi kuliah HTML, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
-              <small>Sumber utama: Kurikulum OBE 2026, data lulusan, dan katalog materi kuliah</small>
+              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
+              <small>Sumber utama: Kurikulum OBE 2026, panduan tesis, data lulusan, dan katalog materi kuliah</small>
             </div>
           </div>
           <form class="chat-form" id="chatForm">

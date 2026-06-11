@@ -5,6 +5,7 @@
   "scripts": {
     "build:syllabus": "node scripts/build-syllabus.mjs",
     "build:materials": "node scripts/build-materials.mjs",
+    "build:thesis-guides": "node scripts/build-thesis-guides.mjs",
     "dev": "node server.js",
     "start": "node server.js"
   },

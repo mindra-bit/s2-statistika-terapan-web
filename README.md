@@ -5,6 +5,7 @@ Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA
 ## Fitur Utama
 
 - Landing page profesional dengan visual kampus/prodi, profil program, struktur kurikulum, profil lulusan, dan daftar mata kuliah.
+- Seksi Panduan Tesis yang menampilkan dokumen penulisan tesis dan pelaksanaan SUR, SKR, serta SAM tanpa label tahun akademik pada website.
 - Tabel mata kuliah dengan pencarian dan filter kelompok: Wajib, Pilihan, Riset, Keterampilan Riset, dan Publikasi.
 - Halaman silabus yang menampilkan deskripsi, bahan kajian, dan referensi dari PDF Kurikulum S2 Statistika 2026.
 - Katalog materi kuliah HTML dari folder `@Materi Kuliah`, lengkap dengan pencarian, kartu materi, dan link pembuka per file.
@@ -29,9 +30,14 @@ Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA
 │   ├── knowledge_chunks.json
 │   ├── alumni.json
 │   ├── materials.json
+│   ├── thesis_guides.json
 │   └── syllabus.json
+├── dokumen/
+│   ├── panduan-pelaksanaan-tesis-sur-skr-sam-s2-statistika-terapan.pdf
+│   └── panduan-penulisan-tesis-s2-statistika-terapan.pdf
 ├── scripts/
 │   ├── build-materials.mjs
+│   ├── build-thesis-guides.mjs
 │   └── build-syllabus.mjs
 ├── @Materi Kuliah/
 ├── KURIKULUM S2 STATISTIKA 2026.pdf
@@ -99,6 +105,22 @@ npm run build:materials
 
 Perintah ini membuat ulang `data/materials.json` dan menambahkan indeks `material-*` ke `data/knowledge_chunks.json`, sehingga halaman Materi Kuliah dan chatbot bisa menemukan link materi HTML terbaru.
 
+## Memperbarui Panduan Tesis
+
+Simpan PDF publik dengan nama generik di folder:
+
+```text
+dokumen/
+```
+
+Lalu jalankan:
+
+```bash
+npm run build:thesis-guides
+```
+
+Perintah ini membuat ulang `data/thesis_guides.json` dan menambahkan indeks `thesis-guide-*` ke `data/knowledge_chunks.json`. Judul yang tampil di website memakai nama generik tanpa tahun akademik agar panduan dapat dipakai sebagai rujukan umum prodi.
+
 ## Cara Kerja Chatbot
 
 1. Pertanyaan pengguna diterima oleh `/api/chat`.
@@ -149,7 +171,8 @@ Langkah ringkas:
 Catatan penting:
 
 - GitHub Pages hanya menjalankan file statis. `server.js`, `/api/chat`, dan OpenAI API tidak berjalan di sana.
-- Chatbot tetap bisa menjawab dari `data/knowledge_chunks.json`, `data/syllabus.json`, `data/materials.json`, dan `data/alumni.json` dengan mode local static retrieval.
+- Chatbot tetap bisa menjawab dari `data/knowledge_chunks.json`, `data/syllabus.json`, `data/materials.json`, `data/thesis_guides.json`, dan `data/alumni.json` dengan mode local static retrieval.
 - Folder `@Materi Kuliah/` ikut di-upload ke repository agar link materi HTML bisa dibuka publik.
+- Folder `dokumen/` ikut di-upload ke repository agar panduan tesis dapat dibuka publik.
 - Jangan pernah menaruh `OPENAI_API_KEY` di file frontend seperti `index.html` atau `assets/app.js`.
 - Jika nanti ingin chatbot seperti ChatGPT, tetap perlu backend murah seperti Render, DigitalOcean App Platform, Railway, atau Cloudflare Workers.

@@ -1,0 +1,37 @@
+{
+  "source": "Panduan Tesis",
+  "generatedAt": "2026-06-11T00:07:34.592Z",
+  "total": 2,
+  "guides": [
+    {
+      "id": "panduan-penulisan-tesis",
+      "title": "Panduan Penulisan Tesis",
+      "description": "Pedoman struktur naskah, format penulisan, sitasi, bagian awal, bagian utama, bagian akhir, dan kelengkapan lampiran tesis.",
+      "href": "dokumen/panduan-penulisan-tesis-s2-statistika-terapan.pdf",
+      "pages": 94,
+      "sizeKb": 2568,
+      "topics": [
+        "Struktur naskah tesis",
+        "Format penulisan",
+        "Bagian awal, utama, dan akhir",
+        "Sitasi dan daftar pustaka",
+        "Lampiran dan kelengkapan administrasi"
+      ]
+    },
+    {
+      "id": "panduan-pelaksanaan-tesis",
+      "title": "Panduan Pelaksanaan Tesis SUR, SKR, dan SAM",
+      "description": "Pedoman alur pelaksanaan Seminar Usulan Riset, Seminar Kemajuan Riset, Sidang Akhir Magister, pembimbingan, penilaian, dan administrasi tesis.",
+      "href": "dokumen/panduan-pelaksanaan-tesis-sur-skr-sam-s2-statistika-terapan.pdf",
+      "pages": 26,
+      "sizeKb": 951,
+      "topics": [
+        "Seminar Usulan Riset",
+        "Seminar Kemajuan Riset",
+        "Sidang Akhir Magister",
+        "Pembimbingan dan pengujian",
+        "Administrasi dan penilaian tesis"
+      ]
+    }
+  ]
+}

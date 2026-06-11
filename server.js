@@ -26,6 +26,10 @@ const materialsPath = path.join(__dirname, "data", "materials.json");
 const materials = fs.existsSync(materialsPath)
   ? JSON.parse(fs.readFileSync(materialsPath, "utf8"))
   : { total: 0, materials: [], categories: [] };
+const thesisGuidesPath = path.join(__dirname, "data", "thesis_guides.json");
+const thesisGuides = fs.existsSync(thesisGuidesPath)
+  ? JSON.parse(fs.readFileSync(thesisGuidesPath, "utf8"))
+  : { total: 0, guides: [] };
 const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun s2 apa saja berapa".split(" "));
 const genericQueryTerms = new Set("silabus sylabus rps materi referensi deskripsi bahan kajian topik perkuliahan mata kuliah matakuliah course".split(" "));
 
@@ -136,8 +140,11 @@ function expandQuestion(question) {
   if (/(aktuaria|risiko|keuangan|antrian)/.test(text)) {
     expansions.push("aktuaria teori risiko matematika keuangan teori antrian");
   }
-  if (/(riset|tesis|sur|skr|publikasi)/.test(text)) {
-    expansions.push("seminar usulan riset seminar kemajuan riset publikasi sidang akhir magister tesis");
+  if (/(riset|tesis|sur|skr|sam|publikasi|sidang akhir|seminar usulan|seminar kemajuan)/.test(text)) {
+    expansions.push("seminar usulan riset seminar kemajuan riset sidang akhir magister publikasi tesis SUR SKR SAM");
+  }
+  if (/(panduan|penulisan tesis|format tesis|pelaksanaan tesis|proposal tesis|naskah tesis|bimbingan|penguji|sur|skr|sam)/.test(text)) {
+    expansions.push("panduan tesis penulisan tesis format tesis pelaksanaan tesis seminar usulan riset seminar kemajuan riset sidang akhir magister pembimbing penguji penilaian administrasi");
   }
   if (/(silabus|sylabus|rps|materi|referensi|bahan kajian)/.test(text)) {
     expansions.push("silabus rps deskripsi mata kuliah bahan kajian topik perkuliahan referensi");
@@ -159,11 +166,17 @@ function scoreChunk(question, chunk) {
   const text = normalize(chunk.text);
   let score = chunk.id?.startsWith("manual") ? 2 : 0;
   const asksAlumni = /alumni|lulusan|judul tesis|tesis lulusan|data lulusan|pembimbing/.test(normalizedQuestion);
+  const asksThesisGuide = (
+    (/tesis/.test(normalizedQuestion) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(normalizedQuestion))
+    || /panduan tesis|sur|skr|sam|sidang akhir|seminar usulan|seminar kemajuan/.test(normalizedQuestion)
+  ) && !(asksAlumni && !/panduan|format|penulisan|pelaksanaan|sur|skr|sam/.test(normalizedQuestion));
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
     && !/silabus|sylabus|rps/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
+  if (asksThesisGuide && chunk.id?.startsWith("thesis-guide-")) score += 160;
+  if (asksThesisGuide && chunk.id?.startsWith("alumni-")) score -= 70;
   if (asksMaterial && chunk.id?.startsWith("material-")) score += 160;
   if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
 
@@ -199,6 +212,22 @@ function scoreChunk(question, chunk) {
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
+  }
+
+  if (chunk.id?.startsWith("thesis-guide-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    const guideTitle = normalize(chunk.sourceTitle || chunk.title || "");
+    for (const token of originalTokens) {
+      if (guideTitle.includes(token)) score += 35;
+    }
+    const originalPhrase = originalTokens.join(" ");
+    if (originalPhrase.length > 4 && metadata.includes(originalPhrase)) score += 90;
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 18;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 50;
   }
 
   return score;
@@ -396,6 +425,43 @@ function materialAnswer(question, hits) {
   };
 }
 
+function findThesisGuide(question) {
+  const guides = thesisGuides.guides || [];
+  const text = normalize(question);
+  if (/penulisan|format|naskah|sitasi|daftar pustaka/.test(text)) {
+    return guides.find((guide) => guide.id === "panduan-penulisan-tesis") || null;
+  }
+  if (/pelaksanaan|sur|skr|sam|sidang|seminar usulan|seminar kemajuan/.test(text)) {
+    return guides.find((guide) => guide.id === "panduan-pelaksanaan-tesis") || null;
+  }
+  return null;
+}
+
+function thesisGuideAnswer(question) {
+  const text = normalize(question);
+  const asksOverview = /apa panduan|apa isi|dokumen panduan|daftar panduan|link panduan|buka panduan|download panduan|unduh panduan|panduan penulisan|panduan pelaksanaan/.test(text);
+  if (!asksOverview) return null;
+
+  const selected = findThesisGuide(question);
+  const guides = selected ? [selected] : (thesisGuides.guides || []);
+  if (!guides.length) return null;
+
+  const answer = guides
+    .map((guide) => [
+      `${guide.title}: ${guide.description}`,
+      "Topik utama:",
+      numberedList(guide.topics || [], 8),
+      `Dokumen: ${guide.href}`
+    ].join("\n"))
+    .join("\n\n");
+
+  return {
+    answer,
+    sources: guides.map((guide) => ({ title: guide.title, url: guide.href })),
+    mode: "server retrieval"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -405,6 +471,10 @@ function matchFact(question) {
   const asksDayaTampung = /daya tampung|kuota|kapasitas/.test(text);
   const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
+  const asksThesisGuide = (
+    (/tesis/.test(text) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(text))
+    || /panduan tesis|sur|skr|sam|sidang akhir|seminar usulan|seminar kemajuan/.test(text)
+  );
   const asksAlumniData = /alumni|judul tesis|tesis lulusan|data lulusan|tahun lulus|pembimbing/.test(text);
   if (asksDayaTampung) return facts.dayaTampungSmup;
   if (asksBiaya && asksPendaftaran) return facts.smupAdministrasi;
@@ -414,6 +484,7 @@ function matchFact(question) {
   if (asksSyarat) return facts.persyaratanSmup;
   if (asksSyllabus) return null;
   if (asksMaterial) return null;
+  if (asksThesisGuide) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return facts.rpl;
   if (/sks|jumlah kredit|beban studi/.test(text)) return facts.sks;
@@ -449,9 +520,11 @@ function localAnswer(question) {
   const hits = retrieve(question, 5);
   const structuredSyllabus = syllabusAnswer(question, hits);
   const structuredMaterial = materialAnswer(question, hits);
+  const structuredThesisGuide = thesisGuideAnswer(question);
 
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
+  if (structuredThesisGuide) return structuredThesisGuide;
 
   if (fact) {
     return {
@@ -477,7 +550,9 @@ function localAnswer(question) {
     ? "Saya menemukan data lulusan yang relevan:"
     : hits[0]?.id?.startsWith("material-")
       ? "Saya menemukan materi HTML yang relevan:"
-      : "Saya menemukan potongan knowledge base yang relevan:";
+      : hits[0]?.id?.startsWith("thesis-guide-")
+        ? "Saya menemukan panduan tesis yang relevan:"
+        : "Saya menemukan potongan knowledge base yang relevan:";
   const answer = [
     intro,
     "",
@@ -498,6 +573,7 @@ app.get("/api/health", (_req, res) => {
     syllabus: syllabus.length,
     alumni: alumni?.summary?.total || 0,
     materials: materials.total || materials.materials?.length || 0,
+    thesisGuides: thesisGuides.total || thesisGuides.guides?.length || 0,
     apiReady: Boolean(client),
     model: client ? model : null
   });
@@ -515,13 +591,17 @@ app.get("/api/materials", (_req, res) => {
   res.json(materials);
 });
 
+app.get("/api/thesis-guides", (_req, res) => {
+  res.json(thesisGuides);
+});
+
 app.post("/api/chat", async (req, res) => {
   const question = String(req.body?.question || "").trim();
   if (!question) return res.status(400).json({ error: "Pertanyaan tidak boleh kosong." });
 
   const fact = matchFact(question);
   const hits = retrieve(question, 8);
-  const directAnswer = syllabusAnswer(question, hits) || materialAnswer(question, hits);
+  const directAnswer = syllabusAnswer(question, hits) || materialAnswer(question, hits) || thesisGuideAnswer(question);
 
   if (directAnswer) {
     return res.json({
@@ -555,6 +635,7 @@ app.post("/api/chat", async (req, res) => {
         "Jika konteks tidak memuat informasi yang ditanyakan, katakan belum tersedia dan sarankan menghubungi admin prodi.",
         "Jangan mengarang biaya, jadwal PMB, link pendaftaran, atau RPL.",
         "Jika pengguna menanyakan silabus/RPS mata kuliah, susun jawaban dari deskripsi, bahan kajian, dan referensi yang tersedia.",
+        "Jika pengguna menanyakan panduan tesis, format penulisan tesis, SUR, SKR, atau SAM, jawab berdasarkan konteks Panduan Penulisan Tesis dan Panduan Pelaksanaan Tesis.",
         "Gunakan bahasa Indonesia yang profesional, ringkas, dan sertakan rujukan halaman bila tersedia."
       ].join(" "),
       input: `Pertanyaan pengguna:\n${question}\n\nKonteks knowledge base:\n${contextParts.join("\n\n") || "Tidak ada konteks yang ditemukan."}`

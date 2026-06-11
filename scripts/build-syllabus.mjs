@@ -332,6 +332,8 @@ const existingChunks = fs.existsSync(chunksPath)
   ? JSON.parse(fs.readFileSync(chunksPath, "utf8"))
   : [];
 const retainedSmupChunks = existingChunks.filter((chunk) => String(chunk.id || "").startsWith("smup-"));
+const retainedMaterialChunks = existingChunks.filter((chunk) => String(chunk.id || "").startsWith("material-"));
+const retainedThesisGuideChunks = existingChunks.filter((chunk) => String(chunk.id || "").startsWith("thesis-guide-"));
 const pageChunks = buildPageChunks(text);
 const alumniChunks = buildAlumniChunks();
 const syllabusChunks = syllabus.map(buildSyllabusChunk);
@@ -339,10 +341,12 @@ const rebuiltChunks = [
   ...manualChunks,
   ...pageChunks,
   ...retainedSmupChunks,
+  ...retainedMaterialChunks,
+  ...retainedThesisGuideChunks,
   ...alumniChunks,
   ...syllabusChunks
 ];
 
 fs.writeFileSync(chunksPath, `${JSON.stringify(rebuiltChunks, null, 2)}\n`);
 
-console.log(`Berhasil membangun ${syllabus.length} silabus, ${pageChunks.length} chunk PDF 2026, ${alumniChunks.length} chunk alumni, dan ${retainedSmupChunks.length} chunk SMUP.`);
+console.log(`Berhasil membangun ${syllabus.length} silabus, ${pageChunks.length} chunk PDF 2026, ${alumniChunks.length} chunk alumni, ${retainedSmupChunks.length} chunk SMUP, ${retainedMaterialChunks.length} chunk materi, dan ${retainedThesisGuideChunks.length} chunk panduan tesis.`);
