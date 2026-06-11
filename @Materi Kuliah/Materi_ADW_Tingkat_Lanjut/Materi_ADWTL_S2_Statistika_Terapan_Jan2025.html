@@ -3327,6 +3327,39 @@ hr {
 }
 </style>
 <script>
+window.MathJax = {
+  tex: {
+    inlineMath: [["\\(", "\\)"], ["$", "$"]],
+    displayMath: [["\\[", "\\]"], ["$$", "$$"]],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: "ams"
+  },
+  options: {
+    skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+    ignoreHtmlClass: "tex2jax_ignore"
+  },
+  chtml: {
+    fontURL: "../../assets/vendor/mathjax/output/chtml/fonts/woff-v2"
+  },
+  startup: {
+    typeset: true
+  }
+};
+
+(function () {
+  var script = document.createElement("script");
+  script.src = "../../assets/vendor/mathjax/tex-mml-chtml.js";
+  script.async = true;
+  script.onerror = function () {
+    var fallback = document.createElement("script");
+    fallback.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+    fallback.async = true;
+    document.head.appendChild(fallback);
+  };
+  document.head.appendChild(script);
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("table").forEach(function (table) {
     if (table.parentElement && table.parentElement.classList.contains("s2-table-scroll")) return;
@@ -11057,16 +11090,6 @@ $(document).ready(function ()  {
     // tocify
     var toc = $("#TOC").tocify(options).data("toc-tocify");
 });
-</script>
-
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
 </script>
 
 </body>

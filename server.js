@@ -38,7 +38,7 @@ const curriculumDocsPath = path.join(__dirname, "data", "curriculum_docs.json");
 const curriculumDocs = fs.existsSync(curriculumDocsPath)
   ? JSON.parse(fs.readFileSync(curriculumDocsPath, "utf8"))
   : { total: 0, documents: [] };
-const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun s2 apa saja berapa".split(" "));
+const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun prodi pertanyaan jawaban jawab chatbot chatboot luar s2 apa saja berapa".split(" "));
 const genericQueryTerms = new Set("silabus sylabus rps materi referensi deskripsi bahan kajian topik perkuliahan mata kuliah matakuliah course".split(" "));
 
 const facts = {
@@ -135,6 +135,18 @@ function tokenize(value) {
     .filter((token) => token.length > 2 && !stopwords.has(token));
 }
 
+function escapeRegExp(value) {
+  return String(value).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function wholeTokenMatches(text, token) {
+  return text.match(new RegExp(`\\b${escapeRegExp(token)}\\b`, "g")) || [];
+}
+
+function hasWholeToken(text, token) {
+  return wholeTokenMatches(text, token).length > 0;
+}
+
 function expandQuestion(question) {
   const text = normalize(question);
   const expansions = [];
@@ -178,7 +190,7 @@ function scoreChunk(question, chunk) {
   const tokens = [...new Set(tokenize(expandQuestion(question)))];
   const originalTokens = tokenize(question).filter((token) => !genericQueryTerms.has(token));
   const text = normalize(chunk.text);
-  let score = chunk.id?.startsWith("manual") ? 2 : 0;
+  let score = 0;
   const asksAlumni = /alumni|lulusan|judul tesis|tesis lulusan|data lulusan|pembimbing/.test(normalizedQuestion);
   const asksThesisGuide = (
     (/tesis/.test(normalizedQuestion) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(normalizedQuestion))
@@ -201,8 +213,7 @@ function scoreChunk(question, chunk) {
   if (asksCurriculumDoc && chunk.id?.startsWith("syllabus-")) score -= 50;
 
   for (const token of tokens) {
-    if (text.includes(token)) score += 4;
-    const matches = text.match(new RegExp(`\\b${token}\\b`, "g"));
+    const matches = wholeTokenMatches(text, token);
     if (matches) score += Math.min(matches.length, 6);
   }
 
@@ -218,7 +229,7 @@ function scoreChunk(question, chunk) {
     }
     const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
     for (const token of specificTokens) {
-      if (metadata.includes(token)) score += 20;
+      if (hasWholeToken(metadata, token)) score += 20;
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 55;
@@ -228,7 +239,7 @@ function scoreChunk(question, chunk) {
     const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
     const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
     for (const token of specificTokens) {
-      if (metadata.includes(token)) score += 22;
+      if (hasWholeToken(metadata, token)) score += 22;
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
@@ -239,12 +250,12 @@ function scoreChunk(question, chunk) {
     const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
     const guideTitle = normalize(chunk.sourceTitle || chunk.title || "");
     for (const token of originalTokens) {
-      if (guideTitle.includes(token)) score += 35;
+      if (hasWholeToken(guideTitle, token)) score += 35;
     }
     const originalPhrase = originalTokens.join(" ");
     if (originalPhrase.length > 4 && metadata.includes(originalPhrase)) score += 90;
     for (const token of specificTokens) {
-      if (metadata.includes(token)) score += 18;
+      if (hasWholeToken(metadata, token)) score += 18;
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 50;
@@ -254,7 +265,7 @@ function scoreChunk(question, chunk) {
     const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
     const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
     for (const token of specificTokens) {
-      if (metadata.includes(token)) score += 20;
+      if (hasWholeToken(metadata, token)) score += 20;
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
@@ -264,13 +275,13 @@ function scoreChunk(question, chunk) {
     const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
     const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
     for (const token of specificTokens) {
-      if (metadata.includes(token)) score += 22;
+      if (hasWholeToken(metadata, token)) score += 22;
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 70;
   }
 
-  return score;
+  return score > 0 && chunk.id?.startsWith("manual") ? score + 2 : score;
 }
 
 function retrieve(question, limit = 8) {
@@ -327,6 +338,42 @@ function numberedList(items = [], limit = 14) {
     .join("\n");
 }
 
+function capabilityAnswer(question, language = "id") {
+  const text = normalize(question);
+  const asksCapability = /chatbot|chatboot|bisa apa|bisa jawab|pertanyaan apa|contoh pertanyaan|bantuan|help|what can|can you|examples/.test(text);
+  if (!asksCapability) return null;
+
+  const answer = language === "en"
+    ? [
+      "I can answer questions using the website knowledge base, including:",
+      "1. 2026 curriculum, credits, study pathways, RPL, CPL, and graduate profiles.",
+      "2. Course syllabi, topics, references, and HTML learning materials.",
+      "3. Thesis guides, SUR, SKR, and Master's Final Defense.",
+      "4. Graduate thesis data, tracer study reports, curriculum PDF archives, fees, and SMUP admissions.",
+      "",
+      client
+        ? "Generative API mode is active, but answers remain grounded in the program knowledge base."
+        : "Free-form answers outside the program knowledge base require enabling a generative AI API on the server."
+    ].join("\n")
+    : [
+      "Saya bisa menjawab pertanyaan berdasarkan knowledge base website, terutama:",
+      "1. Kurikulum 2026, SKS, jalur studi, RPL, CPL, dan profil lulusan.",
+      "2. Silabus mata kuliah, bahan kajian, referensi, dan materi HTML.",
+      "3. Panduan tesis, SUR, SKR, dan Sidang Akhir Magister.",
+      "4. Data tesis lulusan, tracer study, arsip PDF kurikulum, biaya, dan pendaftaran SMUP.",
+      "",
+      client
+        ? "Mode API generatif sedang aktif, tetapi jawaban tetap ditambatkan pada knowledge base prodi."
+        : "Untuk jawaban bebas di luar knowledge base prodi, API AI generatif perlu diaktifkan pada server."
+    ].join("\n");
+
+  return {
+    answer,
+    sources: [{ title: language === "en" ? "Website knowledge base" : "Knowledge base website" }],
+    mode: client ? "OpenAI API + retrieval" : "Knowledge base server"
+  };
+}
+
 function syllabusAnswer(question, hits) {
   const text = normalize(question);
   const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
@@ -345,7 +392,7 @@ function syllabusAnswer(question, hits) {
         numberedList(entry.references, 10) || "Referensi belum tersedia dalam data silabus."
       ].join("\n\n"),
       sources,
-      mode: "server retrieval"
+      mode: "Knowledge base server"
     };
   }
 
@@ -362,7 +409,7 @@ function syllabusAnswer(question, hits) {
       numberedList(entry.references, 10) || "Referensi belum tersedia dalam data silabus."
     ].join("\n"),
     sources,
-    mode: "server retrieval"
+    mode: "Knowledge base server"
   };
 }
 
@@ -391,7 +438,7 @@ function materialScore(question, material) {
   const haystack = normalize([material.title, material.category, material.folder, material.file].join(" "));
   let score = 0;
   for (const token of queryTokens) {
-    if (haystack.includes(token)) score += 1;
+    if (hasWholeToken(haystack, token)) score += 1;
   }
   const category = normalize(material.category);
   const title = normalize(material.title);
@@ -445,7 +492,7 @@ function materialAnswer(question, hits) {
         `Link: ${material.viewerHref || material.href}`
       ].join("\n"),
       sources: [{ title: `Materi HTML ${material.title}`, url: material.viewerHref || material.href }],
-      mode: "server retrieval"
+      mode: "Knowledge base server"
     };
   }
 
@@ -461,7 +508,7 @@ function materialAnswer(question, hits) {
   return {
     answer: `Saat ini tersedia ${total} materi HTML di katalog Materi Kuliah. Beberapa materi yang bisa dibuka:\n\n${list}`,
     sources,
-    mode: "server retrieval"
+    mode: "Knowledge base server"
   };
 }
 
@@ -499,7 +546,7 @@ function thesisGuideAnswer(question) {
   return {
     answer,
     sources: guides.map((guide) => ({ title: guide.title, url: guide.href })),
-    mode: "server retrieval"
+    mode: "Knowledge base server"
   };
 }
 
@@ -533,7 +580,7 @@ function tracerStudyAnswer(question, hits = []) {
   return {
     answer,
     sources: reports.map((report) => ({ title: report.title, url: report.href })),
-    mode: "server retrieval"
+    mode: "Knowledge base server"
   };
 }
 
@@ -571,8 +618,7 @@ function findCurriculumDoc(question, hits = []) {
 
 function curriculumDocAnswer(question, hits = [], language = "id") {
   const text = normalize(question);
-  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(text)
-    || hits.some((hit) => String(hit.id || "").startsWith("curriculum-doc-"));
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(text);
   if (!asksCurriculumDoc) return null;
 
   const selected = findCurriculumDoc(question, hits);
@@ -601,7 +647,7 @@ function curriculumDocAnswer(question, hits = [], language = "id") {
   return {
     answer,
     sources: docs.map((doc) => ({ title: curriculumDocTitle(doc, language), url: doc.href })),
-    mode: "server retrieval"
+    mode: "Knowledge base server"
   };
 }
 
@@ -663,6 +709,9 @@ function uniqueSources(sources) {
 }
 
 function localAnswer(question, language = "id") {
+  const capabilities = capabilityAnswer(question, language);
+  if (capabilities) return capabilities;
+
   const fact = matchFact(question);
   const hits = retrieve(question, 5);
   const structuredSyllabus = syllabusAnswer(question, hits);
@@ -685,15 +734,17 @@ function localAnswer(question, language = "id") {
           ? fact.sources
           : hits.map(sourceFromHit)
       ),
-      mode: "server retrieval"
+      mode: "Knowledge base server"
     };
   }
 
   if (!hits.length) {
     return {
-      answer: "Saya belum menemukan informasi tersebut dalam knowledge base kurikulum. Untuk jawaban resmi, tambahkan dokumen terkait ke folder data lalu indeks ulang knowledge base.",
+      answer: language === "en"
+        ? "I have not found that information in the program knowledge base. I can answer the curriculum, syllabi, HTML learning materials, thesis guides, graduate data, tracer studies, curriculum documents, fees, and admissions that have been indexed. Free-form answers outside this knowledge base require enabling a generative AI API on the server."
+        : "Saya belum menemukan informasi tersebut dalam knowledge base prodi. Saat ini saya bisa menjawab kurikulum, silabus, materi HTML, panduan tesis, data lulusan, tracer study, dokumen kurikulum, biaya, dan pendaftaran yang sudah terindeks. Jawaban bebas di luar knowledge base memerlukan API AI generatif yang aktif di server.",
       sources: [],
-      mode: "server retrieval"
+      mode: "Knowledge base server"
     };
   }
 
@@ -717,7 +768,7 @@ function localAnswer(question, language = "id") {
   return {
     answer,
     sources: uniqueSources(hits.map(sourceFromHit)),
-    mode: "server retrieval"
+    mode: "Knowledge base server"
   };
 }
 
@@ -764,6 +815,9 @@ app.post("/api/chat", async (req, res) => {
   const question = String(req.body?.question || "").trim();
   const language = req.body?.language === "en" ? "en" : "id";
   if (!question) return res.status(400).json({ error: "Pertanyaan tidak boleh kosong." });
+
+  const capabilities = capabilityAnswer(question, language);
+  if (capabilities) return res.json(capabilities);
 
   const fact = matchFact(question);
   const hits = retrieve(question, 8);
@@ -823,7 +877,7 @@ app.post("/api/chat", async (req, res) => {
     const fallback = localAnswer(question, language);
     res.json({
       ...fallback,
-      mode: "fallback server retrieval",
+      mode: "Knowledge base server fallback",
       warning: error.message
     });
   }

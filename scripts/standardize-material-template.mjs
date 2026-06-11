@@ -4,6 +4,7 @@ import path from "path";
 const rootDir = process.cwd();
 const materialsDir = path.join(rootDir, "@Materi Kuliah");
 const enhancementEnd = "<!-- END UNPAD MATERIAL ENHANCEMENT -->";
+const legacyMathJaxPattern = /<!-- dynamically load mathjax for compatibility with self-contained -->\s*<script>[\s\S]*?mathjax\.rstudio\.com\/latest\/MathJax\.js\?config=TeX-AMS-MML_HTMLorMML[\s\S]*?<\/script>\s*/gi;
 
 const standardStyle = `<style>
 html, body {
@@ -228,6 +229,39 @@ hr {
 </style>`;
 
 const standardBehavior = `<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [["\\\\(", "\\\\)"], ["$", "$"]],
+    displayMath: [["\\\\[", "\\\\]"], ["$$", "$$"]],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: "ams"
+  },
+  options: {
+    skipHtmlTags: ["script", "noscript", "style", "textarea", "pre", "code"],
+    ignoreHtmlClass: "tex2jax_ignore"
+  },
+  chtml: {
+    fontURL: "../../assets/vendor/mathjax/output/chtml/fonts/woff-v2"
+  },
+  startup: {
+    typeset: true
+  }
+};
+
+(function () {
+  var script = document.createElement("script");
+  script.src = "../../assets/vendor/mathjax/tex-mml-chtml.js";
+  script.async = true;
+  script.onerror = function () {
+    var fallback = document.createElement("script");
+    fallback.src = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js";
+    fallback.async = true;
+    document.head.appendChild(fallback);
+  };
+  document.head.appendChild(script);
+})();
+
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("table").forEach(function (table) {
     if (table.parentElement && table.parentElement.classList.contains("s2-table-scroll")) return;
@@ -255,12 +289,14 @@ function standardizeFile(filePath) {
     throw new Error(`Missing enhancement marker: ${filePath}`);
   }
 
-  let html = original.replace(/<html(?:\s[^>]*)?>/i, '<html lang="id" xml:lang="id">');
+  let html = original
+    .replace(/<html(?:\s[^>]*)?>/i, '<html lang="id" xml:lang="id">')
+    .replace(legacyMathJaxPattern, "");
   const markerPattern = new RegExp(
     `${enhancementEnd.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*(?:<style[\\s\\S]*?<\\/style>\\s*)?(?:<script>[\\s\\S]*?<\\/script>\\s*)?`,
     "i",
   );
-  html = html.replace(markerPattern, `${enhancementEnd}\n${standardStyle}\n${standardBehavior}\n`);
+  html = html.replace(markerPattern, () => `${enhancementEnd}\n${standardStyle}\n${standardBehavior}\n`);
 
   if (html !== original) {
     fs.writeFileSync(filePath, html);
