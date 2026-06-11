@@ -100,10 +100,11 @@ Simpan file HTML materi di dalam folder:
 Setiap subfolder dapat berisi satu atau lebih file `.html` beserta aset pendukungnya. Setelah menambah atau mengganti materi, jalankan:
 
 ```bash
+npm run standardize:materials
 npm run build:materials
 ```
 
-Perintah ini membuat ulang `data/materials.json` dan menambahkan indeks `material-*` ke `data/knowledge_chunks.json`, sehingga halaman Materi Kuliah dan chatbot bisa menemukan link materi HTML terbaru.
+Perintah pertama menyeragamkan template visual semua HTML materi mengikuti standar ADWTL. Perintah kedua membuat ulang `data/materials.json` dan menambahkan indeks `material-*` ke `data/knowledge_chunks.json`, sehingga halaman Materi Kuliah dan chatbot bisa menemukan link materi HTML terbaru.
 
 ## Memperbarui Panduan Tesis
 

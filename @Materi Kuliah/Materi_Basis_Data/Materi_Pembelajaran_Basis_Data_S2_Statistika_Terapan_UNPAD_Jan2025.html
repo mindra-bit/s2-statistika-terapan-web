@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="id" xml:lang="id">
 
 <head>
 
@@ -3128,40 +3128,237 @@ serta komunikasi hasil secara ilmiah.</p>
 </div>
 <!-- END UNPAD MATERIAL ENHANCEMENT -->
 <style>
-:root{
---brown-900:#3b2116; --brown-800:#5a3321; --brown-700:#7a4a2e;
---brown-600:#9b6843; --brown-500:#b9875a; --brown-300:#e8cfb4;
---brown-200:#f3e2d3; --cream:#fff8ee; --ink:#15110e; --muted:#5e5148;
+html, body {
+  background: linear-gradient(135deg, #f8fbfd 0%, #fffdf8 48%, #f3f6ee 100%) !important;
+  color: #172033 !important;
 }
-html, body { background: linear-gradient(135deg, #fff8ee 0%, #f8ead9 35%, #eed1b4 100%); color: var(--ink); }
-body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; line-height: 1.72; font-size: 16.5px; }
-h1, h2, h3, h4 { color: var(--brown-900); font-weight: 800; letter-spacing: .1px; }
-h1.title { color: #fff; background: linear-gradient(120deg, #3b2116, #8a5735, #d7a56e); padding: 32px; border-radius: 26px; box-shadow: 0 12px 32px rgba(70, 38, 20, .22); }
-.subtitle, .author, .date { color: var(--brown-800); font-weight: 650; }
-#TOC, .tocify { background: rgba(255,248,238,.96); border: 1px solid #d8b28a; border-radius: 18px; box-shadow: 0 8px 24px rgba(68,37,18,.16); padding: 12px; }
-.tocify .tocify-item a, #TOC a { color: var(--brown-800); }
-a { color: #7a3f1d; font-weight: 650; }
-.section.level1, .section.level2, .section.level3 { scroll-margin-top: 18px; }
-.hero-card { background: linear-gradient(135deg, #4a2a1a 0%, #8b5a35 45%, #e3b278 100%); color: #fff; padding: 28px; border-radius: 28px; margin: 22px 0 28px; box-shadow: 0 10px 30px rgba(80,42,18,.25); }
-.hero-card strong { color:#fff7de; }
-.info-box, .case-box, .task-box, .warning-box, .reading-box, .summary-box { border-radius: 20px; padding: 20px 24px; margin: 22px 0; box-shadow: 0 6px 20px rgba(80,42,18,.08); }
-.info-box { background: linear-gradient(135deg, #fff6e9, #f3dcc4); border-left: 8px solid #9b6843; }
-.case-box { background: #fffaf2; border: 1px solid #d5aa7b; }
-.task-box { background: linear-gradient(135deg, #f7e5ce, #fff8ee); border-left: 8px solid #b98052; }
-.warning-box { background: #fff0df; border-left: 8px solid #7a3d20; }
-.reading-box { background: #f7eadc; border-left: 8px solid #c39162; }
-.summary-box { background: linear-gradient(135deg, #fffaf2, #ead0b2); border: 1px solid #d1aa83; }
-.formula { background: var(--brown-200); color: #000; border: 1px solid #d8b28a; padding: 16px 18px; margin: 18px 0; border-radius: 18px; overflow-x:auto; box-shadow: inset 0 0 0 1px rgba(255,255,255,.55); }
-pre, pre.sourceCode, div.sourceCode pre { background: #f3e2d3 !important; color: #000 !important; border: 1px solid #d0aa84; border-radius: 16px; padding: 16px; }
-code { background: #f3e2d3; color: #000; border-radius: 6px; padding: 2px 5px; }
-table { width: 100%; border-collapse: collapse; margin: 18px 0; background: #fffaf2; border-radius: 14px; overflow:hidden; }
-th { background: #7a4a2e; color: #fff; }
-th, td { padding: 10px 12px; border: 1px solid #d8b28a; vertical-align: top; }
-blockquote { border-left: 7px solid #9b6843; background: #fff8ee; padding: 12px 18px; color: #392316; border-radius: 12px; }
-.diagram { background: #fffaf2; border: 1px solid #d5aa7b; border-radius: 20px; padding: 18px; margin: 24px 0; text-align:center; }
-.badge { display: inline-block; background:#7a4a2e; color:#fff; border-radius:999px; padding:4px 10px; font-size:.85em; margin-right:6px; }
-hr { border: 0; height: 2px; background: linear-gradient(90deg, transparent, #b9875a, transparent); margin: 32px 0; }
+body {
+  font-family: "Segoe UI", Arial, sans-serif !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+  margin: 0 !important;
+  overflow-x: hidden !important;
+}
+.main-container {
+  max-width: 1180px !important;
+  margin-top: 18px !important;
+  margin-bottom: 38px !important;
+  padding: 34px 46px 54px !important;
+  background: rgba(255, 253, 248, 0.98) !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 18px 42px rgba(23, 57, 92, 0.12) !important;
+  overflow-x: hidden !important;
+}
+h1, h2, h3, h4 {
+  color: #17395c !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.24 !important;
+}
+h1.title {
+  color: #17395c !important;
+  -webkit-text-fill-color: #17395c !important;
+  background: none !important;
+  border-bottom: 4px solid #f2a51a !important;
+  padding-bottom: 14px !important;
+}
+h2 {
+  margin-top: 46px !important;
+  padding: 12px 18px !important;
+  border-left: 8px solid #f2a51a !important;
+  border-radius: 8px !important;
+  background: linear-gradient(90deg, #eef8f6, #fff8e7) !important;
+}
+.unpad-cover h2 {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  background: #fffdf8 !important;
+  border-left: 8px solid #f2a51a !important;
+  border-bottom: 0 !important;
+}
+h3 {
+  margin-top: 30px !important;
+}
+a {
+  color: #0b5c86 !important;
+}
+img, svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 18px 0 26px !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+}
+.s2-table-scroll {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  margin: 18px 0 26px !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+}
+.s2-table-scroll table {
+  min-width: 680px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+th {
+  background: #17395c !important;
+  color: #ffffff !important;
+  padding: 10px 12px !important;
+}
+td {
+  background: #fffdf8 !important;
+  border: 1px solid #d7e2ea !important;
+  padding: 10px 12px !important;
+  vertical-align: top !important;
+}
+.main-container p, .main-container li, td, th {
+  overflow-wrap: anywhere !important;
+}
+pre {
+  overflow: auto !important;
+  padding: 16px !important;
+  background: #eef5f8 !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  color: #111827 !important;
+}
+code {
+  background: #eef5f8 !important;
+  border-radius: 6px !important;
+  color: #111827 !important;
+  padding: 2px 5px !important;
+}
+span.math.display, .math.display, .MathJax_Display, .MathJax, mjx-container {
+  display: block !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+blockquote {
+  margin: 22px 0 !important;
+  padding: 16px 20px !important;
+  background: #fff8e7 !important;
+  border-left: 8px solid #0f766e !important;
+  border-radius: 0 8px 8px 0 !important;
+}
+#TOC, .tocify {
+  background: #ffffff !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 28px rgba(23, 57, 92, 0.10) !important;
+}
+.tocify {
+  max-height: calc(100vh - 40px) !important;
+}
+.tocify .active, #TOC .active {
+  background: linear-gradient(90deg, #17395c, #0f766e) !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+}
+#TOC a, .tocify a {
+  color: #17395c !important;
+  text-decoration: none !important;
+}
+#TOC a:hover, .tocify a:hover {
+  color: #0f766e !important;
+  text-decoration: underline !important;
+}
+.hero, .rps-box, .rpsbox, .info-card, .card,
+.callout, .note, .casebox, .case-box, .examplebox, .exercise-box,
+.learning-box, .activitybox, .activity, .practice-box, .praktik-box,
+.praktikum, .tujuan, .interpretasi, .refleksi, .warning, .warningbox,
+.warning-box, .tip, .idea-box, .mathbox, .formula-box, .rumus-box,
+.contoh-box, .rubric-box {
+  margin: 22px 0 !important;
+  padding: 20px 24px !important;
+  background: #fffdf8 !important;
+  border: 1px solid #d7e2ea !important;
+  border-left: 8px solid #0f766e !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 24px rgba(23, 57, 92, 0.10) !important;
+  color: #172033 !important;
+}
+.hero {
+  background: linear-gradient(135deg, #17395c 0%, #0f766e 62%, #f2a51a 100%) !important;
+  color: #ffffff !important;
+  border-left: 0 !important;
+}
+.hero h1, .hero h2, .hero h3, .hero h4, .hero p, .hero strong {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.warning, .warningbox, .warning-box {
+  border-left-color: #b45309 !important;
+  background: #fff8e7 !important;
+}
+.rps-box, .rpsbox, .rubric-box {
+  border-left-color: #f2a51a !important;
+  background: linear-gradient(135deg, #fffdf8, #fff8e7) !important;
+}
+.mathbox, .formula-box, .rumus-box {
+  border-left-color: #17395c !important;
+  background: #eef5f8 !important;
+}
+.badge {
+  display: inline-block !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  background: #17395c !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.85em !important;
+}
+.grid-2, .grid-3 {
+  display: grid !important;
+  gap: 18px !important;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+hr {
+  border: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, #d7e2ea, transparent) !important;
+  margin: 34px 0 !important;
+}
+@media (max-width: 980px) {
+  #TOC, .tocify {
+    position: relative !important;
+    width: auto !important;
+    max-height: 360px !important;
+    margin: 12px !important;
+  }
+  .main-container {
+    margin: 12px !important;
+    padding: 24px !important;
+  }
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("table").forEach(function (table) {
+    if (table.parentElement && table.parentElement.classList.contains("s2-table-scroll")) return;
+    var wrapper = document.createElement("div");
+    wrapper.className = "s2-table-scroll";
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+});
+</script>
 <div class="hero-card">
 <h2>
 Basis Data untuk Riset Statistik Terapan

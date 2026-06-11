@@ -3130,34 +3130,237 @@ serta komunikasi hasil secara ilmiah.</p>
 </div>
 <!-- END UNPAD MATERIAL ENHANCEMENT -->
 <style>
-:root{
---brown-900:#3a1f0f; --brown-800:#5b351a; --brown-700:#7b4b26; --brown-600:#9c6b3d;
---brown-500:#b98452; --brown-300:#e1c39b; --brown-200:#f0ddc2; --brown-100:#fbf3e8;
---cream:#fffaf2; --gold:#d6a246; --ink:#1f1a17; --muted:#665246;
+html, body {
+  background: linear-gradient(135deg, #f8fbfd 0%, #fffdf8 48%, #f3f6ee 100%) !important;
+  color: #172033 !important;
 }
-body{
-color:var(--ink);
-font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-background: linear-gradient(135deg, #fff8ed 0%, #f7e6cf 35%, #ead0aa 70%, #d8b17b 100%);
-line-height:1.68;
+body {
+  font-family: "Segoe UI", Arial, sans-serif !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+  margin: 0 !important;
+  overflow-x: hidden !important;
 }
-.main-container{max-width:1120px;margin-left:320px;margin-right:auto;background:rgba(255,250,242,.92);padding:38px 46px;border-radius:24px;box-shadow:0 18px 55px rgba(58,31,15,.20);}
-h1,h2,h3,h4{font-weight:800;letter-spacing:.2px;color:var(--brown-900);} h1.title{font-size:2.3rem;text-align:left;padding:30px 34px;border-radius:26px;color:#fff;background:linear-gradient(135deg,#3a1f0f,#8c5a2e,#d6a246);box-shadow:0 14px 34px rgba(58,31,15,.26);} h2{border-left:9px solid var(--gold);padding-left:14px;margin-top:46px;background:linear-gradient(90deg,#f0ddc2,transparent);padding-top:10px;padding-bottom:10px;border-radius:12px;}
-h3{margin-top:30px;color:var(--brown-800);} a{color:#7a3e05;font-weight:700;} a:hover{color:#b26714;}
-#TOC{position:fixed;left:18px;top:18px;width:275px;max-height:94vh;overflow:auto;background:linear-gradient(180deg,#fff8ed,#edd5b2);border:1px solid #d8b17b;border-radius:22px;padding:18px;box-shadow:0 12px 35px rgba(58,31,15,.22);font-size:.91rem;}
-#TOC::before{content:"📚 Daftar Isi";display:block;font-weight:900;color:#4c2d17;font-size:1.15rem;margin-bottom:10px;}
-#TOC ul{padding-left:17px;} #TOC li{margin:5px 0;}
-pre, .sourceCode, pre.sourceCode{background:#f7ead8 !important;color:#111 !important;border:1px solid #dfc39f;border-radius:16px;padding:16px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.65);} code{background:#f7ead8;color:#111;border-radius:6px;padding:2px 5px;}
-.mathbox{background:#fff0d9;border-left:7px solid #c4863b;color:#111;border-radius:18px;padding:16px 20px;margin:20px 0;box-shadow:0 8px 18px rgba(83,48,22,.12);} .callout, .examplebox, .casebox, .rpsbox{border-radius:20px;padding:18px 22px;margin:21px 0;box-shadow:0 9px 28px rgba(58,31,15,.13);} .callout{background:linear-gradient(135deg,#fffaf2,#f3dfc1);border-left:8px solid #a86a2f;}
-.examplebox{background:linear-gradient(135deg,#fff3dd,#f7d7a8);border-left:8px solid #d28b32;}
-.casebox{background:linear-gradient(135deg,#f5e4cc,#ead0aa);border-left:8px solid #7b4b26;}
-.rpsbox{background:linear-gradient(135deg,#fdf7ed,#ecd0a7);border:1px solid #c59a62;}
-table{border-collapse:collapse;width:100%;margin:20px 0;background:#fffaf2;border-radius:15px;overflow:hidden;box-shadow:0 5px 18px rgba(58,31,15,.08);} th{background:#70411f;color:#fff;padding:10px;}td{padding:10px;border-bottom:1px solid #ead4b7;}tr:nth-child(even){background:#fbefdF;}
-blockquote{background:#fff0d9;border-left:8px solid #b98452;padding:14px 22px;border-radius:14px;color:#3a1f0f;}
-hr{border:none;border-top:2px dashed #caa272;margin:35px 0;}
-.figure-note{font-size:.92rem;color:var(--muted);font-style:italic;}
-@media(max-width:980px){.main-container{margin-left:auto;padding:25px;} #TOC{position:relative;width:auto;max-height:none;left:auto;top:auto;margin-bottom:18px;}}
+.main-container {
+  max-width: 1180px !important;
+  margin-top: 18px !important;
+  margin-bottom: 38px !important;
+  padding: 34px 46px 54px !important;
+  background: rgba(255, 253, 248, 0.98) !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 18px 42px rgba(23, 57, 92, 0.12) !important;
+  overflow-x: hidden !important;
+}
+h1, h2, h3, h4 {
+  color: #17395c !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.24 !important;
+}
+h1.title {
+  color: #17395c !important;
+  -webkit-text-fill-color: #17395c !important;
+  background: none !important;
+  border-bottom: 4px solid #f2a51a !important;
+  padding-bottom: 14px !important;
+}
+h2 {
+  margin-top: 46px !important;
+  padding: 12px 18px !important;
+  border-left: 8px solid #f2a51a !important;
+  border-radius: 8px !important;
+  background: linear-gradient(90deg, #eef8f6, #fff8e7) !important;
+}
+.unpad-cover h2 {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  background: #fffdf8 !important;
+  border-left: 8px solid #f2a51a !important;
+  border-bottom: 0 !important;
+}
+h3 {
+  margin-top: 30px !important;
+}
+a {
+  color: #0b5c86 !important;
+}
+img, svg {
+  max-width: 100% !important;
+  height: auto !important;
+}
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 18px 0 26px !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+}
+.s2-table-scroll {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  margin: 18px 0 26px !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+}
+.s2-table-scroll table {
+  min-width: 680px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+th {
+  background: #17395c !important;
+  color: #ffffff !important;
+  padding: 10px 12px !important;
+}
+td {
+  background: #fffdf8 !important;
+  border: 1px solid #d7e2ea !important;
+  padding: 10px 12px !important;
+  vertical-align: top !important;
+}
+.main-container p, .main-container li, td, th {
+  overflow-wrap: anywhere !important;
+}
+pre {
+  overflow: auto !important;
+  padding: 16px !important;
+  background: #eef5f8 !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  color: #111827 !important;
+}
+code {
+  background: #eef5f8 !important;
+  border-radius: 6px !important;
+  color: #111827 !important;
+  padding: 2px 5px !important;
+}
+span.math.display, .math.display, .MathJax_Display, .MathJax, mjx-container {
+  display: block !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+blockquote {
+  margin: 22px 0 !important;
+  padding: 16px 20px !important;
+  background: #fff8e7 !important;
+  border-left: 8px solid #0f766e !important;
+  border-radius: 0 8px 8px 0 !important;
+}
+#TOC, .tocify {
+  background: #ffffff !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 28px rgba(23, 57, 92, 0.10) !important;
+}
+.tocify {
+  max-height: calc(100vh - 40px) !important;
+}
+.tocify .active, #TOC .active {
+  background: linear-gradient(90deg, #17395c, #0f766e) !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+}
+#TOC a, .tocify a {
+  color: #17395c !important;
+  text-decoration: none !important;
+}
+#TOC a:hover, .tocify a:hover {
+  color: #0f766e !important;
+  text-decoration: underline !important;
+}
+.hero, .rps-box, .rpsbox, .info-card, .card,
+.callout, .note, .casebox, .case-box, .examplebox, .exercise-box,
+.learning-box, .activitybox, .activity, .practice-box, .praktik-box,
+.praktikum, .tujuan, .interpretasi, .refleksi, .warning, .warningbox,
+.warning-box, .tip, .idea-box, .mathbox, .formula-box, .rumus-box,
+.contoh-box, .rubric-box {
+  margin: 22px 0 !important;
+  padding: 20px 24px !important;
+  background: #fffdf8 !important;
+  border: 1px solid #d7e2ea !important;
+  border-left: 8px solid #0f766e !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 24px rgba(23, 57, 92, 0.10) !important;
+  color: #172033 !important;
+}
+.hero {
+  background: linear-gradient(135deg, #17395c 0%, #0f766e 62%, #f2a51a 100%) !important;
+  color: #ffffff !important;
+  border-left: 0 !important;
+}
+.hero h1, .hero h2, .hero h3, .hero h4, .hero p, .hero strong {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.warning, .warningbox, .warning-box {
+  border-left-color: #b45309 !important;
+  background: #fff8e7 !important;
+}
+.rps-box, .rpsbox, .rubric-box {
+  border-left-color: #f2a51a !important;
+  background: linear-gradient(135deg, #fffdf8, #fff8e7) !important;
+}
+.mathbox, .formula-box, .rumus-box {
+  border-left-color: #17395c !important;
+  background: #eef5f8 !important;
+}
+.badge {
+  display: inline-block !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  background: #17395c !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.85em !important;
+}
+.grid-2, .grid-3 {
+  display: grid !important;
+  gap: 18px !important;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+hr {
+  border: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, #d7e2ea, transparent) !important;
+  margin: 34px 0 !important;
+}
+@media (max-width: 980px) {
+  #TOC, .tocify {
+    position: relative !important;
+    width: auto !important;
+    max-height: 360px !important;
+    margin: 12px !important;
+  }
+  .main-container {
+    margin: 12px !important;
+    padding: 24px !important;
+  }
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("table").forEach(function (table) {
+    if (table.parentElement && table.parentElement.classList.contains("s2-table-scroll")) return;
+    var wrapper = document.createElement("div");
+    wrapper.className = "s2-table-scroll";
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+});
+</script>
 <div class="rpsbox">
 <p><strong>Identitas Mata Kuliah.</strong> Materi ini disusun untuk
 <strong>Matematika Aktuaria 2</strong> pada <strong>Program Studi S2

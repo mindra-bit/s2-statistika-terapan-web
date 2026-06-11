@@ -3129,122 +3129,237 @@ serta komunikasi hasil secara ilmiah.</p>
 </div>
 <!-- END UNPAD MATERIAL ENHANCEMENT -->
 <style>
-:root{
---espresso:#3b2414;
---coffee:#5b371c;
---caramel:#b7793e;
---latte:#f8ead5;
---cream:#fff8ef;
---cocoa:#7a4b25;
---gold:#e2b45f;
---ink:#17110b;
+html, body {
+  background: linear-gradient(135deg, #f8fbfd 0%, #fffdf8 48%, #f3f6ee 100%) !important;
+  color: #172033 !important;
 }
-*{box-sizing:border-box;}
-body{
-font-family:"Aptos","Segoe UI",Roboto,Arial,sans-serif;
-color:var(--ink);
-line-height:1.72;
-font-size:16.5px;
-background:linear-gradient(135deg,#fff8ef 0%,#f4dfc5 40%,#d7a66d 100%);
-margin-left:330px;
-padding:28px 52px 90px 32px;
-max-width:1220px;
+body {
+  font-family: "Segoe UI", Arial, sans-serif !important;
+  font-size: 17px !important;
+  line-height: 1.72 !important;
+  margin: 0 !important;
+  overflow-x: hidden !important;
 }
-main, .main-container, body > div:not(#TOC){
-background:rgba(255,252,247,0.94);
-border-radius:28px;
-padding:28px 42px;
-box-shadow:0 18px 50px rgba(59,36,20,.16);
+.main-container {
+  max-width: 1180px !important;
+  margin-top: 18px !important;
+  margin-bottom: 38px !important;
+  padding: 34px 46px 54px !important;
+  background: rgba(255, 253, 248, 0.98) !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 18px 42px rgba(23, 57, 92, 0.12) !important;
+  overflow-x: hidden !important;
 }
-#TOC, nav#TOC{
-position:fixed;
-left:0;
-top:0;
-bottom:0;
-width:306px;
-padding:24px 18px 44px 22px;
-overflow-y:auto;
-background:linear-gradient(180deg,#3b2414 0%,#6e4321 45%,#b7793e 100%);
-color:#fff8ef;
-box-shadow:12px 0 34px rgba(59,36,20,.25);
-z-index:999;
+h1, h2, h3, h4 {
+  color: #17395c !important;
+  font-weight: 800 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.24 !important;
 }
-#TOC:before{
-content:"☕ Daftar Isi";
-display:block;
-font-weight:900;
-font-size:1.35rem;
-letter-spacing:.3px;
-margin-bottom:18px;
-color:#fff7de;
+h1.title {
+  color: #17395c !important;
+  -webkit-text-fill-color: #17395c !important;
+  background: none !important;
+  border-bottom: 4px solid #f2a51a !important;
+  padding-bottom: 14px !important;
 }
-#TOC a{color:#fff8ef;text-decoration:none;display:block;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.08);}
-#TOC a:hover{color:#ffe6a9;padding-left:4px;transition:.2s ease;}
-#TOC ul{list-style:none;margin-left:0;padding-left:0;}
-#TOC ul ul{padding-left:14px;font-size:.92em;}
-h1,h2,h3,h4{font-weight:850;color:var(--espresso);line-height:1.22;margin-top:1.6em;}
-h1{font-size:2.15rem;border-bottom:4px solid var(--caramel);padding-bottom:.25em;}
-h2{font-size:1.65rem;border-left:10px solid var(--caramel);padding-left:14px;background:linear-gradient(90deg,#f8ead5,rgba(248,234,213,0));border-radius:14px;}
-h3{font-size:1.28rem;color:var(--cocoa);}
-a{color:#8a4e1f;font-weight:650;}
-hr{border:none;border-top:2px dashed #d0a06e;margin:2em 0;}
-pre, pre.sourceCode{
-background:#f8ead5 !important;
-color:#111 !important;
-border-left:7px solid #8b5e34;
-border-radius:18px;
-padding:18px 20px;
-box-shadow:0 9px 24px rgba(111,67,33,.12);
-white-space:pre-wrap;
+h2 {
+  margin-top: 46px !important;
+  padding: 12px 18px !important;
+  border-left: 8px solid #f2a51a !important;
+  border-radius: 8px !important;
+  background: linear-gradient(90deg, #eef8f6, #fff8e7) !important;
 }
-code{background:#fff1dc;color:#241306;padding:2px 5px;border-radius:6px;}
-blockquote{
-background:linear-gradient(90deg,#fff1dc,#fffaf3);
-border-left:8px solid #b7793e;
-color:#241306;
-padding:14px 22px;
-border-radius:16px;
-box-shadow:0 10px 24px rgba(111,67,33,.10);
+.unpad-cover h2 {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+  background: #fffdf8 !important;
+  border-left: 8px solid #f2a51a !important;
+  border-bottom: 0 !important;
 }
-table{border-collapse:collapse;width:100%;margin:1.2em 0;background:#fffaf3;border-radius:14px;overflow:hidden;box-shadow:0 8px 20px rgba(59,36,20,.08);}
-th{background:linear-gradient(90deg,#6e4321,#b7793e);color:#fff8ef;padding:10px;text-align:left;}
-td{border:1px solid #ead3b6;padding:9px;vertical-align:top;}
-tr:nth-child(even){background:#fff4e7;}
-.title-box{
-background:linear-gradient(135deg,#3b2414 0%,#6e4321 50%,#d39b53 100%);
-color:#fff8ef;
-padding:34px 38px;
-border-radius:30px;
-box-shadow:0 22px 50px rgba(59,36,20,.28);
-margin-bottom:28px;
+h3 {
+  margin-top: 30px !important;
 }
-.title-box h1,.title-box h2,.title-box h3{color:#fff8ef;border:none;background:none;padding-left:0;margin:.15em 0;}
-.badge{display:inline-block;background:#fff1dc;color:#4a2b13;border:1px solid #e7c28f;border-radius:999px;padding:5px 12px;margin:4px;font-weight:700;}
-.callout,.study-box,.case-box,.formula-box,.exercise-box,.rubric-box{
-background:#fff8ef;
-border:1px solid #e8cda7;
-border-left:8px solid #b7793e;
-border-radius:20px;
-padding:16px 22px;
-margin:18px 0;
-box-shadow:0 12px 30px rgba(80,45,20,.10);
+a {
+  color: #0b5c86 !important;
 }
-.formula-box{background:#f8ead5;color:#111;border-left-color:#7a4b25;}
-.case-box{background:linear-gradient(135deg,#fff8ef,#f7dfbb);}
-.exercise-box{background:linear-gradient(135deg,#fffdf8,#fbe7c7);}
-.rubric-box{background:#fffaf3;}
-.small-note{font-size:.92em;color:#5b371c;}
-svg{max-width:100%;height:auto;display:block;margin:18px auto;border-radius:18px;box-shadow:0 10px 30px rgba(59,36,20,.10);}
-.math.display{background:#f8ead5;color:#111;padding:12px;border-radius:15px;display:block;}
-@media print{
-body{margin-left:0;padding:18px;background:white;}
-#TOC, nav#TOC{position:relative;width:auto;box-shadow:none;}
+img, svg {
+  max-width: 100% !important;
+  height: auto !important;
 }
-@media(max-width:900px){
-body{margin-left:0;padding:18px;}
-#TOC,nav#TOC{position:relative;width:auto;max-height:360px;}
+table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin: 18px 0 26px !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+}
+.s2-table-scroll {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  margin: 18px 0 26px !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+}
+.s2-table-scroll table {
+  min-width: 680px !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+}
+th {
+  background: #17395c !important;
+  color: #ffffff !important;
+  padding: 10px 12px !important;
+}
+td {
+  background: #fffdf8 !important;
+  border: 1px solid #d7e2ea !important;
+  padding: 10px 12px !important;
+  vertical-align: top !important;
+}
+.main-container p, .main-container li, td, th {
+  overflow-wrap: anywhere !important;
+}
+pre {
+  overflow: auto !important;
+  padding: 16px !important;
+  background: #eef5f8 !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  color: #111827 !important;
+}
+code {
+  background: #eef5f8 !important;
+  border-radius: 6px !important;
+  color: #111827 !important;
+  padding: 2px 5px !important;
+}
+span.math.display, .math.display, .MathJax_Display, .MathJax, mjx-container {
+  display: block !important;
+  max-width: 100% !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+}
+blockquote {
+  margin: 22px 0 !important;
+  padding: 16px 20px !important;
+  background: #fff8e7 !important;
+  border-left: 8px solid #0f766e !important;
+  border-radius: 0 8px 8px 0 !important;
+}
+#TOC, .tocify {
+  background: #ffffff !important;
+  border: 1px solid #d7e2ea !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 28px rgba(23, 57, 92, 0.10) !important;
+}
+.tocify {
+  max-height: calc(100vh - 40px) !important;
+}
+.tocify .active, #TOC .active {
+  background: linear-gradient(90deg, #17395c, #0f766e) !important;
+  color: #ffffff !important;
+  border-radius: 6px !important;
+}
+#TOC a, .tocify a {
+  color: #17395c !important;
+  text-decoration: none !important;
+}
+#TOC a:hover, .tocify a:hover {
+  color: #0f766e !important;
+  text-decoration: underline !important;
+}
+.hero, .rps-box, .rpsbox, .info-card, .card,
+.callout, .note, .casebox, .case-box, .examplebox, .exercise-box,
+.learning-box, .activitybox, .activity, .practice-box, .praktik-box,
+.praktikum, .tujuan, .interpretasi, .refleksi, .warning, .warningbox,
+.warning-box, .tip, .idea-box, .mathbox, .formula-box, .rumus-box,
+.contoh-box, .rubric-box {
+  margin: 22px 0 !important;
+  padding: 20px 24px !important;
+  background: #fffdf8 !important;
+  border: 1px solid #d7e2ea !important;
+  border-left: 8px solid #0f766e !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 24px rgba(23, 57, 92, 0.10) !important;
+  color: #172033 !important;
+}
+.hero {
+  background: linear-gradient(135deg, #17395c 0%, #0f766e 62%, #f2a51a 100%) !important;
+  color: #ffffff !important;
+  border-left: 0 !important;
+}
+.hero h1, .hero h2, .hero h3, .hero h4, .hero p, .hero strong {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+.warning, .warningbox, .warning-box {
+  border-left-color: #b45309 !important;
+  background: #fff8e7 !important;
+}
+.rps-box, .rpsbox, .rubric-box {
+  border-left-color: #f2a51a !important;
+  background: linear-gradient(135deg, #fffdf8, #fff8e7) !important;
+}
+.mathbox, .formula-box, .rumus-box {
+  border-left-color: #17395c !important;
+  background: #eef5f8 !important;
+}
+.badge {
+  display: inline-block !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  background: #17395c !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.85em !important;
+}
+.grid-2, .grid-3 {
+  display: grid !important;
+  gap: 18px !important;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+}
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+}
+hr {
+  border: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg, transparent, #d7e2ea, transparent) !important;
+  margin: 34px 0 !important;
+}
+@media (max-width: 980px) {
+  #TOC, .tocify {
+    position: relative !important;
+    width: auto !important;
+    max-height: 360px !important;
+    margin: 12px !important;
+  }
+  .main-container {
+    margin: 12px !important;
+    padding: 24px !important;
+  }
+  .grid-2, .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
 }
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("table").forEach(function (table) {
+    if (table.parentElement && table.parentElement.classList.contains("s2-table-scroll")) return;
+    var wrapper = document.createElement("div");
+    wrapper.className = "s2-table-scroll";
+    table.parentNode.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  });
+});
+</script>
 <div class="title-box">
 <h1>
 Materi Pembelajaran Penambangan Data dan Kecerdasan Buatan
