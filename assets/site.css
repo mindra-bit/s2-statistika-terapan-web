@@ -751,6 +751,145 @@ tbody tr:hover td {
   text-decoration: none;
 }
 
+.tracer-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 4px 0 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.tracer-toolbar strong {
+  color: var(--red);
+}
+
+.tracer-toolbar a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.tracer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.tracer-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 100%;
+  padding: 24px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.94), rgba(255,255,255,.98)),
+    linear-gradient(135deg, rgba(14, 82, 89, .16), rgba(216, 166, 45, .18));
+  box-shadow: 0 18px 40px rgba(26, 43, 74, .08);
+}
+
+.tracer-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--green), var(--gold));
+}
+
+.tracer-year {
+  color: var(--green);
+  font-size: clamp(34px, 5vw, 52px);
+  font-weight: 950;
+  line-height: 1;
+}
+
+.tracer-card h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.tracer-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.tracer-metrics {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+}
+
+.tracer-metrics div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.tracer-metrics dt,
+.tracer-metrics dd {
+  margin: 0;
+}
+
+.tracer-metrics dt {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.tracer-metrics dd {
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: 950;
+  text-align: right;
+}
+
+.tracer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tracer-actions a,
+.tracer-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  padding: 8px 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.tracer-actions a {
+  color: #fff;
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.tracer-actions button:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
 .material-list {
   max-height: 700px;
   overflow: auto;
@@ -1269,6 +1408,7 @@ tbody tr:hover td {
   .path-grid,
   .role-grid,
   .guide-grid,
+  .tracer-grid,
   .syllabus-grid,
   .material-list,
   .alumni-dashboard,
@@ -1335,6 +1475,7 @@ tbody tr:hover td {
   .path-grid,
   .role-grid,
   .guide-grid,
+  .tracer-grid,
   .syllabus-grid,
   .material-list,
   .alumni-dashboard,
@@ -1344,7 +1485,8 @@ tbody tr:hover td {
 
   .syllabus-toolbar,
   .guide-toolbar,
-  .materials-toolbar {
+  .materials-toolbar,
+  .tracer-toolbar {
     align-items: flex-start;
     flex-direction: column;
   }

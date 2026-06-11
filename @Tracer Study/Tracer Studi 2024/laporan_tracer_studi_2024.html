@@ -1,0 +1,1227 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laporan Tracer Study 2024 | Magister Statistika Terapan FMIPA Unpad</title>
+  <style>
+    :root {
+      --ink: #17212b;
+      --muted: #667485;
+      --line: #dfe6ee;
+      --paper: #ffffff;
+      --soft: #f4f7fa;
+      --blue: #245a8d;
+      --blue-dark: #163c62;
+      --gold: #f2b705;
+      --green: #0e7c66;
+      --red: #c5192d;
+      --orange: #d66b2a;
+      --shadow: 0 18px 45px rgba(23, 33, 43, .10);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background: #edf2f6;
+      line-height: 1.65;
+    }
+    a { color: var(--blue); }
+    .page {
+      max-width: 1180px;
+      margin: 0 auto;
+      background: var(--paper);
+      min-height: 100vh;
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      position: relative;
+      padding: 42px 54px 34px;
+      color: #fff;
+      background:
+        linear-gradient(135deg, rgba(18, 55, 88, .96), rgba(36, 90, 141, .92) 56%, rgba(14, 124, 102, .92)),
+        radial-gradient(circle at 78% 18%, rgba(242,183,5,.42), transparent 24%);
+      overflow: hidden;
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -150px;
+      bottom: -170px;
+      width: 420px;
+      height: 420px;
+      border: 1px solid rgba(255,255,255,.20);
+      border-radius: 50%;
+    }
+    .brand-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+    .brand-left, .brand-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .logo-unpad {
+      width: 82px;
+      height: 82px;
+      object-fit: contain;
+      background: rgba(255,255,255,.96);
+      border-radius: 8px;
+      padding: 8px;
+    }
+    .logo-sdg {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+    .brand-text strong, .sdg-text strong {
+      display: block;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    .brand-text span, .sdg-text span {
+      display: block;
+      color: rgba(255,255,255,.82);
+      font-size: 13px;
+    }
+    .hero-main {
+      position: relative;
+      z-index: 1;
+      max-width: 920px;
+      padding: 54px 0 36px;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 10px;
+      border: 1px solid rgba(255,255,255,.32);
+      color: rgba(255,255,255,.92);
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 {
+      margin: 18px 0 14px;
+      font-size: clamp(34px, 5vw, 58px);
+      line-height: 1.03;
+      letter-spacing: 0;
+    }
+    .hero-lead {
+      max-width: 780px;
+      color: rgba(255,255,255,.88);
+      font-size: 18px;
+      margin: 0;
+    }
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+    .hero-meta span {
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 6px;
+      padding: 8px 11px;
+      color: rgba(255,255,255,.9);
+      font-size: 13px;
+      background: rgba(255,255,255,.08);
+    }
+    nav.toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 18px 54px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+      position: sticky;
+      top: 0;
+      z-index: 3;
+    }
+    nav.toc a {
+      text-decoration: none;
+      color: var(--blue-dark);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 7px 10px;
+      background: #fff;
+    }
+    main {
+      padding: 34px 54px 64px;
+    }
+    section.report-section {
+      padding: 24px 0 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    section.report-section:last-child { border-bottom: none; }
+    .section-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .section-kicker {
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .09em;
+      font-size: 12px;
+      font-weight: 800;
+      margin: 0 0 6px;
+    }
+    h2 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 22px 0 12px;
+      font-size: 20px;
+      letter-spacing: 0;
+    }
+    h4 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+    p { margin: 0 0 13px; }
+    .lead {
+      color: #3d4c5d;
+      font-size: 17px;
+    }
+    .muted { color: var(--muted); }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0;
+    }
+    .metric-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      background: linear-gradient(180deg, #fff, #f8fafc);
+    }
+    .metric-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      min-height: 34px;
+    }
+    .metric-card strong {
+      display: block;
+      font-size: 28px;
+      line-height: 1.1;
+      margin: 8px 0 6px;
+      color: var(--blue-dark);
+    }
+    .metric-card small { color: var(--muted); }
+    .insight-list, .recommendations {
+      margin: 14px 0 0;
+      padding-left: 22px;
+    }
+    .insight-list li, .recommendations li {
+      margin-bottom: 10px;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 18px;
+      margin: 18px 0;
+    }
+    .chart-card, .quote-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      background: #fff;
+    }
+    .chart-card header {
+      margin-bottom: 14px;
+    }
+    .chart-card header p {
+      color: var(--muted);
+      font-size: 13px;
+      margin: 0;
+    }
+    .bar-chart {
+      display: grid;
+      gap: 10px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: minmax(150px, 1.1fr) minmax(160px, 2fr) 92px;
+      gap: 10px;
+      align-items: center;
+    }
+    .bar-label {
+      color: #263747;
+      font-size: 13px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .bar-track {
+      height: 15px;
+      background: #edf2f6;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      border-radius: 999px;
+    }
+    .bar-value {
+      font-size: 13px;
+      font-weight: 800;
+      text-align: right;
+      color: var(--blue-dark);
+    }
+    .bar-value span {
+      display: block;
+      font-weight: 500;
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .histogram {
+      min-height: 260px;
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+      align-items: end;
+      padding-top: 10px;
+    }
+    .hist-col {
+      display: grid;
+      align-items: end;
+      justify-items: center;
+      gap: 6px;
+      text-align: center;
+    }
+    .hist-value {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue-dark);
+    }
+    .hist-bar {
+      width: 100%;
+      max-width: 52px;
+      border-radius: 6px 6px 0 0;
+      min-height: 20px;
+    }
+    .hist-label {
+      min-height: 38px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #27394c;
+    }
+    .hist-pct {
+      color: var(--muted);
+      font-size: 11px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      margin: 14px 0 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 620px;
+      background: #fff;
+    }
+    th {
+      background: var(--blue-dark);
+      color: #fff;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      padding: 10px 12px;
+    }
+    td {
+      border-top: 1px solid var(--line);
+      padding: 10px 12px;
+      vertical-align: top;
+      font-size: 13px;
+    }
+    tbody tr:nth-child(even) td { background: #f8fafc; }
+    .callout {
+      border-left: 5px solid var(--gold);
+      background: #fff9e6;
+      padding: 16px 18px;
+      border-radius: 0 8px 8px 0;
+      margin: 18px 0;
+    }
+    .callout strong { color: #7a5600; }
+    .sdg-panel {
+      display: grid;
+      grid-template-columns: 116px 1fr;
+      gap: 18px;
+      align-items: center;
+      border: 1px solid #f0c4cb;
+      background: #fff6f7;
+      border-radius: 8px;
+      padding: 18px;
+      margin: 18px 0;
+    }
+    .sdg-panel img {
+      width: 104px;
+      height: 104px;
+      object-fit: contain;
+      border-radius: 4px;
+    }
+    .quote-card blockquote {
+      margin: 12px 0;
+      padding: 12px 14px;
+      border-left: 4px solid var(--blue);
+      background: #f6f9fc;
+      color: #2b3f53;
+      border-radius: 0 6px 6px 0;
+      font-size: 13px;
+    }
+    .empty-note {
+      border: 1px dashed var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      color: var(--muted);
+      background: #fafbfc;
+    }
+    .appendix-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    footer {
+      padding: 24px 54px 36px;
+      background: #132d48;
+      color: rgba(255,255,255,.78);
+      font-size: 12px;
+    }
+    footer strong { color: #fff; }
+    @media (max-width: 860px) {
+      .hero, main, nav.toc, footer { padding-left: 22px; padding-right: 22px; }
+      .brand-row, .section-head { align-items: flex-start; flex-direction: column; }
+      .metric-grid, .two-col, .appendix-grid { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 1fr; }
+      .bar-value { text-align: left; }
+      .histogram { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .sdg-panel { grid-template-columns: 1fr; }
+      nav.toc { position: static; }
+    }
+    @media print {
+      body { background: #fff; }
+      .page { box-shadow: none; max-width: none; }
+      nav.toc { position: static; }
+      section.report-section { break-inside: avoid; }
+      .chart-card, .metric-card, .quote-card, .table-wrap { break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="brand-row">
+        <div class="brand-left">
+          <img class="logo-unpad" src="data:image/png;base64,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" alt="Logo Universitas Padjadjaran">
+          <div class="brand-text">
+            <strong>Universitas Padjadjaran</strong>
+            <span>Program Studi S2 Magister Statistika Terapan FMIPA</span>
+          </div>
+        </div>
+        <div class="brand-right">
+          <div class="sdg-text">
+            <strong>SDG 4</strong>
+            <span>Quality Education</span>
+          </div>
+          <img class="logo-sdg" src="data:image/png;base64,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" alt="Logo SDG 4 Quality Education">
+        </div>
+      </div>
+      <div class="hero-main">
+        <span class="eyebrow">Tracer Study 2024</span>
+        <h1>Laporan Tracer Study Lulusan</h1>
+        <p class="hero-lead">Analisis kumulatif lulusan dengan tahun lulus S2/S3 sampai dengan 2024, berfokus pada waktu tunggu pekerjaan pertama, relevansi kompetensi statistika, mobilitas karier, dan masukan pengembangan kurikulum.</p>
+        <div class="hero-meta">
+          <span>Disusun: 11/06/2026</span>
+          <span>Respons dianalisis: 92</span>
+          <span>Tahun lulus: <= 2024</span>
+          <span>Periode respons: 13/07/2022 - 02/08/2025</span>
+        </div>
+      </div>
+    </header>
+
+    <nav class="toc" aria-label="Daftar isi">
+      <a href="#executive-summary">Executive Summary</a><a href="#pendahuluan">Pendahuluan</a><a href="#tujuan">Tujuan</a><a href="#metodologi-dan-cakupan">Metodologi dan Cakupan</a><a href="#hasil-utama">Hasil Utama</a><a href="#waktu-tunggu-kerja-pertama">Waktu Tunggu Kerja Pertama</a><a href="#profil-dan-sebaran-lulusan">Profil dan Sebaran Lulusan</a><a href="#relevansi-kompetensi">Relevansi Kompetensi</a><a href="#mobilitas-dan-pendapatan">Mobilitas dan Pendapatan</a><a href="#kendala-dan-masukan">Kendala dan Masukan</a><a href="#kesimpulan">Kesimpulan</a><a href="#rekomendasi">Rekomendasi</a><a href="#lampiran">Lampiran</a>
+    </nav>
+
+    <main>
+      <section class="report-section" id="executive-summary">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Ringkasan Eksekutif</p>
+            <h2>Executive Summary</h2>
+          </div>
+        </div>
+        <div class="metric-grid">
+            <article class="metric-card">
+              <span>Respons dianalisis</span>
+              <strong>92</strong>
+              <small>Tahun lulus &lt;= 2024</small>
+            </article>
+            
+            <article class="metric-card">
+              <span>Median waktu tunggu</span>
+              <strong>0,0 bulan</strong>
+              <small>Pekerjaan pertama</small>
+            </article>
+            
+            <article class="metric-card">
+              <span>&lt;= 3 bulan</span>
+              <strong>94,6%</strong>
+              <small>87 dari 92 valid</small>
+            </article>
+            
+            <article class="metric-card">
+              <span>Sudah bekerja sebelum lulus</span>
+              <strong>88,0%</strong>
+              <small>81 responden</small>
+            </article>
+            </div>
+        <p class="lead">Indikator utama laporan ini adalah waktu tunggu pekerjaan pertama. Dari 92 respons valid, median waktu tunggu adalah 0,0 bulan dengan rata-rata 0,7 bulan. Sebanyak 94,6% lulusan memperoleh pekerjaan dalam waktu paling lama 3 bulan, termasuk 88,0% yang sudah bekerja saat lulus atau tidak memiliki waktu tunggu.</p>
+        <p>Secara umum, hasil tracer menunjukkan bahwa lulusan Program Studi S2 Magister Statistika Terapan FMIPA Unpad memiliki integrasi yang kuat dengan dunia kerja. Banyak responden telah bekerja sebelum lulus, dan kelompok yang mencari pekerjaan setelah lulus cenderung memperoleh pekerjaan dalam periode yang relatif singkat. Temuan ini mendukung posisi program studi sebagai penyedia kompetensi statistik terapan yang relevan dengan kebutuhan sektor publik, pendidikan tinggi, dan industri.</p>
+        
+    <ul class="insight-list">
+      <li><strong>Transisi kerja cepat.</strong> Median waktu tunggu 0,0 bulan; 94,6% respons valid berada pada kategori paling lama 3 bulan.</li>
+      <li><strong>Basis kerja kuat sebelum lulus.</strong> 88,0% responden telah bekerja sebelum menyelesaikan studi.</li>
+      <li><strong>Sebaran institusi luas.</strong> Kategori tempat kerja terbesar adalah Perusahaan/ instansi Nasional, dengan instansi yang paling sering muncul: BPS.</li>
+      <li><strong>Relevansi akademik tinggi.</strong> 84,8% responden menyatakan pengetahuan dan keterampilan statistika diterapkan atau sangat diterapkan dalam pekerjaan.</li>
+      <li><strong>Kepuasan kerja positif.</strong> 87,0% responden menilai pekerjaan saat ini memuaskan atau sangat memuaskan.</li>
+    </ul>
+    
+      </section>
+
+      <section class="report-section" id="pendahuluan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Konteks</p>
+            <h2>Pendahuluan</h2>
+          </div>
+        </div>
+        <p>Tracer study merupakan instrumen penting untuk menilai keterhubungan antara proses pendidikan tinggi dan kebutuhan dunia kerja. Melalui pelacakan pengalaman alumni, program studi dapat memahami pola transisi lulusan, bidang kerja yang dimasuki, tingkat pemanfaatan kompetensi, kecukupan kurikulum, serta area pengembangan yang perlu diperkuat.</p>
+        <p>Laporan ini disusun untuk memberikan gambaran komprehensif mengenai outcome lulusan Program Studi S2 Magister Statistika Terapan FMIPA Universitas Padjadjaran. Fokus utamanya adalah waktu tunggu mendapatkan pekerjaan pertama setelah lulus, karena indikator ini memberi sinyal langsung mengenai daya serap lulusan, kesiapan kerja, dan relevansi kompetensi yang dibangun selama studi.</p>
+        <div class="sdg-panel">
+          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAAD6CAMAAAC/MqoPAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAC8VBMVEXBHzPCHzLDHzTBHjLCHzPMQ1TSW2nMRVXPTl3cfYngjpjcgIvTXGvDIjXWZ3XWanfHM0XVZXPPT1/QVGPVZnTNSFnIN0nUYnDLP1HOSlrFKj3OTFzLP1DCITX34eT////orLPHMkXxys/34uXNR1j9+Pn78vPTXGryztLINUfvxsvmoqrXa3j88/TeiJLnqLDXbHnz0tbUY3H78fL//v756OrFKTz99vfqsrnINEb45unCIDTuwsjPTl7+/P3RVWTKPk/67e7beobhj5nGLD/KPE3oq7Ly0NTHMUPDJDjZdYHknaXz1Njqs7rZc4DtvMLlnqfwyc7TXWzrt73loanloKnjlqDxzNH01dn56uzdgYzmo6vDIzf56+3uv8Xhkpz02Nz77/Hknabcf4rprLT12d3beYX13N/npq7ehZD67vDDIzbZdIHdgo3HMELKO03oqrHtvcPz0dXUYW///f3npa3JOUvwyc3fiJP89PXEJTnknKXfi5Xmpa3z09fWaXb12t3EKDvnp6/89fbjl6HsusD45ObXa3nNR1f34OPrtLvvw8n019vYbnv++vrEJjneh5HSWWj++/vqs7nYcX3QU2LbfIj99/j23uHTX23cfonbe4fsub/susH019rOS1vvxMn++/zy0NXGL0H9+fnpr7bUYG701tngjZfuwsfEJzrINkjtu8HRVWXGLUDSWmnyz9PjmqP1297fipX78PH55+naeITad4PXbXrwx8zQUWHPUGDYb3zxy9DFKz7KPU7LQVLadoL45ujilp/qsbjvxcrYcn7suL7SWGf23eD56evuwMX67e/tvsTln6jrtr3JOkzWaHX23+LNRlbJOEnjmKHrtbzTXm3gj5nJOErehI/VZHHehpHaeYXdg47psLf45efuwcbjmaLmpKzhkZvMRFXxzdH34+XoqbHGLkHQUmHOTV3ilJ367O3prbXRVmXilZ7gjJbYcH3VZHLprrXZcn/NSVnfiZTLQFHHMUTMQlNoM7d4AAAABHRSTlOVk5RWUX3KegAAAAFiS0dEHwUNEL0AAAAHdElNRQfpAwQOLzeVYr0FAAAMC0lEQVR42u3df0AUVR4AcO/uiVDiqiAquPs1EX+koMACGQopgpA/gDJEwsxK5TRDaQclNcEfmMsphhqInorapWjYKdZpR1gieWqpaXlebZpeeV5Kd9f96v66997srjsLyy4suDPs9/2xM/vmzdv9sDPf997s8qYTcdfUqRPSkY50pCMd6UhHOtKRjnSkIx3pSEc60pGOdFnSO3uYUhfbhTy9Hniwqzdb66ZSdaeLHuKC9FSpuvESPr6+vfiKn69vb9LH15j60vL+NDdApeonN7paA6bU31aZhwbw7YED6XoQgAddDAIYzDYNoflD2crDAMN44eEAwSTEVOcImj+S5oYCeMqNHgb26fTtQ7gWICLSmu4dRTeFNUf3AniEkFFaeDRabvTR9uljAGJiyWNjAcZZ0wey/eIa08fHxycATIiPTxwVA4OSyOMAE+V2rvfR2qfTj3ASXfQHmGxNn8L2S25MpykFIJUtUwGeIE8C+MiNPhXs058CGE0XaQDTrOl093SY3iw9A+DpzEEww1tmdP9gB+j0436GLmYCPGtNHwKznhPjnE26nxYiBlO+3Bq358EB+gtm+mwrOo1yA+aIcc4mnTUCqcb2QEb06LnO0WmUy4oV45xt+i9Z3fPmy4zeFZyjvwiw4CUxztmmZ7NIulBuvblFnJzTavpUFr3H8jhnm05Y/S/LjP6YjonnCq2m09M4lyzmca4Z+hKAvFdkRl/KxcuWt5Y+Pwp0S0Je5XGuGfoKgHyZDV8KZjGwNt4efaWZnkNIODvGCVkFECv25Yz9OWXRx/G3PYDYo68GWCxa1hBSCLCW/tVo8ddYX26dXl/E45yy6L/i4HF26evpwEXNe/sTeWRMI4S2aBuKWZTbSEgisDinKPrr3FuSaJeemAewaTMLDFsIeQOgNM6rjJ8DNMptpdtnsDhH6anl5eXbFEHfzr2/Jnbp5EHTCJSuF+8Q1/N28hGrH83axeLcw2J2hRLouTH8vQ53gE6G72aFF6rZ+p6p8wD2JgcQ0k+j2cFy4jSacvJmIE9l5DeBgW+x3H2BgZvEvbdqNPtlRU/j3OBKR+iEzD9wEPLeNj6JfEjR1+Yq53Eu62A6QiekageUFnSIy5KPi9xDDtNJ4ju7O8YV2VCujfB2nE7m9+0QdB9R+1vSArrSkg36ZFHb1/3oB0o49jBxP/pMEXvE/ehJM0ActLkffbNoNXY03Yo+RLTOcUN6tWg9quHJdC0+jz1RNS7dUxBTZ5JGH5+e+S4bs5D3BOF3dDFFENbTRebINxcf699b/F5tIC12nJD3jfsJXmSOIPyebYkV9tc8Wf4BXasVBHa6vSwIJ1xBbyp9aPP0gMHkI3FFd5IS6wCm0o0JfJxecErcksB32Ah8UF9vqnMR+RhAEC96sFSWTchxgKVskANwWt503SmadjL6H2rOiKUk9GV0uJp8Vmf81pV1GooI6VFWdg6gpKxMMNI9aH6Nnh5kn3B6sL8S6KXiGqVnEHUd//pRQl8HsICQTwFeYMXoM6jmx/4S+hGzpUh/BOC82JH0Y3TYpjQ68aXNor+EvkfsGE4BYCOcKi3QHlNtY3ohQDkh0RsAVJx+OFpp9C20WLyE3pnmXCDkIsBnNOsQwH6ma0SPAmAhcTqAF6fTcaPC6AG02CUJ3ZPmXCakd3X1JDHKzeFxzppOS7FG4Qy7msnpa+4/XZrsteuMXlxcrLZNHyPS7w2N/IJYnLNND2H0CojJlj+dpfWO0tdBONkhxrlm6QdL4POORR+vhWlkEwsHduhZX0D1SdnT9165cmWog/TX2VXrPwKssEunJQPlf643H+aM9Mja2qs8yv2JXY0/aZdO8tnLKo3epakI3w1AQ9ix/mxRDu/PNR/hs8gCpdFjeXdspfhtDIWuNrXrKzh0nbE6Fuek9FXmdv0NkV4VpTD6l7RdKiYn+Rev5BjAV7w358kvcL/D+nJRBoOhkPfnpPRAZiZq2tXrJtLZMaMkOuvD1/CP+Nx40n0Vv5ZfBvA1ryiLRbkJ4tGwwpp+DWATP2i0Q430nvKnxyTT9D4fuZ26DryX6k9HZYXnj9KHJP6Dyg3bF+nYwHajeCLs43FOSmff7R67Fk5bdGKks68DFNCug69pvB6zjGX7buBPotjvS4q/Ebdk8b5cBuFjnCJrOrlhHK/nmunvupbe2c7v4cfcFFMv8SrNn98bJeZ/+9yuV0ffEH/mnjnyiyHfbfKlkW2fILxGM/wEgfbiu968yX88bLh5cz1v8xcOyEleUCVepdlMF5HL7/NVGvdISEc60pGOdKQjHelIRzrSkY50pCMd6UhHOtKRjnSkIx3pSEc60pHujvR+z6dlnHBHetIwNo2ILqvY/eh1xl9zbHc7uof519pfuhs9wUyf7G70GjN9krvRc8z0wy6gj2cP6vYVqs0vJCe64Sn2OCyuHSeQqgx5gC2EEFnRixNgOVv2hzJVe8nDbsHnbPkXuFYgH3oufWkjHWDXpfaA70ylVRvpkF4rF3ot+68oMx1KJt5ua3j3EXzONxMd5uVKt5enmdLX95f+V5DQAWZltOkciZkZg8R6zXT4XibDl0Z0gLlX2rCrlm+qVRF0gOTatnlTJz65V6dC6BB0x9/5t3Q7pQIcoHuoTOkJOdABzhic7OKo6+9KKrRJD3VVhLdFB8jZ4oz89A6r6pREB60+t7Xwqw2N/n9YUXSAqLhWXTmJjAsCpdMBPqpv8Uz30arrTdWkODrAsV4tq/D7aU3Xo0A66BpaMNngAUEHHYcOEB7i4HA2KSPPZiXKpAOU9XZoaBrYTBVKpQMUdbFXU+dvmq1AuXQoSRnfXD17UmKgo9LpQDvD5i0uMg3n7O2taDrApLdtDE1n299X4XQ6nI1vXEUfvSN7Kp4OpWlWw1n/uL3gHnSACMu+rbp+hoO7dQQ6wO7jpr1/SHd4p45BB93CRLbHBb3ju3QUOr9ZAiHPANKRjnSkIx3pSEc60pGOdKQjHelIRzrSkY50pCMd6UhHOtKRjnSkIx3pSEc60pGOdKQjHelIRzrSkY50pCMd6UhHOtKRjnSkIx3pSqcfMxeZ4Cr6iPal37FFX2Yu8jdX0dUBcaHtRc9P84m2Rd9pLhXrKjpL2YbkDW1NDyrKuGyqvyl69BljwUGZrqTTVLX2WnXb0SOEsEpTzerjN2Y0QTdPH6wnLqbT5B0Ql98WdNNhzt0+KUeN2db0tcb8F11Bn3Sxyjr/xFeLY5yhly6aYz7MSdKVlWPvbbKm3xZn5NMecAUdoKLm757Wc+u99I/Jwa2jT1/5473pYit7/DPccuPsRrM3DuD56cQ1dJbO1f1rlNXWJI+UwJbS02da/BH9R+pXWYa8s17Zjd/DEWeattbT/11q+ba16Wmnk6xKXPrPdzpH6UFnt129t+eeKQctJ54LrlM1PWNlX2eaNidmD670SAvVWr79qKKQb60PfVVDsH36uQbVBxb71EvayXkNYTbn8IqOcKJpc3Km8O6qhlkShUawVLBU7JFyvTm6JsXDYurdq4Zky9lECyUbG6cEJ5o25+eHVweEFEl6MxWhcQFWMwx2CanRNUWvqAn5r0Wx7IwarY0mzkYa7kTT1jZT40d6pNySfPh39Yah0iI/1evzpPR5+vrx0j+PpGmP+58DL0ybt1Y3bW13V4Bag15yWutC0zwyrYID7ZwY6dLDnHSJO2yxa0xNhp+DrzqgtTdDaEs6Ta8cWv2WJPBV6z+8LI1Lnv3YoqvlhFRqn6WFlsHy480tmHP8SOubtja/F8RPKiHCKvCFNTOxqrdPSoTkb1XfsomX+4KPbOjiaVskmVmrtCgkoMmjxCPFciKqsQ1hSS19qej8+bKis87Yj8PWST78W8t9pa1ewcU6y9jw2erjrZpreiuRG90Y+CR98JjQNB8jryCsIU8SzgOIC1K73vcl84c7oZLO7N01eposOwK61AXxxDWp3W95k6gSHrU1UqPN2FDisnRf7vZTa0huPBF2abKkT9NB6cbRjoV7VoMqkrg43c97PF0wnF+noSn/09PexPUJ792IdKQjHelIRzrSkY50pCMd6UhHOtKRjnSkIx3pSEc60pGOdKQjHelIRzrSkd40/Wc/d9P0i/8D+5vTnGX0I9oAAAAldEVYdGRhdGU6Y3JlYXRlADIwMjUtMDMtMDRUMTQ6NDc6NTUrMDA6MDAlGZnEAAAAJXRFWHRkYXRlOm1vZGlmeQAyMDI1LTAzLTA0VDE0OjQ3OjU1KzAwOjAwVEQheAAAAABJRU5ErkJggg==" alt="Logo SDG 4 Quality Education">
+          <div>
+            <h3>Keterkaitan dengan SDG 4</h3>
+            <p>Tracer study mendukung peningkatan mutu pendidikan tinggi melalui pemantauan relevansi pembelajaran, penguatan keterampilan kerja, dan perbaikan berkelanjutan berbasis bukti. Dengan demikian, laporan ini menjadi bagian dari upaya program studi untuk memperkuat kontribusi pada pendidikan berkualitas dan pembelajaran sepanjang hayat.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="report-section" id="tujuan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Arah Analisis</p>
+            <h2>Tujuan</h2>
+          </div>
+        </div>
+        <ol class="recommendations">
+          <li>Mengukur waktu tunggu lulusan dalam memperoleh pekerjaan pertama setelah dinyatakan lulus.</li>
+          <li>Memetakan status kerja sebelum lulus, jenis tempat kerja, instansi, dan sebaran peran profesional alumni.</li>
+          <li>Menilai relevansi pengetahuan dan keterampilan statistika terhadap pekerjaan saat ini.</li>
+          <li>Menggambarkan kepuasan kerja, mobilitas kerja, pendapatan pertama, pendapatan saat ini, dan posisi pendapatan terhadap UMR.</li>
+          <li>Mengidentifikasi kendala memperoleh pekerjaan pertama dan masukan alumni untuk pengembangan kurikulum serta layanan akademik.</li>
+        </ol>
+      </section>
+
+      <section class="report-section" id="metodologi-dan-cakupan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Data</p>
+            <h2>Metodologi dan Cakupan</h2>
+          </div>
+        </div>
+        <p>Analisis menggunakan data respons tracer pada berkas <strong>Data.xlsx</strong>. Untuk laporan tahun 2024, data disaring berdasarkan kolom <strong>Tahun lulus S2/S3 <= 2024</strong>. Baris dengan tahun lulus tidak valid atau kosong tidak masuk ke dalam cakupan laporan tahunan.</p>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Aspek</th><th>Keterangan</th></tr></thead><tbody><tr><td>Sumber data</td><td>Data.xlsx, sheet Form Responses 1</td></tr><tr><td>Unit analisis</td><td>Baris respons tracer dengan tahun lulus valid</td></tr><tr><td>Filter laporan</td><td>Kolom Tahun lulus S2/S3 &lt;= 2024</td></tr><tr><td>Tahun lulus tercakup</td><td>2009-2024</td></tr><tr><td>Periode respons</td><td>13/07/2022 - 02/08/2025</td></tr><tr><td>Tahun lulus tidak valid di sumber</td><td>3 baris tidak disertakan dalam filter tahunan</td></tr><tr><td>Aturan waktu tunggu</td><td>Jawaban bulan/tahun dikonversi ke bulan; responden yang bekerja sebelum lulus dikategorikan 0 bulan.</td></tr></tbody></table></div>
+        <div class="callout"><strong>Catatan interpretasi:</strong> karena sumber data berbentuk respons survei, jumlah yang ditampilkan dibaca sebagai jumlah respons valid pada cakupan tahun terkait. Jawaban teks bebas dibersihkan seperlunya untuk standardisasi kategori, tanpa mengubah substansi respons.</div>
+      </section>
+
+      <section class="report-section" id="hasil-utama">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Ikhtisar</p>
+            <h2>Hasil Utama</h2>
+          </div>
+        </div>
+        <div class="two-col">
+          <section class="chart-card"><header><h4>Sebaran Tahun Lulus</h4><p>Respons dengan tahun lulus sampai 2024.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="2009">2009</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:7.14%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">1 <span>1,1%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2010">2010</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:14.29%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">2 <span>2,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2012">2012</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:21.43%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">3 <span>3,3%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2015">2015</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:21.43%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">3 <span>3,3%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2016">2016</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:42.86%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">6 <span>6,5%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2017">2017</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:57.14%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">8 <span>8,7%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2018">2018</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">14 <span>15,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2019">2019</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:28.57%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">4 <span>4,3%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2020">2020</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">14 <span>15,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2021">2021</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">14 <span>15,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2022">2022</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:57.14%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">8 <span>8,7%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2023">2023</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:42.86%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">6 <span>6,5%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2024">2024</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:64.29%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">9 <span>9,8%</span></div>
+            </div>
+            </div></section>
+          <section class="chart-card"><header><h4>Pendidikan Terakhir</h4><p>Profil pendidikan responden.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="S2 Statistika Terapan">S2 Statistika Terapan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">92 <span>100,0%</span></div>
+            </div>
+            </div></section>
+        </div>
+        
+      <div class="two-col">
+        
+    <section class="chart-card hero-chart">
+      <header>
+        <h4>Distribusi Waktu Tunggu Pekerjaan Pertama</h4>
+        <p>Kategori bulan setelah dinyatakan lulus. Alumni yang telah bekerja sebelum lulus dikategorikan 0 bulan.</p>
+      </header>
+      <div class="histogram">
+            <div class="hist-col">
+              <div class="hist-value">81</div>
+              <div class="hist-bar" style="height:186px;background:#0e7c66;"></div>
+              <div class="hist-label">0 bulan</div>
+              <div class="hist-pct">88,0%</div>
+            </div>
+            
+            <div class="hist-col">
+              <div class="hist-value">6</div>
+              <div class="hist-bar" style="height:47px;background:#245a8d;"></div>
+              <div class="hist-label">&gt;0-3 bulan</div>
+              <div class="hist-pct">6,5%</div>
+            </div>
+            
+            <div class="hist-col">
+              <div class="hist-value">1</div>
+              <div class="hist-bar" style="height:38px;background:#f2b705;"></div>
+              <div class="hist-label">&gt;3-6 bulan</div>
+              <div class="hist-pct">1,1%</div>
+            </div>
+            
+            <div class="hist-col">
+              <div class="hist-value">2</div>
+              <div class="hist-bar" style="height:40px;background:#d66b2a;"></div>
+              <div class="hist-label">&gt;6-12 bulan</div>
+              <div class="hist-pct">2,2%</div>
+            </div>
+            
+            <div class="hist-col">
+              <div class="hist-value">2</div>
+              <div class="hist-bar" style="height:40px;background:#b33a3a;"></div>
+              <div class="hist-label">&gt;12 bulan</div>
+              <div class="hist-pct">2,2%</div>
+            </div>
+            
+            <div class="hist-col">
+              <div class="hist-value">0</div>
+              <div class="hist-bar" style="height:36px;background:#7a8794;"></div>
+              <div class="hist-label">Tidak diketahui</div>
+              <div class="hist-pct">0,0%</div>
+            </div>
+            </div>
+    </section>
+    
+        <section class="chart-card"><header><h4>Status Bekerja Sebelum Lulus</h4><p>Dasar interpretasi waktu tunggu.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="Ya">Ya</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">81 <span>88,0%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Tidak">Tidak</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.58%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">11 <span>12,0%</span></div>
+            </div>
+            </div></section>
+      </div>
+    
+      </section>
+
+      <section class="report-section" id="waktu-tunggu-kerja-pertama">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Indikator Prioritas</p>
+            <h2>Waktu Tunggu Kerja Pertama</h2>
+          </div>
+        </div>
+        <p class="lead">Indikator utama laporan ini adalah waktu tunggu pekerjaan pertama. Dari 92 respons valid, median waktu tunggu adalah 0,0 bulan dengan rata-rata 0,7 bulan. Sebanyak 94,6% lulusan memperoleh pekerjaan dalam waktu paling lama 3 bulan, termasuk 88,0% yang sudah bekerja saat lulus atau tidak memiliki waktu tunggu.</p>
+        <p>Waktu tunggu dibaca dalam satuan bulan. Jawaban seperti “1 bulan”, “4 Bulan”, angka langsung, dan “2 tahun” dikonversi menjadi nilai numerik; responden yang telah bekerja sebelum lulus diperlakukan sebagai 0 bulan karena tidak mengalami jeda memasuki pekerjaan setelah kelulusan.</p>
+        <div class="two-col">
+          <div>
+            <h3>Ringkasan Statistik Waktu Tunggu</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Indikator</th><th>Nilai</th></tr></thead><tbody><tr><td>Respons valid waktu tunggu</td><td>92</td></tr><tr><td>Tidak diketahui</td><td>0 (0,0%)</td></tr><tr><td>Median</td><td>0,0 bulan</td></tr><tr><td>Rata-rata</td><td>0,7 bulan</td></tr><tr><td>Minimum</td><td>0,0 bulan</td></tr><tr><td>Maksimum</td><td>24,0 bulan</td></tr><tr><td>0 bulan</td><td>81 (88,0%)</td></tr><tr><td>&lt;= 6 bulan</td><td>88 (95,7%)</td></tr><tr><td>&gt; 6 bulan</td><td>4 (4,3%)</td></tr></tbody></table></div>
+          </div>
+          <div>
+            <h3>Distribusi Kategori Waktu Tunggu</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Kategori</th><th>Jumlah</th><th>Persentase</th></tr></thead><tbody><tr><td>0 bulan</td><td>81</td><td>88,0%</td></tr><tr><td>&gt;0-3 bulan</td><td>6</td><td>6,5%</td></tr><tr><td>&gt;3-6 bulan</td><td>1</td><td>1,1%</td></tr><tr><td>&gt;6-12 bulan</td><td>2</td><td>2,2%</td></tr><tr><td>&gt;12 bulan</td><td>2</td><td>2,2%</td></tr><tr><td>Tidak diketahui</td><td>0</td><td>0,0%</td></tr></tbody></table></div>
+          </div>
+        </div>
+        <h3>Waktu Tunggu Menurut Tahun Lulus</h3>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Tahun Lulus</th><th>Respons</th><th>Median Waktu Tunggu (bulan)</th><th>Rata-rata (bulan)</th><th>&lt;= 3 Bulan</th><th>&gt; 6 Bulan</th></tr></thead><tbody><tr><td>2009</td><td>1</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2010</td><td>2</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2012</td><td>3</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2015</td><td>3</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2016</td><td>6</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2017</td><td>8</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2018</td><td>14</td><td>0,0</td><td>0,9</td><td>92,9%</td><td>7,1%</td></tr><tr><td>2019</td><td>4</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2020</td><td>14</td><td>0,0</td><td>2,9</td><td>85,7%</td><td>14,3%</td></tr><tr><td>2021</td><td>14</td><td>0,0</td><td>0,4</td><td>92,9%</td><td>0,0%</td></tr><tr><td>2022</td><td>8</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2023</td><td>6</td><td>0,0</td><td>0,0</td><td>100,0%</td><td>0,0%</td></tr><tr><td>2024</td><td>9</td><td>0,0</td><td>1,2</td><td>88,9%</td><td>11,1%</td></tr></tbody></table></div>
+      </section>
+
+      <section class="report-section" id="profil-dan-sebaran-lulusan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Peta Alumni</p>
+            <h2>Profil dan Sebaran Lulusan</h2>
+          </div>
+        </div>
+        <p>Responden tersebar pada berbagai institusi, terutama sektor pemerintahan/statistik, pendidikan tinggi, dan perusahaan/instansi nasional maupun lokal. Keragaman lokasi kerja ini menunjukkan bahwa kompetensi statistika terapan memiliki ruang pemanfaatan yang luas.</p>
+        <div class="two-col">
+          <section class="chart-card"><header><h4>Jenis Tempat Kerja</h4><p>Kategori tempat bekerja setelah lulus.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="Perusahaan/ instansi Nasional">Perusahaan/ instansi Nasional</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">64 <span>69,6%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Perusahaan/ instansi Lokal / Wilayah">Perusahaan/ instansi Lokal / Wilayah</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:34.38%; background:#d66b2a;"></div>
+              </div>
+              <div class="bar-value">22 <span>23,9%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Perusahaan/ instansi Multinasional/ Internasional">Perusahaan/ instansi Multinasional/ Internasional</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:7.81%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">5 <span>5,4%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Melanjutkan studi">Melanjutkan studi</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:1.56%; background:#d66b2a;"></div>
+              </div>
+              <div class="bar-value">1 <span>1,1%</span></div>
+            </div>
+            </div></section>
+          <section class="chart-card"><header><h4>Instansi/Perusahaan Teratas</h4><p>Nama instansi yang paling sering muncul.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="BPS">BPS</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">15 <span>31,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Badan Pusat Statistik">Badan Pusat Statistik</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:73.33%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">11 <span>22,9%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Provinsi Jawa Barat">BPS Provinsi Jawa Barat</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:20.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">3 <span>6,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Dinas Perkebunan Provinsi Jawa Barat">Dinas Perkebunan Provinsi Jawa Barat</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:20.00%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">3 <span>6,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Provinsi Sulawesi Tengah">BPS Provinsi Sulawesi Tengah</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:20.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">3 <span>6,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Provinsi Bali">BPS Provinsi Bali</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.33%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">2 <span>4,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Universitas Koperasi Indonesia">Universitas Koperasi Indonesia</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.33%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">2 <span>4,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BADAN PUSAT STATISTIK">BADAN PUSAT STATISTIK</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.33%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">2 <span>4,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Provinsi Kalimantan Tengah">BPS Provinsi Kalimantan Tengah</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.33%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">2 <span>4,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Provinsi Sumatera Utara">BPS Provinsi Sumatera Utara</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.33%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">2 <span>4,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Provinsi Jambi">BPS Provinsi Jambi</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:13.33%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">2 <span>4,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="BPS Kota Pangkalpinang">BPS Kota Pangkalpinang</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:6.67%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">1 <span>2,1%</span></div>
+            </div>
+            </div></section>
+        </div>
+        <h3>Divisi/Bagian/Departemen Teratas</h3>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Divisi/Bagian</th><th>Jumlah</th><th>Persentase</th></tr></thead><tbody><tr><td>Bagian Umum</td><td>5</td><td>16,7%</td></tr><tr><td>Fungsi Neraca Wilayah dan Analisis Statistik</td><td>4</td><td>13,3%</td></tr><tr><td>Neraca Wilayah dan Analisis Statistik</td><td>4</td><td>13,3%</td></tr><tr><td>Statistik Produksi</td><td>4</td><td>13,3%</td></tr><tr><td>Fungsi Statistik Sosial</td><td>3</td><td>10,0%</td></tr><tr><td>Bidang Statistik Produksi</td><td>2</td><td>6,7%</td></tr><tr><td>Fungsi Statistik Produksi</td><td>2</td><td>6,7%</td></tr><tr><td>Perencanaan dan Pelaporan</td><td>2</td><td>6,7%</td></tr><tr><td>Bidang Pengendalian Penduduk</td><td>2</td><td>6,7%</td></tr><tr><td>Neraca Wilayah dan Analisis</td><td>2</td><td>6,7%</td></tr></tbody></table></div>
+        <h3>Kata Kunci Tugas dan Peran Profesional</h3>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th>Kata Kunci</th><th>Frekuensi</th></tr></thead><tbody><tr><td>statistik</td><td>21</td></tr><tr><td>data</td><td>21</td></tr><tr><td>statistisi</td><td>18</td></tr><tr><td>kegiatan</td><td>13</td></tr><tr><td>melakukan</td><td>9</td></tr><tr><td>survei</td><td>9</td></tr><tr><td>pdrb</td><td>7</td></tr><tr><td>fungsional</td><td>7</td></tr><tr><td>fungsi</td><td>7</td></tr><tr><td>publikasi</td><td>6</td></tr><tr><td>koordinator</td><td>6</td></tr><tr><td>sosial</td><td>6</td></tr><tr><td>penyusunan</td><td>6</td></tr><tr><td>ahli</td><td>5</td></tr></tbody></table></div>
+      </section>
+
+      <section class="report-section" id="relevansi-kompetensi">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Kualitas Pembelajaran</p>
+            <h2>Relevansi Kompetensi</h2>
+          </div>
+        </div>
+        <p>Relevansi kompetensi diukur dari penerapan pengetahuan dan keterampilan statistika dalam pekerjaan serta penilaian umum terhadap pekerjaan yang dijalani saat ini. Indikator ini memberi gambaran apakah kurikulum dan pengalaman belajar memiliki kegunaan praktis setelah lulus.</p>
+        <div class="two-col">
+          <section class="chart-card"><header><h4>Penerapan Statistika dalam Pekerjaan</h4><p>Tingkat pemanfaatan kompetensi statistika.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="Sangat diterapkan">Sangat diterapkan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:44.44%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">24 <span>26,1%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Diterapkan">Diterapkan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">54 <span>58,7%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Kurang diterapkan">Kurang diterapkan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:22.22%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">12 <span>13,0%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Tidak diterapkan sama sekali">Tidak diterapkan sama sekali</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:3.70%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">2 <span>2,2%</span></div>
+            </div>
+            </div></section>
+          <section class="chart-card"><header><h4>Penilaian terhadap Pekerjaan Saat Ini</h4><p>Kepuasan umum responden.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="Sangat Memuaskan">Sangat Memuaskan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:19.40%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">13 <span>14,1%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Memuaskan">Memuaskan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">67 <span>72,8%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Cukup Memuaskan">Cukup Memuaskan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:16.42%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">11 <span>12,0%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Kurang Memuaskan">Kurang Memuaskan</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:1.49%; background:#f2b705;"></div>
+              </div>
+              <div class="bar-value">1 <span>1,1%</span></div>
+            </div>
+            </div></section>
+        </div>
+      </section>
+
+      <section class="report-section" id="mobilitas-dan-pendapatan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Outcome Karier</p>
+            <h2>Mobilitas dan Pendapatan</h2>
+          </div>
+        </div>
+        <p>Bagian ini merangkum frekuensi pindah kerja dan indikator pendapatan. Interpretasi pendapatan menggunakan kategori jawaban survei, sehingga hasil dibaca sebagai distribusi kelas, bukan nilai rupiah individual.</p>
+        <div class="two-col">
+          <section class="chart-card"><header><h4>Frekuensi Pindah Kerja</h4><p>Mobilitas karier responden.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="Belum pernah">Belum pernah</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">57 <span>62,0%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="1 kali">1 kali</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:31.58%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">18 <span>19,6%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="2 kali">2 kali</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:21.05%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">12 <span>13,0%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="&gt; 2 kali">&gt; 2 kali</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:8.77%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">5 <span>5,4%</span></div>
+            </div>
+            </div></section>
+          <section class="chart-card"><header><h4>Pendapatan Saat Ini Dibandingkan UMR</h4><p>Posisi pendapatan relatif terhadap UMR.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="Lebih besar atau sama dengan UMR">Lebih besar atau sama dengan UMR</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">92 <span>100,0%</span></div>
+            </div>
+            </div></section>
+        </div>
+        <div class="two-col">
+          <section class="chart-card"><header><h4>Penghasilan Bulanan Pertama</h4><p>Kategori penghasilan saat pertama kali bekerja.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="&lt; Rp. 1,5 juta">&lt; Rp. 1,5 juta</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:10.53%; background:#d66b2a;"></div>
+              </div>
+              <div class="bar-value">4 <span>4,3%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Rp. 1,5 juta - &lt; 2,5 juta">Rp. 1,5 juta - &lt; 2,5 juta</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:50.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">19 <span>20,7%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Rp. 2,5 juta - &lt; 3,5 juta">Rp. 2,5 juta - &lt; 3,5 juta</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:34.21%; background:#d66b2a;"></div>
+              </div>
+              <div class="bar-value">13 <span>14,1%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Rp. 3,5 juta - &lt; 4,5 juta">Rp. 3,5 juta - &lt; 4,5 juta</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:47.37%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">18 <span>19,6%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="&gt;= 4,5 juta">&gt;= 4,5 juta</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#d66b2a;"></div>
+              </div>
+              <div class="bar-value">38 <span>41,3%</span></div>
+            </div>
+            </div></section>
+          <section class="chart-card"><header><h4>Penghasilan Bulanan Saat Ini</h4><p>Kategori penghasilan pekerjaan saat ini.</p></header><div class="bar-chart">
+            <div class="bar-row">
+              <div class="bar-label" title="&lt; Rp. 3 jt">&lt; Rp. 3 jt</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:7.14%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">3 <span>3,3%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Rp. 3 jt - &lt; 6 jt">Rp. 3 jt - &lt; 6 jt</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:33.33%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">14 <span>15,2%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Rp. 6 jt - &lt; 9 jt">Rp. 6 jt - &lt; 9 jt</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:50.00%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">21 <span>22,8%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="Rp. 9 jt - &lt; 12 jt">Rp. 9 jt - &lt; 12 jt</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:100.00%; background:#0e7c66;"></div>
+              </div>
+              <div class="bar-value">42 <span>45,7%</span></div>
+            </div>
+            
+            <div class="bar-row">
+              <div class="bar-label" title="&gt;=12 jt">&gt;=12 jt</div>
+              <div class="bar-track">
+                <div class="bar-fill" style="width:28.57%; background:#245a8d;"></div>
+              </div>
+              <div class="bar-value">12 <span>13,0%</span></div>
+            </div>
+            </div></section>
+        </div>
+      </section>
+
+      <section class="report-section" id="kendala-dan-masukan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Umpan Balik</p>
+            <h2>Kendala dan Masukan</h2>
+          </div>
+        </div>
+        <p>Jawaban teks bebas dianalisis secara ringkas melalui kata kunci dominan dan kutipan representatif. Hasilnya digunakan untuk membaca pola kebutuhan alumni, bukan untuk menilai responden individual.</p>
+        <div class="two-col">
+          <div>
+            <h3>Kata Kunci Kendala Kerja Pertama</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Kata Kunci</th><th>Frekuensi</th></tr></thead><tbody><tr><td>bekerja</td><td>5</td></tr><tr><td>pekerjaan</td><td>4</td></tr><tr><td>ikatan</td><td>3</td></tr><tr><td>dinas</td><td>3</td></tr><tr><td>langsung</td><td>3</td></tr><tr><td>kesehatan</td><td>2</td></tr><tr><td>lingkungan</td><td>2</td></tr><tr><td>banyaknya</td><td>2</td></tr><tr><td>saingan</td><td>2</td></tr><tr><td>sekolah</td><td>2</td></tr><tr><td>lowongan</td><td>2</td></tr><tr><td>terbatas</td><td>2</td></tr><tr><td>kedinasan</td><td>2</td></tr><tr><td>banyak</td><td>2</td></tr></tbody></table></div>
+          </div>
+          <div>
+            <h3>Kata Kunci Masukan Pembelajaran</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Kata Kunci</th><th>Frekuensi</th></tr></thead><tbody><tr><td>data</td><td>11</td></tr><tr><td>banyak</td><td>10</td></tr><tr><td>semester</td><td>9</td></tr><tr><td>luar</td><td>8</td></tr><tr><td>statistik</td><td>8</td></tr><tr><td>negeri</td><td>7</td></tr><tr><td>lagi</td><td>7</td></tr><tr><td>materi</td><td>7</td></tr><tr><td>sehingga</td><td>7</td></tr><tr><td>internasional</td><td>7</td></tr><tr><td>prodi</td><td>6</td></tr><tr><td>semakin</td><td>6</td></tr><tr><td>menambah</td><td>6</td></tr><tr><td>semoga</td><td>6</td></tr><tr><td>aplikasi</td><td>5</td></tr><tr><td>ilmu</td><td>5</td></tr><tr><td>seperti</td><td>5</td></tr><tr><td>awal</td><td>5</td></tr></tbody></table></div>
+          </div>
+        </div>
+        <div class="two-col">
+          <section class="quote-card"><h4>Kutipan Kendala yang Sering Muncul</h4><blockquote>Harus mempelajari dan mengenal tentang ilmu kesehatan masyarakata karena bekerja di lingkungan pendidikan kesehatan</blockquote><blockquote>Karena bertepatan dengan Pandemi Virus Corona sehingga banyak perusahaan/instansi yang tidak membuka rekrutmen</blockquote><blockquote>Proses seleksi rekrutmen yanh bersamaan dengan waktu sidang, revisi sampai yudisium</blockquote><blockquote>Tidak ada. Langsung mendapatkan pekerjaan saat memutuskan akan bekerja</blockquote><blockquote>Pekerjaan pertama itu saya masih menggunakan ijazah SMA</blockquote></section>
+          <section class="quote-card"><h4>Kutipan Masukan Alumni</h4><blockquote>Persyaratan publikasi/jurnal saat saya menempuh pendidikan S2 cukup kurang jelas, baru terjelaskan di semester 3 saat penyusunan tesis. Sebaiknya dari awal semester 1 prodi memiliki kriteria yg jelas dan disampaikan kepada mahasiswa, sehingga mahasiswa dapat membuat rencana/target publikasi dari awal semester saat jadwal perkuliahan masih belum padat.</blockquote><blockquote>Perlu difokuskan kembali tim riset di prodi sehingga sejak awal kuliah mahasiswa sudah mengetahui tim riset yang ada serta seperti apa environtmentnya, dan mahasiswa bisa menimbang lebih awal topik riset apa yang akan dijalani kedepannya. Hal ini menjadi perlu karena standar waktu kuliah di Magister Statistika Terapan cukup singkat, 3 semester.</blockquote><blockquote>akan lebih baik jika ada tambahan opsi praktikum dengan tools yang saat ini banyak digunakan di pekerjaan mulai dari awal pengolahan data mentah hingga visualisasi, seperti excell, sql, python, power BI, tableu, dan lain lain supaya skil lulusan relevan dengan kebutuhan pasar saat ini</blockquote><blockquote>Selama berkuliah proses pembelajaran sudah berjalan dengan baik, mengingat sudah 2 tahun setelah kelulusan saya, diharapkan proses pembelajaran semakin berkembang seiring berkembang nya IPTEK dan diharapkan juga didukung dengan sarana dan prasarana yang lebih baik lagi</blockquote><blockquote>Menambah jumlah dosen sesuai jurusan di prodi statistik, Meningkatkan kegiatan Seminar, Workshop, dan Pelatihan dengan tema statistik yang up to date serta narasumber profesional dalam negeri maupun luar negeri (harapannya terbuka juga untuk alumni Mstat)</blockquote><blockquote>memperbanyak frekuensi seminar/workshop utk magister statistika terapan terutama dengan narsum universitas lain baik dalam/luar negeri utk semakin menambah knowledge mahasiswa. kuliah bersama dgn fakultas lain (misal matematika).</blockquote></section>
+        </div>
+      </section>
+
+      <section class="report-section" id="kesimpulan">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Sintesis</p>
+            <h2>Kesimpulan</h2>
+          </div>
+        </div>
+        <p>Berdasarkan 92 respons pada cakupan tahun lulus sampai 2024, lulusan Magister Statistika Terapan FMIPA Unpad menunjukkan outcome ketenagakerjaan yang positif. Waktu tunggu pekerjaan pertama relatif singkat, dengan median 0,0 bulan dan 94,6% respons valid memperoleh pekerjaan dalam waktu paling lama 3 bulan.</p>
+        <p>Kompetensi statistika yang diperoleh selama studi terbukti relevan dengan pekerjaan alumni, tercermin dari dominannya jawaban “diterapkan” dan “sangat diterapkan”. Selain itu, sebaran instansi yang luas menunjukkan bahwa lulusan mampu memasuki berbagai sektor kerja, terutama instansi pemerintah/statistik, pendidikan, dan organisasi nasional maupun lokal.</p>
+        <p>Masukan alumni mengarah pada kebutuhan penguatan materi yang lebih aplikatif, pemanfaatan perangkat analitik modern, coding, database, big data, AI/machine learning, serta perluasan jejaring karier. Temuan ini dapat menjadi dasar pengembangan kurikulum, layanan karier, dan kemitraan pengguna lulusan.</p>
+      </section>
+
+      <section class="report-section" id="rekomendasi">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Tindak Lanjut</p>
+            <h2>Rekomendasi</h2>
+          </div>
+        </div>
+        <ol class="recommendations"><li><strong>Penguatan transisi karier.</strong> Bangun mekanisme career readiness sejak semester awal: klinik CV, simulasi wawancara, portofolio analitik, dan kanal informasi lowongan yang terkurasi untuk menjaga waktu tunggu tetap singkat.</li><li><strong>Kurikulum berbasis kebutuhan kerja.</strong> Perkuat mata kuliah berbasis proyek nyata, pemrograman statistik, pengelolaan basis data, visualisasi, big data, dan machine learning agar kompetensi lulusan semakin langsung dipakai di institusi kerja.</li><li><strong>Akselerasi kompetensi data modern.</strong> Masukan alumni menunjukkan kebutuhan pada data modern, coding, database, dan AI; materi ini perlu ditempatkan sebagai kompetensi inti terapan, bukan sekadar pengayaan.</li><li><strong>Kemitraan pengguna lulusan.</strong> Kembangkan jejaring dengan BPS, pemerintah daerah, perguruan tinggi, industri data, dan perusahaan nasional untuk magang, kuliah tamu, proyek bersama, serta rekrutmen lulusan.</li><li><strong>Pelacakan outcome berkelanjutan.</strong> Standarkan instrumen tracer tahunan agar waktu tunggu, gaji pertama, gaji saat ini, kesesuaian bidang, dan kompetensi dapat dibandingkan lintas tahun tanpa kehilangan konsistensi definisi.</li><li><strong>Forum alumni dan mentoring.</strong> Aktifkan alumni sebagai mentor karier, narasumber praktik industri, dan penghubung peluang kerja agar mahasiswa mendapat gambaran peran statistik di berbagai sektor.</li></ol>
+      </section>
+
+      <section class="report-section" id="lampiran">
+        <div class="section-head">
+          <div>
+            <p class="section-kicker">Rincian</p>
+            <h2>Lampiran</h2>
+          </div>
+        </div>
+        <div class="appendix-grid">
+          <div>
+            <h3>Distribusi Tahun Lulus</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Tahun Lulus</th><th>Jumlah</th><th>Persentase</th></tr></thead><tbody><tr><td>2009</td><td>1</td><td>1,1%</td></tr><tr><td>2010</td><td>2</td><td>2,2%</td></tr><tr><td>2012</td><td>3</td><td>3,3%</td></tr><tr><td>2015</td><td>3</td><td>3,3%</td></tr><tr><td>2016</td><td>6</td><td>6,5%</td></tr><tr><td>2017</td><td>8</td><td>8,7%</td></tr><tr><td>2018</td><td>14</td><td>15,2%</td></tr><tr><td>2019</td><td>4</td><td>4,3%</td></tr><tr><td>2020</td><td>14</td><td>15,2%</td></tr><tr><td>2021</td><td>14</td><td>15,2%</td></tr><tr><td>2022</td><td>8</td><td>8,7%</td></tr><tr><td>2023</td><td>6</td><td>6,5%</td></tr><tr><td>2024</td><td>9</td><td>9,8%</td></tr></tbody></table></div>
+          </div>
+          <div>
+            <h3>Status Bekerja Sebelum Lulus</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Kategori</th><th>Jumlah</th><th>Persentase</th></tr></thead><tbody><tr><td>Ya</td><td>81</td><td>88,0%</td></tr><tr><td>Tidak</td><td>11</td><td>12,0%</td></tr></tbody></table></div>
+          </div>
+          <div>
+            <h3>Jenis Tempat Kerja</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Kategori</th><th>Jumlah</th><th>Persentase</th></tr></thead><tbody><tr><td>Perusahaan/ instansi Nasional</td><td>64</td><td>69,6%</td></tr><tr><td>Perusahaan/ instansi Lokal / Wilayah</td><td>22</td><td>23,9%</td></tr><tr><td>Perusahaan/ instansi Multinasional/ Internasional</td><td>5</td><td>5,4%</td></tr><tr><td>Melanjutkan studi</td><td>1</td><td>1,1%</td></tr></tbody></table></div>
+          </div>
+          <div>
+            <h3>Penghasilan Saat Ini</h3>
+            <div class="table-wrap"><table class="data-table"><thead><tr><th>Kategori</th><th>Jumlah</th><th>Persentase</th></tr></thead><tbody><tr><td>&lt; Rp. 3 jt</td><td>3</td><td>3,3%</td></tr><tr><td>Rp. 3 jt - &lt; 6 jt</td><td>14</td><td>15,2%</td></tr><tr><td>Rp. 6 jt - &lt; 9 jt</td><td>21</td><td>22,8%</td></tr><tr><td>Rp. 9 jt - &lt; 12 jt</td><td>42</td><td>45,7%</td></tr><tr><td>&gt;=12 jt</td><td>12</td><td>13,0%</td></tr></tbody></table></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <strong>Laporan Tracer Study 2024</strong><br>
+      Program Studi S2 Magister Statistika Terapan FMIPA Universitas Padjadjaran. Dibangun dari Data.xlsx dengan filter tahun lulus S2/S3 <= 2024.
+    </footer>
+  </div>
+</body>
+</html>

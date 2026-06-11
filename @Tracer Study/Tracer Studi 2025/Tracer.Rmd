@@ -1,0 +1,556 @@
+---
+title: "Laporan Tracer Study Periode Akademik 2024/2025"
+subtitle: "Survey Almuni Tahun Lulus 2021-2025"
+author: "Tim Analisis Data M.Stat"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document:
+    toc: true
+    toc_float: 
+      collapsed: false
+      smooth_scroll: false
+    theme: united
+    highlight: tango
+    css: styles.css
+    df_print: kable
+---
+
+<style>
+/* Custom Professional Styles */
+.logo-container {
+  text-align: center;
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 5px;
+}
+
+.logo-img {
+  max-height: 120px;
+  margin: 0 auto;
+}
+</style>
+
+<div class="logo-container">
+![](logo.png){.logo-img}
+</div>
+
+<style>
+/* Custom Professional Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  text-align: justify;
+  line-height: 1.6;
+  color: #333;
+}
+
+h1, h2, h3 {
+  color: #2c3e50;
+  border-bottom: 1px solid #ecf0f1;
+  padding-bottom: 8px;
+}
+
+h1 {
+  color: #3498db;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.subtitle {
+  color: #7f8c8d;
+  font-weight: normal;
+  text-align: center;
+}
+
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.toc-content {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+  border-left: 4px solid #3498db;
+}
+
+pre {
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+table {
+  width: 100%;
+  margin: 20px 0;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: #3498db;
+  color: white;
+}
+
+td, th {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.figure {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  padding: 20px;
+  border-top: 1px solid #ecf0f1;
+  color: #7f8c8d;
+  font-size: 0.9em;
+}
+</style>
+
+<div class="main-container">
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+# Install packages if they are not already installed
+packages <- c("tidyverse", "tm", "wordcloud", "RColorBrewer")
+new_packages <- packages[!(packages %in% installed.packages()[,"Package"])]
+if(length(new_packages)) install.packages(new_packages)
+
+library(tidyverse)
+library(tm)
+library(wordcloud)
+library(RColorBrewer)
+library(readxl)
+
+setwd("/Users/mindra/Tracer")
+tracer_data <- read_excel("Tracer.xlsx")
+indonesian <- readLines("stopwords-id.txt")
+
+```
+
+**Executive Summary**
+Tracer Study yang dilakukan pada periode akademik 2024–2025 Program Magister Statistika Terapan bertujuan untuk memetakan profil lulusan, menilai relevansi kurikulum, serta menghimpun masukan strategis bagi pengembangan program studi ke depan. Hasil tracer study menunjukkan bahwa lulusan tersebar di berbagai institusi strategis seperti Badan Pusat Statistik (BPS), perguruan tinggi seperti Universitas Islam Bandung, perusahaan teknologi, serta beragam industri lainnya. Sebagian besar alumni menempati posisi di divisi statistika, dengan tanggung jawab utama dalam pengelolaan data dan analisis statistik yang sangat mendukung pengambilan keputusan di perusahaan maupun institusi tempat mereka bekerja.
+
+Mayoritas lulusan telah berhasil memperoleh pekerjaan sebelum lulus, dengan waktu tunggu kurang dari tiga bulan. Capaian ini mencerminkan kurikulum yang relevan serta keterampilan lulusan yang sesuai dengan kebutuhan dunia kerja. Selain itu, para alumni merasa bahwa pengetahuan dan keterampilan statistika yang diperoleh selama masa studi sangat bermanfaat dan dapat langsung diterapkan di lingkungan kerja, sehingga tingkat kepuasan terhadap penguasaan statistika terapan tergolong sangat tinggi.
+
+Namun demikian, seiring dengan pesatnya perkembangan teknologi, beberapa alumni memberikan masukan agar kurikulum semakin diperkuat dengan materi terkait Artificial Intelligence (AI) dan pengolahan data modern. Integrasi keilmuan AI dinilai penting untuk memperluas daya saing lulusan dan menyiapkan mereka menghadapi tantangan dunia kerja di masa depan. Secara keseluruhan, hasil tracer study ini menegaskan bahwa lulusan Magister Statistika Terapan mampu beradaptasi, berkontribusi secara signifikan, serta siap bersaing di era digital. Program studi diharapkan terus melakukan inovasi, khususnya melalui penguatan integrasi AI dalam kurikulum, agar senantiasa relevan dengan kebutuhan industri dan perkembangan zaman.
+
+# **Pendahuluan**
+Laporan ini menyajikan analisis data dari tracer study yang telah dilakukan. Tujuan dari laporan ini adalah untuk memberikan wawasan mengenai pengalaman lulusan setelah menyelesaikan studi mereka. Laporan ini mencakup analisis variabel kualitatif, kuantitatif, dan teks dari data yang dikumpulkan.
+
+## Pendidikan terakhir
+ 
+```{r}
+# Tabel Frekuensi
+Pendidikan_table <- table(tracer_data$Pendidikan)
+knitr::kable(Pendidikan_table, col.names = c("Pendidikan", "Jumlah"), caption = "Tabel Frekuensi Pendidikan")
+
+# Pie Chart
+pie_data <- as.data.frame(Pendidikan_table)
+colnames(pie_data) <- c("Pendidikan", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = Pendidikan)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Pendidikan") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Tahun lulus S2/S3
+ 
+```{r}
+# Tabel Frekuensi
+TahunLulus_table <- table(tracer_data$TahunLulus)
+knitr::kable(TahunLulus_table, col.names = c("TahunLulus", "Jumlah"), caption = "Tabel Frekuensi Tahun Lulus")
+
+# Pie Chart
+pie_data <- as.data.frame(TahunLulus_table)
+colnames(pie_data) <- c("TahunLulus", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = TahunLulus)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Tahun Lulus") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Jika lulus S3, mohon informasikan bidang ilmu yang ditempuh
+ 
+```{r}
+# Tabel Frekuensi
+BidangS3_table <- table(tracer_data$BidangS3)
+knitr::kable(BidangS3_table, col.names = c("BidangS3", "Jumlah"), caption = "Tabel Frekuensi Bidang S3")
+
+# Pie Chart
+pie_data <- as.data.frame(BidangS3_table)
+colnames(pie_data) <- c("BidangS3", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = BidangS3)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Bidang S3") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Nama Instansi/Perusahaan tempat berkerja
+ 
+```{r}
+# Membuat corpus dari kolom 'NamaPerusahaan'
+text <- Corpus(VectorSource(tracer_data$NamaPerusahaan))
+
+# Pra-pemrosesan teks
+text <- tm_map(text, content_transformer(tolower))
+text <- tm_map(text, removeNumbers)
+text <- tm_map(text, removePunctuation)
+text <- tm_map(text, removeWords, indonesian)
+text <- tm_map(text, stripWhitespace)
+
+# Membuat Term-Document Matrix
+tdm <- TermDocumentMatrix(text)
+m <- as.matrix(tdm)
+word_freqs <- sort(rowSums(m), decreasing = TRUE)
+dm <- data.frame(word = names(word_freqs), freq = word_freqs)
+
+# Membuat Word Cloud
+set.seed(1234) # Untuk reproduktifitas
+wordcloud(words = dm$word, freq = dm$freq, min.freq = 1,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+## Nama divisi/bagian/departemen tempat bekerja
+ 
+```{r}
+# Membuat corpus dari kolom 'Divisi'
+text <- Corpus(VectorSource(tracer_data$Divisi))
+
+# Pra-pemrosesan teks
+text <- tm_map(text, content_transformer(tolower))
+text <- tm_map(text, removeNumbers)
+text <- tm_map(text, removePunctuation)
+text <- tm_map(text, removeWords, indonesian)
+text <- tm_map(text, stripWhitespace)
+
+# Membuat Term-Document Matrix
+tdm <- TermDocumentMatrix(text)
+m <- as.matrix(tdm)
+word_freqs <- sort(rowSums(m), decreasing = TRUE)
+dm <- data.frame(word = names(word_freqs), freq = word_freqs)
+
+# Membuat Word Cloud
+set.seed(1234) # Untuk reproduktifitas
+wordcloud(words = dm$word, freq = dm$freq, min.freq = 1,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+## Tugas dan tanggung jawab Anda di divisi/bagian/departemen tersebut?
+ 
+```{r}
+# Membuat corpus dari kolom 'Tugas'
+text <- Corpus(VectorSource(tracer_data$Tugas))
+
+# Pra-pemrosesan teks
+text <- tm_map(text, content_transformer(tolower))
+text <- tm_map(text, removeNumbers)
+text <- tm_map(text, removePunctuation)
+text <- tm_map(text, removeWords, indonesian)
+text <- tm_map(text, stripWhitespace)
+
+# Membuat Term-Document Matrix
+tdm <- TermDocumentMatrix(text)
+m <- as.matrix(tdm)
+word_freqs <- sort(rowSums(m), decreasing = TRUE)
+dm <- data.frame(word = names(word_freqs), freq = word_freqs)
+
+# Membuat Word Cloud
+set.seed(1234) # Untuk reproduktifitas
+wordcloud(words = dm$word, freq = dm$freq, min.freq = 1,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+## Apakah Anda telah bekerja sebelum lulus Magister Statistika Terapan?
+ 
+```{r}
+# Tabel Frekuensi
+BekerjaSebelum_table <- table(tracer_data$BekerjaSebelum)
+knitr::kable(BekerjaSebelum_table, col.names = c("BekerjaSebelum", "Jumlah"), caption = "Tabel Frekuensi Bekerja Sebelum Lulus")
+
+# Pie Chart
+pie_data <- as.data.frame(BekerjaSebelum_table)
+colnames(pie_data) <- c("BekerjaSebelum", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = BekerjaSebelum)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Bekerja Sebelum Lulus") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Jika tidak, Berapa lama waktu tunggu Anda untuk memperoleh pekerjaan yang pertama setelah lulus Magister Statistika Terapan? (Mohon sampaikan dalam satuan bulan)
+ 
+```{r}
+# Membersihkan data dan mengubah ke numerik, asumsikan 'Tidak' berarti 0
+waktu_tunggu_numeric <- as.numeric(as.character(tracer_data$WaktuTunggu))
+waktu_tunggu_numeric <- na.omit(waktu_tunggu_numeric) # Menghilangkan NA
+
+# Ringkasan Statistik
+mean_waktu_tunggu <- mean(waktu_tunggu_numeric, na.rm = TRUE)
+sd_waktu_tunggu <- sd(waktu_tunggu_numeric, na.rm = TRUE)
+
+cat(paste("Rata-rata Waktu Tunggu:", round(mean_waktu_tunggu, 2), "bulan\n"))
+cat(paste("Standar Deviasi Waktu Tunggu:", round(sd_waktu_tunggu, 2), "bulan\n"))
+
+# Histogram
+ggplot(data.frame(WaktuTunggu = waktu_tunggu_numeric), aes(x = WaktuTunggu)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black") +
+  labs(title = "Histogram Waktu Tunggu Mendapatkan Pekerjaan", x = "Waktu Tunggu (Bulan)", y = "Frekuensi") +
+  theme_minimal()
+```
+
+## Dimana tempat anda bekerja setelah lulus Magister Statistika Terapan?
+ 
+```{r}
+# Tabel Frekuensi
+TempatKerja_table <- table(tracer_data$TempatKerja)
+knitr::kable(TempatKerja_table, col.names = c("TempatKerja", "Jumlah"), caption = "Tabel Frekuensi Tempat Kerja")
+
+# Pie Chart
+pie_data <- as.data.frame(TempatKerja_table)
+colnames(pie_data) <- c("TempatKerja", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = TempatKerja)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Tempat Kerja") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Kendala apakah yang dihadapi dalam memperoleh pekerjaan pertama?
+ 
+```{r}
+# Tabel Frekuensi
+Kendala_table <- table(tracer_data$Kendala)
+knitr::kable(Kendala_table, col.names = c("Kendala", "Jumlah"), caption = "Tabel Frekuensi Kendala Mendapatkan Pekerjaan Pertama")
+
+# Pie Chart
+pie_data <- as.data.frame(Kendala_table)
+colnames(pie_data) <- c("Kendala", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = Kendala)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Kendala Mendapatkan Pekerjaan Pertama") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Frekuensi pindah kerja
+ 
+```{r}
+# Tabel Frekuensi
+PindahKerja_table <- table(tracer_data$PindahKerja)
+knitr::kable(PindahKerja_table, col.names = c("PindahKerja", "Jumlah"), caption = "Tabel Frekuensi Pindah Kerja")
+
+# Pie Chart
+pie_data <- as.data.frame(PindahKerja_table)
+colnames(pie_data) <- c("PindahKerja", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = PindahKerja)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Pindah Kerja") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Jika pernah pindah kerja, apa alasan anda pindah kerja?
+ 
+```{r}
+# Membuat corpus dari kolom 'AlasanPindahKerja'
+text <- Corpus(VectorSource(tracer_data$AlasanPindahKerja))
+
+# Pra-pemrosesan teks
+text <- tm_map(text, content_transformer(tolower))
+text <- tm_map(text, removeNumbers)
+text <- tm_map(text, removePunctuation)
+text <- tm_map(text, removeWords, indonesian)
+text <- tm_map(text, stripWhitespace)
+
+# Membuat Term-Document Matrix
+tdm <- TermDocumentMatrix(text)
+m <- as.matrix(tdm)
+word_freqs <- sort(rowSums(m), decreasing = TRUE)
+dm <- data.frame(word = names(word_freqs), freq = word_freqs)
+
+# Membuat Word Cloud
+set.seed(1234) # Untuk reproduktifitas
+wordcloud(words = dm$word, freq = dm$freq, min.freq = 1,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+## Penerapan dari pengetahuan dan keterampilan Statistika dalam pekerjaan Anda saat ini?
+ 
+```{r}
+# Tabel Frekuensi
+PenerapanStat_table <- table(tracer_data$PenerapanStat)
+knitr::kable(PenerapanStat_table, col.names = c("PenerapanStat", "Jumlah"), caption = "Tabel Frekuensi Penerapan Statistika")
+
+# Pie Chart
+pie_data <- as.data.frame(PenerapanStat_table)
+colnames(pie_data) <- c("PenerapanStat", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = PenerapanStat)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Diagram Lingkaran Penerapan Statistika") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Secara umum, bagaimana Pendidikan Anda terhadap pekerjaan yang dijalani saat ini:
+ 
+```{r}
+# Tabel Frekuensi
+PenilaianKerja_table <- table(tracer_data$PenilaianKerja)
+knitr::kable(PenilaianKerja_table, col.names = c("PenilaianKerja", "Jumlah"), caption = "Tabel Frekuensi Penilaian ilmu yang diperoleh didunia kerja")
+
+# Pie Chart
+pie_data <- as.data.frame(PenilaianKerja_table)
+colnames(pie_data) <- c("PenilaianKerja", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = PenilaianKerja)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Penilaian ilmu yang diperoleh didunia kerja") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Besarnya penghasilan per bulan saat pertama kali bekerja
+ 
+```{r}
+# Tabel Frekuensi
+Penghasilan_table <- table(tracer_data$Penghasilan)
+knitr::kable(Penghasilan_table, col.names = c("Penghasilan", "Jumlah"), caption = "Tabel Frekuensi Penghasilan Pertama")
+
+# Pie Chart
+pie_data <- as.data.frame(Penghasilan_table)
+colnames(pie_data) <- c("Penghasilan", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = Penghasilan)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Penghasilan Pertama") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Besarnya penghasilan perbulan dari pekerjaan saat ini (apabila berbeda dari pertanyaan no. 9) :
+ 
+```{r}
+# Tabel Frekuensi
+Pengasilanbaru_table <- table(tracer_data$Pengasilanbaru)
+knitr::kable(Pengasilanbaru_table, col.names = c("Pengasilanbaru", "Jumlah"), caption = "Tabel Frekuensi Pengasilan Saat Ini")
+
+# Pie Chart
+pie_data <- as.data.frame(Pengasilanbaru_table)
+colnames(pie_data) <- c("Pengasilanbaru", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = Pengasilanbaru)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Pengasilan Saat Ini") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5))
+```
+
+## Pendapatan anda perbulan saat ini bila dibandingkan dengan UMR
+ 
+```{r}
+
+# Tabel Frekuensi
+PendapatanVsUMR_table <- table(tracer_data$PendapatanVsUMR)
+knitr::kable(PendapatanVsUMR_table, col.names = c("PendapatanVsUMR", "Jumlah"), caption = "Tabel Frekuensi Pengasilan Saat Ini vs UMR")
+
+# Pie Chart
+pie_data <- as.data.frame(PendapatanVsUMR_table)
+colnames(pie_data) <- c("PendapatanVsUMR", "Jumlah")
+
+ggplot(pie_data, aes(x = "", y = Jumlah, fill = PendapatanVsUMR)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  theme_void() +
+  labs(title = "Pengasilan Saat Ini  vs UMR") +
+  geom_text(aes(label = paste0(round(Jumlah/sum(Jumlah)*100), "%")), position = position_stack(vjust = 0.5)) 
+```
+
+## Masukan mengenai proses pembelajaran di Program Studi S2 Magister Statistika Terapan FMIPA Unpad untuk menghasilkan lulusan kedepan yang berkualitas:
+
+```{r}
+# Membuat corpus dari kolom 'Masukan'
+text <- Corpus(VectorSource(tracer_data$Masukan))
+
+# Pra-pemrosesan teks
+text <- tm_map(text, content_transformer(tolower))
+text <- tm_map(text, removeNumbers)
+text <- tm_map(text, removePunctuation)
+text <- tm_map(text, removeWords, indonesian)
+text <- tm_map(text, stripWhitespace)
+
+# Membuat Term-Document Matrix
+tdm <- TermDocumentMatrix(text)
+m <- as.matrix(tdm)
+word_freqs <- sort(rowSums(m), decreasing = TRUE)
+dm <- data.frame(word = names(word_freqs), freq = word_freqs)
+
+# Membuat Word Cloud
+set.seed(1234) # Untuk reproduktifitas
+wordcloud(words = dm$word, freq = dm$freq, min.freq = 1,
+          max.words=100, random.order=FALSE, rot.per=0.35,
+          colors=brewer.pal(8, "Dark2"))
+```
+
+# **Kesimpulan**
+
+Kesimpulan Tracer Study Lulusan S2 Statistika Terapan
+
+Berdasarkan hasil tracer study terhadap lulusan S2 Statistika Terapan, dapat disimpulkan beberapa hal penting berikut:
+
+**Lulusan Tersebar di Berbagai Institusi Strategis**
+Alumni S2 Statistika Terapan telah menunjukkan daya saing yang sangat baik, terbukti dengan tersebarnya mereka di berbagai institusi bergengsi, antara lain Badan Pusat Statistik (BPS), Universitas Islam Bandung, perusahaan teknologi, dan industri. Hal ini membuktikan bahwa kompetensi lulusan telah diakui di berbagai sektor.
+
+**Peran Kunci di Dunia Kerja**
+Mayoritas alumni berkarir di divisi statistika, dengan tanggung jawab utama dalam pengelolaan dan analisis data perusahaan. Peran ini semakin vital seiring meningkatnya kebutuhan akan data-driven decision making di berbagai bidang.
+
+**Waktu Tunggu Kerja yang Singkat**
+Salah satu indikator kualitas pendidikan yang sangat menonjol adalah mayoritas lulusan sudah bekerja bahkan sebelum resmi lulus, dengan rata-rata waktu tunggu kerja kurang dari tiga bulan. Ini mencerminkan relevansi kurikulum dengan kebutuhan pasar kerja.
+
+**Kepuasan dan Penerapan Keilmuan Statistika**
+Para alumni menilai ilmu statistika yang diperoleh selama studi sangat memuaskan dan aplikatif di dunia kerja. Mereka secara aktif menerapkan metode-metode statistika dalam berbagai aspek pekerjaan, mulai dari analisis data, pembuatan model prediksi, hingga pengambilan keputusan strategis.
+
+**Kebutuhan Penguatan Kurikulum AI**
+Seiring dengan perkembangan teknologi, beberapa alumni memberikan masukan penting terkait kebutuhan penguatan kompetensi dalam bidang Artificial Intelligence (AI) dalam kurikulum. Integrasi materi AI dinilai akan semakin memperkuat daya saing lulusan, mengingat semakin luasnya pemanfaatan AI dalam analisis data modern di berbagai sektor industri dan penelitian.
+
+**Rekomendasi:**
+Hasil tracer study ini menjadi refleksi positif atas mutu pendidikan yang telah dicapai, sekaligus dorongan untuk terus beradaptasi dengan perkembangan zaman, khususnya dengan memperkaya kurikulum melalui integrasi keilmuan statistika dengan teknologi Artificial Intelligence.
+

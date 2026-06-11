@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S2 Statistika Terapan FMIPA Unpad</title>
-  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, panduan tesis, data lulusan, silabus, dan materi kuliah HTML." />
+  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, panduan tesis, data lulusan, tracer study, silabus, dan materi kuliah HTML." />
   <link rel="preload" href="assets/campus-hero.jpg" as="image" />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
@@ -32,6 +32,7 @@
         <a href="#mata-kuliah">Mata Kuliah</a>
         <a href="#materi">Materi</a>
         <a href="#lulusan">Lulusan</a>
+        <a href="#tracer-studi">Tracer</a>
         <a href="#silabus">Silabus</a>
         <a href="#chatbot">Chatbot</a>
       </nav>
@@ -206,6 +207,21 @@
       </div>
     </section>
 
+    <section class="section" id="tracer-studi">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker">Tracer Studi</p>
+          <h2>Tracer Studi lulusan 2022-2025</h2>
+          <p>Laporan tahunan tracer study diringkas sebagai blok akses cepat untuk melihat waktu tunggu kerja pertama, respons lulusan, dan indikator awal serapan lulusan.</p>
+        </div>
+        <div class="tracer-toolbar">
+          <span><strong id="tracerStudyCount">4</strong> laporan tracer study</span>
+          <a href="#chatbot">Tanyakan tracer study ke chatbot</a>
+        </div>
+        <div class="tracer-grid" id="tracerStudyRows" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="section section-muted" id="mata-kuliah">
       <div class="container">
         <div class="course-head">
@@ -289,7 +305,7 @@
         <div class="chat-copy">
           <p class="section-kicker">Chatbot Akademik</p>
           <h2>Tanya Kurikulum S2 Statistika Terapan</h2>
-          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, dan ringkasan administratif dari SMUP Program Magister.</p>
+          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, tracer study, dan ringkasan administratif dari SMUP Program Magister.</p>
           <div class="source-note">
             <strong id="knowledgeCount">562</strong>
             <span>potongan pengetahuan terindeks</span>
@@ -314,12 +330,13 @@
             <button type="button" data-q="Apa panduan penulisan tesis?">Panduan tesis</button>
             <button type="button" data-q="Bagaimana alur SUR, SKR, dan SAM?">SUR SKR SAM</button>
             <button type="button" data-q="Berikan contoh judul tesis lulusan tentang spasial">Tesis lulusan</button>
+            <button type="button" data-q="Apa isi Tracer Studi 2025?">Tracer 2025</button>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="message bot">
               <strong>Asisten Prodi</strong>
-              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
-              <small>Sumber utama: Kurikulum OBE 2026, panduan tesis, data lulusan, dan katalog materi kuliah</small>
+              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tracer study, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
+              <small>Sumber utama: Kurikulum OBE 2026, panduan tesis, data lulusan, tracer study, dan katalog materi kuliah</small>
             </div>
           </div>
           <form class="chat-form" id="chatForm">

@@ -124,6 +124,7 @@ let syllabus = [];
 let alumniData = null;
 let materialsData = null;
 let thesisGuidesData = null;
+let tracerStudiesData = null;
 let activeFilter = "Semua";
 let serverChatAvailable = false;
 
@@ -142,6 +143,8 @@ const materialRows = document.getElementById("materialRows");
 const materialCount = document.getElementById("materialCount");
 const thesisGuideRows = document.getElementById("thesisGuideRows");
 const thesisGuideCount = document.getElementById("thesisGuideCount");
+const tracerStudyRows = document.getElementById("tracerStudyRows");
+const tracerStudyCount = document.getElementById("tracerStudyCount");
 const modeLabel = document.getElementById("modeLabel");
 const chatMessages = document.getElementById("chatMessages");
 const chatForm = document.getElementById("chatForm");
@@ -201,6 +204,9 @@ function expandQuestion(question) {
   if (/(alumni|lulusan|judul tesis|tesis lulusan|pembimbing)/.test(normalized)) {
     synonyms.push("alumni lulusan tesis judul tesis pembimbing tahun lulus riset lulusan");
   }
+  if (/(tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus)/.test(normalized)) {
+    synonyms.push("tracer study tracer studi waktu tunggu pekerjaan pertama serapan lulusan respons lulusan bekerja sebelum lulus");
+  }
 
   return [question, ...synonyms].join(" ");
 }
@@ -219,6 +225,7 @@ function scoreChunk(question, chunk) {
   ) && !(asksAlumni && !/panduan|format|penulisan|pelaksanaan|sur|skr|sam/.test(normalizedQuestion));
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
     && !/silabus|sylabus|rps/.test(normalizedQuestion);
+  const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
@@ -226,6 +233,8 @@ function scoreChunk(question, chunk) {
   if (asksThesisGuide && chunk.id?.startsWith("alumni-")) score -= 70;
   if (asksMaterial && chunk.id?.startsWith("material-")) score += 160;
   if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
+  if (asksTracer && chunk.id?.startsWith("tracer-study-")) score += 170;
+  if (asksTracer && chunk.id?.startsWith("syllabus-")) score -= 60;
 
   for (const token of tokens) {
     if (text.includes(token)) score += 4;
@@ -275,6 +284,16 @@ function scoreChunk(question, chunk) {
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 50;
+  }
+
+  if (chunk.id?.startsWith("tracer-study-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 20;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
   }
 
   return score;
@@ -518,7 +537,8 @@ function findThesisGuide(question) {
 
 function buildThesisGuideAnswer(question) {
   const text = normalize(question);
-  const asksOverview = /apa panduan|apa isi|dokumen panduan|daftar panduan|link panduan|buka panduan|download panduan|unduh panduan|panduan penulisan|panduan pelaksanaan/.test(text);
+  const asksThesisContext = /tesis|panduan|penulisan|pelaksanaan|sur|skr|sam|sidang|seminar usulan|seminar kemajuan|format naskah|bimbingan|penguji/.test(text);
+  const asksOverview = asksThesisContext && /apa panduan|apa isi|dokumen panduan|daftar panduan|link panduan|buka panduan|download panduan|unduh panduan|panduan penulisan|panduan pelaksanaan/.test(text);
   if (!asksOverview) return null;
 
   const selected = findThesisGuide(question);
@@ -541,6 +561,40 @@ function buildThesisGuideAnswer(question) {
   };
 }
 
+function findTracerReport(question) {
+  const reports = tracerStudiesData?.reports || [];
+  const year = normalize(question).match(/\b(2022|2023|2024|2025)\b/)?.[1];
+  return year ? reports.find((report) => String(report.year) === year) || null : null;
+}
+
+function buildTracerStudyAnswer(question, hits = []) {
+  const text = normalize(question);
+  const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(text)
+    || hits.some((hit) => String(hit.id || "").startsWith("tracer-study-"));
+  if (!asksTracer) return null;
+
+  const selected = findTracerReport(question);
+  const reports = selected ? [selected] : (tracerStudiesData?.reports || []);
+  if (!reports.length) return null;
+
+  const answer = reports
+    .map((report) => [
+      `${report.title}: ${report.summary}`,
+      `Respons dianalisis: ${report.metrics?.responses || "-"}.`,
+      `Median waktu tunggu kerja pertama: ${report.metrics?.medianWait || "-"}.`,
+      `Pekerjaan pertama <= 3 bulan: ${report.metrics?.firstJobUnder3Months || "-"}.`,
+      `Sudah bekerja sebelum lulus: ${report.metrics?.workingBeforeGraduation || "-"}.`,
+      `Laporan: ${report.href}`
+    ].join("\n"))
+    .join("\n\n");
+
+  return {
+    answer,
+    sources: reports.map((report) => ({ title: report.title, url: report.href })),
+    mode: "Local knowledge base"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -550,6 +604,7 @@ function matchFact(question) {
   const asksDayaTampung = /daya tampung|kuota|kapasitas/.test(text);
   const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
+  const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(text);
   const asksThesisGuide = (
     (/tesis/.test(text) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(text))
     || /panduan tesis|sur|skr|sam|sidang akhir|seminar usulan|seminar kemajuan/.test(text)
@@ -563,6 +618,7 @@ function matchFact(question) {
   if (asksSyarat) return FACTS.persyaratanSmup;
   if (asksSyllabus) return null;
   if (asksMaterial) return null;
+  if (asksTracer) return null;
   if (asksThesisGuide) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return FACTS.rpl;
@@ -584,10 +640,12 @@ function buildLocalAnswer(question) {
   const hits = retrieve(question, 4);
   const structuredSyllabus = buildSyllabusAnswer(question, hits);
   const structuredMaterial = buildMaterialAnswer(question, hits);
+  const structuredTracerStudy = buildTracerStudyAnswer(question, hits);
   const structuredThesisGuide = buildThesisGuideAnswer(question);
 
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
+  if (structuredTracerStudy) return structuredTracerStudy;
   if (structuredThesisGuide) return structuredThesisGuide;
 
   if (fact) {
@@ -616,7 +674,9 @@ function buildLocalAnswer(question) {
       ? "Saya menemukan materi HTML yang relevan:"
       : hits[0]?.id?.startsWith("thesis-guide-")
         ? "Saya menemukan panduan tesis yang relevan:"
-        : "Saya menemukan potongan knowledge base yang relevan:";
+        : hits[0]?.id?.startsWith("tracer-study-")
+          ? "Saya menemukan laporan tracer study yang relevan:"
+          : "Saya menemukan potongan knowledge base yang relevan:";
 
   return {
     answer: `${intro}\n\n${excerpts}`,
@@ -821,6 +881,51 @@ function renderMaterials() {
     .join("");
 }
 
+function renderTracerStudies() {
+  if (!tracerStudyRows) return;
+  const reports = tracerStudiesData?.reports || [];
+
+  if (tracerStudyCount) tracerStudyCount.textContent = String(reports.length);
+
+  if (!reports.length) {
+    tracerStudyRows.innerHTML = '<p class="empty-note">Laporan tracer study belum tersedia.</p>';
+    return;
+  }
+
+  tracerStudyRows.innerHTML = reports
+    .map((report) => `
+      <article class="tracer-card">
+        <span class="badge">${escapeHTML(report.reportTitle || report.title)}</span>
+        <div class="tracer-year">${escapeHTML(report.year)}</div>
+        <h3>${escapeHTML(report.title)}</h3>
+        <p>${escapeHTML(report.summary)}</p>
+        <dl class="tracer-metrics">
+          <div>
+            <dt>Respons</dt>
+            <dd>${escapeHTML(report.metrics?.responses || "-")}</dd>
+          </div>
+          <div>
+            <dt>Median tunggu</dt>
+            <dd>${escapeHTML(report.metrics?.medianWait || "-")}</dd>
+          </div>
+          <div>
+            <dt>&le; 3 bulan</dt>
+            <dd>${escapeHTML(report.metrics?.firstJobUnder3Months || "-")}</dd>
+          </div>
+          <div>
+            <dt>Sebelum lulus</dt>
+            <dd>${escapeHTML(report.metrics?.workingBeforeGraduation || "-")}</dd>
+          </div>
+        </dl>
+        <div class="tracer-actions">
+          <a href="${escapeHTML(report.href)}" target="_blank" rel="noopener">Buka laporan</a>
+          <button type="button" data-tracer-q="Apa isi ${escapeHTML(report.title)}?">Tanya chatbot</button>
+        </div>
+      </article>
+    `)
+    .join("");
+}
+
 function renderAlumni() {
   if (!alumniRows || !alumniData) return;
   const records = alumniData.records || [];
@@ -940,6 +1045,19 @@ async function loadThesisGuides() {
   renderThesisGuides();
 }
 
+async function loadTracerStudies() {
+  try {
+    const response = await fetch("data/tracer_studies.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Tracer study tidak dapat dimuat.");
+    const data = await response.json();
+    if (!data?.reports?.length) throw new Error("Tracer study kosong.");
+    tracerStudiesData = data;
+  } catch (error) {
+    tracerStudiesData = { total: 0, reports: [], years: [] };
+  }
+  renderTracerStudies();
+}
+
 async function loadKnowledge() {
   try {
     const response = await fetch("data/knowledge_chunks.json", { cache: "no-store" });
@@ -992,6 +1110,11 @@ thesisGuideRows?.addEventListener("click", (event) => {
   if (!button) return;
   ask(button.dataset.guideQ);
 });
+tracerStudyRows?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-tracer-q]");
+  if (!button) return;
+  ask(button.dataset.tracerQ);
+});
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -1006,4 +1129,5 @@ loadKnowledge();
 loadSyllabus();
 loadMaterials();
 loadThesisGuides();
+loadTracerStudies();
 loadAlumni();

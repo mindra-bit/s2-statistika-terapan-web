@@ -30,6 +30,10 @@ const thesisGuidesPath = path.join(__dirname, "data", "thesis_guides.json");
 const thesisGuides = fs.existsSync(thesisGuidesPath)
   ? JSON.parse(fs.readFileSync(thesisGuidesPath, "utf8"))
   : { total: 0, guides: [] };
+const tracerStudiesPath = path.join(__dirname, "data", "tracer_studies.json");
+const tracerStudies = fs.existsSync(tracerStudiesPath)
+  ? JSON.parse(fs.readFileSync(tracerStudiesPath, "utf8"))
+  : { total: 0, reports: [], years: [] };
 const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun s2 apa saja berapa".split(" "));
 const genericQueryTerms = new Set("silabus sylabus rps materi referensi deskripsi bahan kajian topik perkuliahan mata kuliah matakuliah course".split(" "));
 
@@ -155,6 +159,9 @@ function expandQuestion(question) {
   if (/(alumni|lulusan|judul tesis|tesis lulusan|pembimbing)/.test(text)) {
     expansions.push("alumni lulusan tesis judul tesis pembimbing tahun lulus riset lulusan");
   }
+  if (/(tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus)/.test(text)) {
+    expansions.push("tracer study tracer studi waktu tunggu pekerjaan pertama serapan lulusan respons lulusan bekerja sebelum lulus");
+  }
 
   return [question, ...expansions].join(" ");
 }
@@ -172,6 +179,7 @@ function scoreChunk(question, chunk) {
   ) && !(asksAlumni && !/panduan|format|penulisan|pelaksanaan|sur|skr|sam/.test(normalizedQuestion));
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
     && !/silabus|sylabus|rps/.test(normalizedQuestion);
+  const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
@@ -179,6 +187,8 @@ function scoreChunk(question, chunk) {
   if (asksThesisGuide && chunk.id?.startsWith("alumni-")) score -= 70;
   if (asksMaterial && chunk.id?.startsWith("material-")) score += 160;
   if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
+  if (asksTracer && chunk.id?.startsWith("tracer-study-")) score += 170;
+  if (asksTracer && chunk.id?.startsWith("syllabus-")) score -= 60;
 
   for (const token of tokens) {
     if (text.includes(token)) score += 4;
@@ -228,6 +238,16 @@ function scoreChunk(question, chunk) {
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 50;
+  }
+
+  if (chunk.id?.startsWith("tracer-study-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 20;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
   }
 
   return score;
@@ -439,7 +459,8 @@ function findThesisGuide(question) {
 
 function thesisGuideAnswer(question) {
   const text = normalize(question);
-  const asksOverview = /apa panduan|apa isi|dokumen panduan|daftar panduan|link panduan|buka panduan|download panduan|unduh panduan|panduan penulisan|panduan pelaksanaan/.test(text);
+  const asksThesisContext = /tesis|panduan|penulisan|pelaksanaan|sur|skr|sam|sidang|seminar usulan|seminar kemajuan|format naskah|bimbingan|penguji/.test(text);
+  const asksOverview = asksThesisContext && /apa panduan|apa isi|dokumen panduan|daftar panduan|link panduan|buka panduan|download panduan|unduh panduan|panduan penulisan|panduan pelaksanaan/.test(text);
   if (!asksOverview) return null;
 
   const selected = findThesisGuide(question);
@@ -462,6 +483,40 @@ function thesisGuideAnswer(question) {
   };
 }
 
+function findTracerReport(question) {
+  const reports = tracerStudies.reports || [];
+  const year = normalize(question).match(/\b(2022|2023|2024|2025)\b/)?.[1];
+  return year ? reports.find((report) => String(report.year) === year) || null : null;
+}
+
+function tracerStudyAnswer(question, hits = []) {
+  const text = normalize(question);
+  const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(text)
+    || hits.some((hit) => String(hit.id || "").startsWith("tracer-study-"));
+  if (!asksTracer) return null;
+
+  const selected = findTracerReport(question);
+  const reports = selected ? [selected] : (tracerStudies.reports || []);
+  if (!reports.length) return null;
+
+  const answer = reports
+    .map((report) => [
+      `${report.title}: ${report.summary}`,
+      `Respons dianalisis: ${report.metrics?.responses || "-"}.`,
+      `Median waktu tunggu kerja pertama: ${report.metrics?.medianWait || "-"}.`,
+      `Pekerjaan pertama <= 3 bulan: ${report.metrics?.firstJobUnder3Months || "-"}.`,
+      `Sudah bekerja sebelum lulus: ${report.metrics?.workingBeforeGraduation || "-"}.`,
+      `Laporan: ${report.href}`
+    ].join("\n"))
+    .join("\n\n");
+
+  return {
+    answer,
+    sources: reports.map((report) => ({ title: report.title, url: report.href })),
+    mode: "server retrieval"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -471,6 +526,7 @@ function matchFact(question) {
   const asksDayaTampung = /daya tampung|kuota|kapasitas/.test(text);
   const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
+  const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(text);
   const asksThesisGuide = (
     (/tesis/.test(text) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(text))
     || /panduan tesis|sur|skr|sam|sidang akhir|seminar usulan|seminar kemajuan/.test(text)
@@ -484,6 +540,7 @@ function matchFact(question) {
   if (asksSyarat) return facts.persyaratanSmup;
   if (asksSyllabus) return null;
   if (asksMaterial) return null;
+  if (asksTracer) return null;
   if (asksThesisGuide) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return facts.rpl;
@@ -520,10 +577,12 @@ function localAnswer(question) {
   const hits = retrieve(question, 5);
   const structuredSyllabus = syllabusAnswer(question, hits);
   const structuredMaterial = materialAnswer(question, hits);
+  const structuredTracerStudy = tracerStudyAnswer(question, hits);
   const structuredThesisGuide = thesisGuideAnswer(question);
 
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
+  if (structuredTracerStudy) return structuredTracerStudy;
   if (structuredThesisGuide) return structuredThesisGuide;
 
   if (fact) {
@@ -552,7 +611,9 @@ function localAnswer(question) {
       ? "Saya menemukan materi HTML yang relevan:"
       : hits[0]?.id?.startsWith("thesis-guide-")
         ? "Saya menemukan panduan tesis yang relevan:"
-        : "Saya menemukan potongan knowledge base yang relevan:";
+        : hits[0]?.id?.startsWith("tracer-study-")
+          ? "Saya menemukan laporan tracer study yang relevan:"
+          : "Saya menemukan potongan knowledge base yang relevan:";
   const answer = [
     intro,
     "",
@@ -574,6 +635,7 @@ app.get("/api/health", (_req, res) => {
     alumni: alumni?.summary?.total || 0,
     materials: materials.total || materials.materials?.length || 0,
     thesisGuides: thesisGuides.total || thesisGuides.guides?.length || 0,
+    tracerStudies: tracerStudies.total || tracerStudies.reports?.length || 0,
     apiReady: Boolean(client),
     model: client ? model : null
   });
@@ -595,13 +657,17 @@ app.get("/api/thesis-guides", (_req, res) => {
   res.json(thesisGuides);
 });
 
+app.get("/api/tracer-studies", (_req, res) => {
+  res.json(tracerStudies);
+});
+
 app.post("/api/chat", async (req, res) => {
   const question = String(req.body?.question || "").trim();
   if (!question) return res.status(400).json({ error: "Pertanyaan tidak boleh kosong." });
 
   const fact = matchFact(question);
   const hits = retrieve(question, 8);
-  const directAnswer = syllabusAnswer(question, hits) || materialAnswer(question, hits) || thesisGuideAnswer(question);
+  const directAnswer = syllabusAnswer(question, hits) || materialAnswer(question, hits) || tracerStudyAnswer(question, hits) || thesisGuideAnswer(question);
 
   if (directAnswer) {
     return res.json({

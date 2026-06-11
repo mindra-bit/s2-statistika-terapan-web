@@ -106,6 +106,22 @@ npm run build:materials
 
 Perintah pertama menyeragamkan template visual semua HTML materi mengikuti standar ADWTL. Perintah kedua membuat ulang `data/materials.json` dan menambahkan indeks `material-*` ke `data/knowledge_chunks.json`, sehingga halaman Materi Kuliah dan chatbot bisa menemukan link materi HTML terbaru.
 
+## Memperbarui Tracer Study
+
+Simpan laporan HTML tracer study di dalam folder:
+
+```text
+@Tracer Study/Tracer Studi 2025/
+```
+
+Setelah menambah atau mengganti laporan tahunan, jalankan:
+
+```bash
+npm run build:tracer-studies
+```
+
+Perintah ini membuat ulang `data/tracer_studies.json` dan menambahkan indeks `tracer-study-*` ke `data/knowledge_chunks.json`, sehingga blok Tracer Studi dan chatbot memakai sumber laporan terbaru.
+
 ## Memperbarui Panduan Tesis
 
 Simpan PDF publik dengan nama generik di folder:
