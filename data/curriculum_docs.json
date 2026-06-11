@@ -1,0 +1,63 @@
+{
+  "source": "Dokumen Kurikulum",
+  "generatedAt": "2026-06-11T14:40:41.337Z",
+  "total": 4,
+  "documents": [
+    {
+      "id": "kurikulum-2020-2022",
+      "period": "2020-2022",
+      "title": "Kurikulum 2020-2022",
+      "titleId": "Kurikulum 2020-2022",
+      "titleEn": "Curriculum 2020-2022",
+      "description": "Dokumen kurikulum periode 2020-2022 sebagai arsip akademik dan rujukan historis program studi.",
+      "descriptionId": "Dokumen kurikulum periode 2020-2022 sebagai arsip akademik dan rujukan historis program studi.",
+      "descriptionEn": "Curriculum document for the 2020-2022 period, provided as an academic archive and historical program reference.",
+      "file": "Kurikulum 2020-2022.pdf",
+      "href": "Kurikulum%202020-2022.pdf",
+      "sizeKb": 15560,
+      "source": "Dokumen Kurikulum"
+    },
+    {
+      "id": "kurikulum-2023-2024",
+      "period": "2023-2024",
+      "title": "Kurikulum 2023-2024",
+      "titleId": "Kurikulum 2023-2024",
+      "titleEn": "Curriculum 2023-2024",
+      "description": "Dokumen kurikulum periode 2023-2024 untuk melihat struktur akademik dan perkembangan kurikulum sebelum pembaruan berikutnya.",
+      "descriptionId": "Dokumen kurikulum periode 2023-2024 untuk melihat struktur akademik dan perkembangan kurikulum sebelum pembaruan berikutnya.",
+      "descriptionEn": "Curriculum document for the 2023-2024 period, useful for reviewing academic structure and curriculum development before later updates.",
+      "file": "Kurikulum 2023-2024.pdf",
+      "href": "Kurikulum%202023-2024.pdf",
+      "sizeKb": 9142,
+      "source": "Dokumen Kurikulum"
+    },
+    {
+      "id": "kurikulum-2025",
+      "period": "2025",
+      "title": "Kurikulum 2025",
+      "titleId": "Kurikulum 2025",
+      "titleEn": "Curriculum 2025",
+      "description": "Dokumen kurikulum 2025 sebagai transisi menuju penguatan kurikulum berbasis capaian pembelajaran.",
+      "descriptionId": "Dokumen kurikulum 2025 sebagai transisi menuju penguatan kurikulum berbasis capaian pembelajaran.",
+      "descriptionEn": "The 2025 curriculum document, representing the transition toward stronger outcome-based curriculum design.",
+      "file": "Kurikulum 2025.pdf",
+      "href": "Kurikulum%202025.pdf",
+      "sizeKb": 11526,
+      "source": "Dokumen Kurikulum"
+    },
+    {
+      "id": "kurikulum-2026",
+      "period": "2026",
+      "title": "Kurikulum 2026",
+      "titleId": "Kurikulum 2026",
+      "titleEn": "Curriculum 2026",
+      "description": "Dokumen kurikulum OBE 2026 yang menjadi rujukan utama struktur studi, mata kuliah, CPL, bahan kajian, dan skema penyelesaian.",
+      "descriptionId": "Dokumen kurikulum OBE 2026 yang menjadi rujukan utama struktur studi, mata kuliah, CPL, bahan kajian, dan skema penyelesaian.",
+      "descriptionEn": "The 2026 OBE curriculum document, the main reference for study structure, courses, learning outcomes, knowledge areas, and completion schemes.",
+      "file": "Kurikulum 2026.pdf",
+      "href": "Kurikulum%202026.pdf",
+      "sizeKb": 4611,
+      "source": "Dokumen Kurikulum"
+    }
+  ]
+}

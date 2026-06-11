@@ -6,6 +6,7 @@
     "build:syllabus": "node scripts/build-syllabus.mjs",
     "build:materials": "node scripts/build-materials.mjs",
     "build:thesis-guides": "node scripts/build-thesis-guides.mjs",
+    "build:curriculum-docs": "node scripts/build-curriculum-docs.mjs",
     "build:tracer-studies": "node scripts/build-tracer-studies.mjs",
     "standardize:materials": "node scripts/standardize-material-template.mjs",
     "dev": "node server.js",

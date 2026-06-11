@@ -11,8 +11,8 @@
 <body>
   <div class="topbar">
     <div class="container topbar-inner">
-      <span>FMIPA Universitas Padjadjaran</span>
-      <span>Kurikulum OBE 2026</span>
+      <span data-i18n="topbarCampus">FMIPA Universitas Padjadjaran</span>
+      <span data-i18n="topbarCurriculum">Kurikulum OBE 2026</span>
     </div>
   </div>
 
@@ -26,17 +26,22 @@
         </span>
       </a>
       <nav class="nav-links" aria-label="Navigasi utama">
-        <a href="#profil">Profil</a>
-        <a href="#kurikulum">Kurikulum</a>
-        <a href="#panduan-tesis">Panduan</a>
-        <a href="#mata-kuliah">Mata Kuliah</a>
-        <a href="#materi">Materi</a>
-        <a href="#lulusan">Lulusan</a>
-        <a href="#tracer-studi">Tracer</a>
-        <a href="#silabus">Silabus</a>
-        <a href="#chatbot">Chatbot</a>
+        <a href="#profil" data-i18n="navProfile">Profil</a>
+        <a href="#kurikulum" data-i18n="navCurriculum">Kurikulum</a>
+        <a href="#dokumen-kurikulum" data-i18n="navDocs">Dokumen</a>
+        <a href="#panduan-tesis" data-i18n="navGuide">Panduan</a>
+        <a href="#mata-kuliah" data-i18n="navCourses">Mata Kuliah</a>
+        <a href="#materi" data-i18n="navMaterials">Materi</a>
+        <a href="#lulusan" data-i18n="navGraduates">Lulusan</a>
+        <a href="#tracer-studi" data-i18n="navTracer">Tracer</a>
+        <a href="#silabus" data-i18n="navSyllabus">Silabus</a>
+        <a href="#chatbot" data-i18n="navChatbot">Chatbot</a>
       </nav>
-      <a class="nav-action" href="#chatbot">Tanya Prodi</a>
+      <div class="language-switch" role="group" aria-label="Pilihan bahasa">
+        <button class="active" type="button" data-lang="id" aria-pressed="true">ID</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+      <a class="nav-action" href="#chatbot" data-i18n="navAsk">Tanya Prodi</a>
     </div>
   </header>
 
@@ -44,12 +49,12 @@
     <section class="hero" id="home" aria-labelledby="hero-title">
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-content">
-        <p class="eyebrow">Program Magister</p>
+        <p class="eyebrow" data-i18n="heroKicker">Program Magister</p>
         <h1 id="hero-title">S2 Statistika Terapan FMIPA Unpad</h1>
-        <p class="hero-lead">Pendidikan magister 42 SKS berbasis statistika terapan, riset, komputasi, dan sains data untuk menjawab kebutuhan industri, pemerintahan, kesehatan, aktuaria, dan akademik.</p>
+        <p class="hero-lead" data-i18n="heroLead">Pendidikan magister 42 SKS berbasis statistika terapan, riset, komputasi, dan sains data untuk menjawab kebutuhan industri, pemerintahan, kesehatan, aktuaria, dan akademik.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#chatbot">Tanya Chatbot</a>
-          <a class="button button-secondary" href="#kurikulum">Lihat Kurikulum</a>
+          <a class="button button-primary" href="#chatbot" data-i18n="heroAsk">Tanya Chatbot</a>
+          <a class="button button-secondary" href="#kurikulum" data-i18n="heroCurriculum">Lihat Kurikulum</a>
         </div>
       </div>
     </section>
@@ -58,19 +63,19 @@
       <div class="container stat-grid">
         <div class="stat-item">
           <strong>42</strong>
-          <span>SKS kurikulum OBE</span>
+          <span data-i18n="statSks">SKS kurikulum OBE</span>
         </div>
         <div class="stat-item">
           <strong>3</strong>
-          <span>skema studi</span>
+          <span data-i18n="statSchemes">skema studi</span>
         </div>
         <div class="stat-item">
           <strong>8</strong>
-          <span>bahan kajian</span>
+          <span data-i18n="statAreas">bahan kajian</span>
         </div>
         <div class="stat-item">
           <strong>2026</strong>
-          <span>kurikulum OBE</span>
+          <span data-i18n="statCurriculum">kurikulum OBE</span>
         </div>
       </div>
     </section>
@@ -81,15 +86,15 @@
           <img src="assets/campus-profile.jpg" alt="Gedung Universitas Padjadjaran" />
         </div>
         <div class="content-stack">
-          <p class="section-kicker">Profil Program</p>
-          <h2>Pusat pendidikan magister statistika yang unggul dalam pendidikan dan riset.</h2>
-          <p>Program ini menyiapkan lulusan yang mampu mengembangkan metode statistika, mengelola riset, dan menerapkan analisis data pada masalah nyata melalui pendekatan interdisipliner.</p>
+          <p class="section-kicker" data-i18n="profileKicker">Profil Program</p>
+          <h2 data-i18n="profileTitle">Pusat pendidikan magister statistika yang unggul dalam pendidikan dan riset.</h2>
+          <p data-i18n="profileText">Program ini menyiapkan lulusan yang mampu mengembangkan metode statistika, mengelola riset, dan menerapkan analisis data pada masalah nyata melalui pendekatan interdisipliner.</p>
           <div class="pill-grid" aria-label="Bidang kajian">
-            <span>Bisnis dan Industri</span>
-            <span>Sosial</span>
-            <span>Aktuaria</span>
-            <span>Biostatistik</span>
-            <span>Sains Data</span>
+            <span data-i18n="pillBusiness">Bisnis dan Industri</span>
+            <span data-i18n="pillSocial">Sosial</span>
+            <span data-i18n="pillActuarial">Aktuaria</span>
+            <span data-i18n="pillBiostat">Biostatistik</span>
+            <span data-i18n="pillDataScience">Sains Data</span>
           </div>
         </div>
       </div>
@@ -98,52 +103,67 @@
     <section class="section section-muted" id="kurikulum">
       <div class="container">
         <div class="section-head">
-          <p class="section-kicker">Struktur Kurikulum</p>
-          <h2>Struktur 42 SKS dengan jalur kuliah, riset, dan RPL.</h2>
-          <p>Kurikulum OBE 2026 dirancang untuk memperkuat penguasaan teori, kemampuan analitik, kompetensi riset, rekognisi pembelajaran, dan publikasi ilmiah.</p>
+          <p class="section-kicker" data-i18n="curriculumKicker">Struktur Kurikulum</p>
+          <h2 data-i18n="curriculumTitle">Struktur 42 SKS dengan jalur kuliah, riset, dan RPL.</h2>
+          <p data-i18n="curriculumText">Kurikulum OBE 2026 dirancang untuk memperkuat penguasaan teori, kemampuan analitik, kompetensi riset, rekognisi pembelajaran, dan publikasi ilmiah.</p>
         </div>
         <div class="path-grid">
           <article class="info-card">
             <span class="label">Coursework</span>
-            <h3>Magister Berbasis Kuliah</h3>
+            <h3 data-i18n="courseworkTitle">Magister Berbasis Kuliah</h3>
             <ul>
-              <li>21 SKS mata kuliah wajib.</li>
-              <li>9 SKS mata kuliah pilihan.</li>
-              <li>12 SKS tesis: SUR 2 SKS, SKR 4 SKS, Sidang Akhir Magister 6 SKS.</li>
+              <li data-i18n="coursework1">21 SKS mata kuliah wajib.</li>
+              <li data-i18n="coursework2">9 SKS mata kuliah pilihan.</li>
+              <li data-i18n="coursework3">12 SKS tesis: SUR 2 SKS, SKR 4 SKS, Sidang Akhir Magister 6 SKS.</li>
             </ul>
           </article>
           <article class="info-card">
             <span class="label">By Research</span>
-            <h3>Magister Berbasis Riset</h3>
+            <h3 data-i18n="researchTitle">Magister Berbasis Riset</h3>
             <ul>
-              <li>12 SKS mata kuliah wajib.</li>
-              <li>9 SKS keterampilan dan 9 SKS publikasi.</li>
-              <li>12 SKS tesis dengan fokus penelitian inovatif dan diseminasi ilmiah.</li>
+              <li data-i18n="research1">12 SKS mata kuliah wajib.</li>
+              <li data-i18n="research2">9 SKS keterampilan dan 9 SKS publikasi.</li>
+              <li data-i18n="research3">12 SKS tesis dengan fokus penelitian inovatif dan diseminasi ilmiah.</li>
             </ul>
           </article>
           <article class="info-card">
             <span class="label">RPL</span>
-            <h3>Rekognisi Pembelajaran Lampau</h3>
+            <h3 data-i18n="rplTitle">Rekognisi Pembelajaran Lampau</h3>
             <ul>
-              <li>Rekognisi capaian pembelajaran formal, nonformal, informal, atau pengalaman kerja.</li>
-              <li>Mata kuliah yang dapat direkognisi mengikuti tabel RPL Kurikulum 2026.</li>
-              <li>Mata kuliah tesis dan fondasi tertentu tetap ditempuh di prodi.</li>
+              <li data-i18n="rpl1">Rekognisi capaian pembelajaran formal, nonformal, informal, atau pengalaman kerja.</li>
+              <li data-i18n="rpl2">Mata kuliah yang dapat direkognisi mengikuti tabel RPL Kurikulum 2026.</li>
+              <li data-i18n="rpl3">Mata kuliah tesis dan fondasi tertentu tetap ditempuh di prodi.</li>
             </ul>
           </article>
         </div>
       </div>
     </section>
 
+    <section class="section" id="dokumen-kurikulum">
+      <div class="container">
+        <div class="section-head">
+          <p class="section-kicker" data-i18n="curriculumDocsKicker">Dokumen Kurikulum</p>
+          <h2 data-i18n="curriculumDocsTitle">Arsip dokumen kurikulum 2020-2026</h2>
+          <p data-i18n="curriculumDocsText">Empat PDF kurikulum ditempatkan sebagai rujukan resmi dan arsip akademik yang dapat dibuka langsung dari website.</p>
+        </div>
+        <div class="curriculum-doc-toolbar">
+          <span><strong id="curriculumDocCount">4</strong> <span data-i18n="curriculumDocsCountLabel">dokumen kurikulum</span></span>
+          <a href="#chatbot" data-i18n="curriculumDocsAsk">Tanyakan dokumen ke chatbot</a>
+        </div>
+        <div class="curriculum-doc-grid" id="curriculumDocRows" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="section" id="panduan-tesis">
       <div class="container">
         <div class="section-head">
-          <p class="section-kicker">Panduan Tesis</p>
-          <h2>Dokumen panduan penulisan dan pelaksanaan tesis.</h2>
-          <p>Rujukan resmi untuk penyusunan naskah tesis, Seminar Usulan Riset, Seminar Kemajuan Riset, dan Sidang Akhir Magister.</p>
+          <p class="section-kicker" data-i18n="thesisGuideKicker">Panduan Tesis</p>
+          <h2 data-i18n="thesisGuideTitle">Dokumen panduan penulisan dan pelaksanaan tesis.</h2>
+          <p data-i18n="thesisGuideText">Rujukan resmi untuk penyusunan naskah tesis, Seminar Usulan Riset, Seminar Kemajuan Riset, dan Sidang Akhir Magister.</p>
         </div>
         <div class="guide-toolbar">
-          <span><strong id="thesisGuideCount">2</strong> dokumen panduan</span>
-          <a href="#chatbot">Tanyakan panduan ke chatbot</a>
+          <span><strong id="thesisGuideCount">2</strong> <span data-i18n="thesisGuideCountLabel">dokumen panduan</span></span>
+          <a href="#chatbot" data-i18n="thesisGuideAsk">Tanyakan panduan ke chatbot</a>
         </div>
         <div class="guide-grid" id="thesisGuideRows" aria-live="polite"></div>
       </div>
@@ -152,25 +172,25 @@
     <section class="section">
       <div class="container">
         <div class="section-head compact">
-          <p class="section-kicker">Kompetensi Lulusan</p>
-          <h2>Profil karier yang fleksibel untuk akademik, riset, konsultansi, dan industri.</h2>
+          <p class="section-kicker" data-i18n="graduateCompetencyKicker">Kompetensi Lulusan</p>
+          <h2 data-i18n="graduateCompetencyTitle">Profil karier yang fleksibel untuk akademik, riset, konsultansi, dan industri.</h2>
         </div>
         <div class="role-grid">
           <article class="role-card">
-            <h3>Akademisi</h3>
-            <p>Siap berkarier sebagai dosen, instruktur, dan pembina akademik melalui Tri Dharma Perguruan Tinggi.</p>
+            <h3 data-i18n="academicianTitle">Akademisi</h3>
+            <p data-i18n="academicianText">Siap berkarier sebagai dosen, instruktur, dan pembina akademik melalui Tri Dharma Perguruan Tinggi.</p>
           </article>
           <article class="role-card">
-            <h3>Peneliti</h3>
-            <p>Mampu melakukan riset inovatif dalam statistika teoritis dan terapan serta menghasilkan karya ilmiah bermutu.</p>
+            <h3 data-i18n="researcherTitle">Peneliti</h3>
+            <p data-i18n="researcherText">Mampu melakukan riset inovatif dalam statistika teoritis dan terapan serta menghasilkan karya ilmiah bermutu.</p>
           </article>
           <article class="role-card">
-            <h3>Konsultan</h3>
-            <p>Memberikan layanan analisis data dan pemecahan masalah berbasis statistika untuk lembaga dan organisasi.</p>
+            <h3 data-i18n="consultantTitle">Konsultan</h3>
+            <p data-i18n="consultantText">Memberikan layanan analisis data dan pemecahan masalah berbasis statistika untuk lembaga dan organisasi.</p>
           </article>
           <article class="role-card">
-            <h3>Praktisi</h3>
-            <p>Bekerja sebagai profesional analitik di perusahaan, pemerintahan, industri, lembaga riset, dan jasa konsultansi.</p>
+            <h3 data-i18n="practitionerTitle">Praktisi</h3>
+            <p data-i18n="practitionerText">Bekerja sebagai profesional analitik di perusahaan, pemerintahan, industri, lembaga riset, dan jasa konsultansi.</p>
           </article>
         </div>
       </div>
@@ -180,26 +200,26 @@
       <div class="container">
         <div class="course-head">
           <div>
-            <p class="section-kicker">Lulusan & Tesis</p>
-            <h2>Jejak riset lulusan 2022-2026</h2>
-            <p>Ringkasan judul tesis, pembimbing, tema riset, dan tahun lulus berdasarkan data lulusan program magister.</p>
+            <p class="section-kicker" data-i18n="alumniKicker">Lulusan & Tesis</p>
+            <h2 data-i18n="alumniTitle">Jejak riset lulusan 2022-2026</h2>
+            <p data-i18n="alumniText">Ringkasan judul tesis, pembimbing, tema riset, dan tahun lulus berdasarkan data lulusan program magister.</p>
           </div>
           <label class="search-field">
-            <span>Cari lulusan atau tesis</span>
-            <input id="alumniSearch" type="search" placeholder="Nama, topik, pembimbing, tahun..." autocomplete="off" />
+            <span data-i18n="alumniSearchLabel">Cari lulusan atau tesis</span>
+            <input id="alumniSearch" type="search" placeholder="Nama, topik, pembimbing, tahun..." data-i18n-placeholder="alumniSearchPlaceholder" autocomplete="off" />
           </label>
         </div>
         <div class="alumni-dashboard">
           <div class="metric-card">
             <strong id="alumniCount">69</strong>
-            <span>tesis tampil</span>
+            <span data-i18n="alumniDisplayed">tesis tampil</span>
           </div>
           <div class="year-panel">
-            <h3>Distribusi Tahun Lulus</h3>
+            <h3 data-i18n="alumniYearDistribution">Distribusi Tahun Lulus</h3>
             <div class="year-bars" id="alumniYearBars"></div>
           </div>
           <div class="theme-panel">
-            <h3>Tema Riset Dominan</h3>
+            <h3 data-i18n="alumniResearchThemes">Tema Riset Dominan</h3>
             <ul id="alumniThemeList"></ul>
           </div>
         </div>
@@ -210,13 +230,13 @@
     <section class="section" id="tracer-studi">
       <div class="container">
         <div class="section-head">
-          <p class="section-kicker">Tracer Studi</p>
-          <h2>Tracer Studi lulusan 2022-2025</h2>
-          <p>Laporan tahunan tracer study diringkas sebagai blok akses cepat untuk melihat waktu tunggu kerja pertama, respons lulusan, dan indikator awal serapan lulusan.</p>
+          <p class="section-kicker" data-i18n="tracerKicker">Tracer Studi</p>
+          <h2 data-i18n="tracerTitle">Tracer Studi lulusan 2022-2025</h2>
+          <p data-i18n="tracerText">Laporan tahunan tracer study diringkas sebagai blok akses cepat untuk melihat waktu tunggu kerja pertama, respons lulusan, dan indikator awal serapan lulusan.</p>
         </div>
         <div class="tracer-toolbar">
-          <span><strong id="tracerStudyCount">4</strong> laporan tracer study</span>
-          <a href="#chatbot">Tanyakan tracer study ke chatbot</a>
+          <span><strong id="tracerStudyCount">4</strong> <span data-i18n="tracerCountLabel">laporan tracer study</span></span>
+          <a href="#chatbot" data-i18n="tracerAsk">Tanyakan tracer study ke chatbot</a>
         </div>
         <div class="tracer-grid" id="tracerStudyRows" aria-live="polite"></div>
       </div>
@@ -226,30 +246,30 @@
       <div class="container">
         <div class="course-head">
           <div>
-            <p class="section-kicker">Mata Kuliah</p>
-            <h2>Daftar mata kuliah Kurikulum 2026</h2>
+            <p class="section-kicker" data-i18n="coursesKicker">Mata Kuliah</p>
+            <h2 data-i18n="coursesTitle">Daftar mata kuliah Kurikulum 2026</h2>
           </div>
           <label class="search-field">
-            <span>Cari mata kuliah</span>
-            <input id="courseSearch" type="search" placeholder="Machine learning, spasial, survival..." autocomplete="off" />
+            <span data-i18n="coursesSearchLabel">Cari mata kuliah</span>
+            <input id="courseSearch" type="search" placeholder="Machine learning, spasial, survival..." data-i18n-placeholder="coursesSearchPlaceholder" autocomplete="off" />
           </label>
         </div>
         <div class="filter-tabs" role="tablist" aria-label="Filter kelompok mata kuliah">
-          <button class="active" type="button" data-filter="Semua">Semua</button>
-          <button type="button" data-filter="Wajib">Wajib</button>
-          <button type="button" data-filter="Pilihan">Pilihan</button>
-          <button type="button" data-filter="Riset">Riset</button>
-          <button type="button" data-filter="Keterampilan Riset">Keterampilan</button>
-          <button type="button" data-filter="Publikasi">Publikasi</button>
+          <button class="active" type="button" data-filter="Semua" data-i18n="filterAll">Semua</button>
+          <button type="button" data-filter="Wajib" data-i18n="filterRequired">Wajib</button>
+          <button type="button" data-filter="Pilihan" data-i18n="filterElective">Pilihan</button>
+          <button type="button" data-filter="Riset" data-i18n="filterResearch">Riset</button>
+          <button type="button" data-filter="Keterampilan Riset" data-i18n="filterSkills">Keterampilan</button>
+          <button type="button" data-filter="Publikasi" data-i18n="filterPublication">Publikasi</button>
         </div>
         <div class="table-shell">
           <table>
             <thead>
               <tr>
-                <th>Mata Kuliah</th>
-                <th>Course</th>
-                <th>SKS</th>
-                <th>Kelompok</th>
+                <th data-i18n="tableCourseId">Mata Kuliah</th>
+                <th data-i18n="tableCourseEn">Course</th>
+                <th data-i18n="tableCredits">SKS</th>
+                <th data-i18n="tableGroup">Kelompok</th>
               </tr>
             </thead>
             <tbody id="courseRows"></tbody>
@@ -262,18 +282,18 @@
       <div class="container">
         <div class="course-head">
           <div>
-            <p class="section-kicker">Materi Kuliah</p>
-            <h2>Katalog materi HTML per mata kuliah</h2>
-            <p>Materi dari folder @Materi Kuliah disusun sebagai katalog digital agar mahasiswa dapat mencari dan membuka bahan ajar dengan cepat.</p>
+            <p class="section-kicker" data-i18n="materialsKicker">Materi Kuliah</p>
+            <h2 data-i18n="materialsTitle">Katalog materi HTML per mata kuliah</h2>
+            <p data-i18n="materialsText">Materi dari folder @Materi Kuliah disusun sebagai katalog digital agar mahasiswa dapat mencari dan membuka bahan ajar dengan cepat.</p>
           </div>
           <label class="search-field">
-            <span>Cari materi</span>
-            <input id="materialSearch" type="search" placeholder="Spasial, aktuaria, regresi, epidemiologi..." autocomplete="off" />
+            <span data-i18n="materialsSearchLabel">Cari materi</span>
+            <input id="materialSearch" type="search" placeholder="Spasial, aktuaria, regresi, epidemiologi..." data-i18n-placeholder="materialsSearchPlaceholder" autocomplete="off" />
           </label>
         </div>
         <div class="materials-toolbar">
-          <span><strong id="materialCount">25</strong> materi tampil</span>
-          <a href="#chatbot">Tanyakan materi ke chatbot</a>
+          <span><strong id="materialCount">25</strong> <span data-i18n="materialsShown">materi tampil</span></span>
+          <a href="#chatbot" data-i18n="materialsAsk">Tanyakan materi ke chatbot</a>
         </div>
         <div class="material-list" id="materialRows" aria-live="polite"></div>
       </div>
@@ -283,18 +303,18 @@
       <div class="container">
         <div class="course-head">
           <div>
-            <p class="section-kicker">Silabus</p>
-            <h2>Silabus mata kuliah dari Kurikulum 2026</h2>
-            <p>Setiap entri memuat deskripsi, bahan kajian, dan referensi yang diekstrak dari dokumen kurikulum resmi.</p>
+            <p class="section-kicker" data-i18n="syllabusKicker">Silabus</p>
+            <h2 data-i18n="syllabusTitle">Silabus mata kuliah dari Kurikulum 2026</h2>
+            <p data-i18n="syllabusText">Setiap entri memuat deskripsi, bahan kajian, dan referensi yang diekstrak dari dokumen kurikulum resmi.</p>
           </div>
           <label class="search-field">
-            <span>Cari silabus</span>
-            <input id="syllabusSearch" type="search" placeholder="Pembelajaran Mesin, Basis Data, SUR..." autocomplete="off" />
+            <span data-i18n="syllabusSearchLabel">Cari silabus</span>
+            <input id="syllabusSearch" type="search" placeholder="Pembelajaran Mesin, Basis Data, SUR..." data-i18n-placeholder="syllabusSearchPlaceholder" autocomplete="off" />
           </label>
         </div>
         <div class="syllabus-toolbar">
-          <span><strong id="syllabusCount">33</strong> silabus tampil</span>
-          <a href="#chatbot">Tanyakan ke chatbot</a>
+          <span><strong id="syllabusCount">33</strong> <span data-i18n="syllabusShown">silabus tampil</span></span>
+          <a href="#chatbot" data-i18n="syllabusAsk">Tanyakan ke chatbot</a>
         </div>
         <div class="syllabus-grid" id="syllabusRows" aria-live="polite"></div>
       </div>
@@ -303,46 +323,47 @@
     <section class="section chat-section" id="chatbot">
       <div class="container chat-layout">
         <div class="chat-copy">
-          <p class="section-kicker">Chatbot Akademik</p>
-          <h2>Tanya Kurikulum S2 Statistika Terapan</h2>
-          <p>Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, tracer study, dan ringkasan administratif dari SMUP Program Magister.</p>
+          <p class="section-kicker" data-i18n="chatKicker">Chatbot Akademik</p>
+          <h2 data-i18n="chatTitle">Tanya Kurikulum S2 Statistika Terapan</h2>
+          <p data-i18n="chatText">Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, dokumen kurikulum 2020-2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, tracer study, dan ringkasan administratif dari SMUP Program Magister.</p>
           <div class="source-note">
             <strong id="knowledgeCount">562</strong>
-            <span>potongan pengetahuan terindeks</span>
+            <span data-i18n="knowledgePieces">potongan pengetahuan terindeks</span>
           </div>
         </div>
         <div class="chat-card" aria-live="polite">
           <div class="chat-top">
             <div class="chat-title">
               <img src="assets/logo-unpad.png" alt="" />
-              <span>Asisten Prodi</span>
+              <span data-i18n="assistantName">Asisten Prodi</span>
             </div>
-            <span class="mode" id="modeLabel">Memuat knowledge base</span>
+            <span class="mode" id="modeLabel" data-i18n="loadingKnowledge">Memuat knowledge base</span>
           </div>
           <div class="quick-prompts" aria-label="Contoh pertanyaan">
-            <button type="button" data-q="Berapa SKS kurikulum 2026?">Berapa SKS?</button>
-            <button type="button" data-q="Apa perbedaan jalur coursework dan by research?">Jalur studi</button>
-            <button type="button" data-q="Apa visi dan misi prodi?">Visi misi</button>
-            <button type="button" data-q="Apa profil lulusan S2 Statistika Terapan?">Profil lulusan</button>
-            <button type="button" data-q="Apa saja mata kuliah sains data?">Sains data</button>
-            <button type="button" data-q="Apa silabus Pembelajaran Mesin?">Silabus ML</button>
-            <button type="button" data-q="Ada materi kuliah Analisis Spasial?">Materi HTML</button>
-            <button type="button" data-q="Apa panduan penulisan tesis?">Panduan tesis</button>
-            <button type="button" data-q="Bagaimana alur SUR, SKR, dan SAM?">SUR SKR SAM</button>
-            <button type="button" data-q="Berikan contoh judul tesis lulusan tentang spasial">Tesis lulusan</button>
-            <button type="button" data-q="Apa isi Tracer Studi 2025?">Tracer 2025</button>
+            <button type="button" data-i18n="promptSks" data-q-id="Berapa SKS kurikulum 2026?" data-q-en="How many credits are required in the 2026 curriculum?">Berapa SKS?</button>
+            <button type="button" data-i18n="promptPath" data-q-id="Apa perbedaan jalur coursework dan by research?" data-q-en="What is the difference between coursework and by research pathways?">Jalur studi</button>
+            <button type="button" data-i18n="promptVision" data-q-id="Apa visi dan misi prodi?" data-q-en="What are the vision and mission of the program?">Visi misi</button>
+            <button type="button" data-i18n="promptProfile" data-q-id="Apa profil lulusan S2 Statistika Terapan?" data-q-en="What are the graduate profiles of the Applied Statistics master's program?">Profil lulusan</button>
+            <button type="button" data-i18n="promptDataScience" data-q-id="Apa saja mata kuliah sains data?" data-q-en="Which courses are related to data science?">Sains data</button>
+            <button type="button" data-i18n="promptSyllabus" data-q-id="Apa silabus Pembelajaran Mesin?" data-q-en="What is the Machine Learning syllabus?">Silabus ML</button>
+            <button type="button" data-i18n="promptMaterials" data-q-id="Ada materi kuliah Analisis Spasial?" data-q-en="Is there HTML learning material for Spatial Analysis?">Materi HTML</button>
+            <button type="button" data-i18n="promptGuide" data-q-id="Apa panduan penulisan tesis?" data-q-en="What is in the thesis writing guide?">Panduan tesis</button>
+            <button type="button" data-i18n="promptThesisFlow" data-q-id="Bagaimana alur SUR, SKR, dan SAM?" data-q-en="How do SUR, SKR, and SAM work?">SUR SKR SAM</button>
+            <button type="button" data-i18n="promptAlumni" data-q-id="Berikan contoh judul tesis lulusan tentang spasial" data-q-en="Give examples of graduate thesis titles about spatial topics">Tesis lulusan</button>
+            <button type="button" data-i18n="promptTracer" data-q-id="Apa isi Tracer Studi 2025?" data-q-en="What is in the 2025 tracer study?">Tracer 2025</button>
+            <button type="button" data-i18n="promptCurriculumDocs" data-q-id="Buka dokumen Kurikulum 2026" data-q-en="Open the 2026 curriculum document">Dokumen 2026</button>
           </div>
           <div class="chat-messages" id="chatMessages">
             <div class="message bot">
-              <strong>Asisten Prodi</strong>
-              <p>Silakan ajukan pertanyaan tentang kurikulum 2026, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tracer study, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
-              <small>Sumber utama: Kurikulum OBE 2026, panduan tesis, data lulusan, tracer study, dan katalog materi kuliah</small>
+              <strong data-i18n="assistantName">Asisten Prodi</strong>
+              <p data-i18n="welcomeText">Silakan ajukan pertanyaan tentang kurikulum 2026, dokumen kurikulum 2020-2026, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tracer study, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.</p>
+              <small data-i18n="welcomeSources">Sumber utama: Kurikulum OBE 2026, dokumen kurikulum, panduan tesis, data lulusan, tracer study, dan katalog materi kuliah</small>
             </div>
           </div>
           <form class="chat-form" id="chatForm">
-            <label for="questionInput">Pertanyaan</label>
-            <input id="questionInput" name="question" placeholder="Tulis pertanyaan..." autocomplete="off" />
-            <button type="submit">Kirim</button>
+            <label for="questionInput" data-i18n="questionLabel">Pertanyaan</label>
+            <input id="questionInput" name="question" placeholder="Tulis pertanyaan..." data-i18n-placeholder="questionPlaceholder" autocomplete="off" />
+            <button type="submit" data-i18n="send">Kirim</button>
           </form>
         </div>
       </div>
@@ -353,9 +374,9 @@
     <div class="container footer-inner">
       <div>
         <strong>S2 Statistika Terapan FMIPA Universitas Padjadjaran</strong>
-        <p>Website profesional dengan chatbot berbasis knowledge base kurikulum.</p>
+        <p data-i18n="footerText">Website profesional dengan chatbot berbasis knowledge base kurikulum.</p>
       </div>
-      <a href="#home">Kembali ke atas</a>
+      <a href="#home" data-i18n="backTop">Kembali ke atas</a>
     </div>
   </footer>
 

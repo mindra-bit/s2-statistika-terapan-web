@@ -125,6 +125,7 @@ let alumniData = null;
 let materialsData = null;
 let thesisGuidesData = null;
 let tracerStudiesData = null;
+let curriculumDocsData = null;
 let activeFilter = "Semua";
 let serverChatAvailable = false;
 
@@ -145,11 +146,395 @@ const thesisGuideRows = document.getElementById("thesisGuideRows");
 const thesisGuideCount = document.getElementById("thesisGuideCount");
 const tracerStudyRows = document.getElementById("tracerStudyRows");
 const tracerStudyCount = document.getElementById("tracerStudyCount");
+const curriculumDocRows = document.getElementById("curriculumDocRows");
+const curriculumDocCount = document.getElementById("curriculumDocCount");
 const modeLabel = document.getElementById("modeLabel");
 const chatMessages = document.getElementById("chatMessages");
 const chatForm = document.getElementById("chatForm");
 const questionInput = document.getElementById("questionInput");
 const knowledgeCount = document.getElementById("knowledgeCount");
+
+const I18N = {
+  id: {
+    topbarCampus: "FMIPA Universitas Padjadjaran",
+    topbarCurriculum: "Kurikulum OBE 2026",
+    navProfile: "Profil",
+    navCurriculum: "Kurikulum",
+    navDocs: "Dokumen",
+    navGuide: "Panduan",
+    navCourses: "Mata Kuliah",
+    navMaterials: "Materi",
+    navGraduates: "Lulusan",
+    navTracer: "Tracer",
+    navSyllabus: "Silabus",
+    navChatbot: "Chatbot",
+    navAsk: "Tanya Prodi",
+    heroKicker: "Program Magister",
+    heroLead: "Pendidikan magister 42 SKS berbasis statistika terapan, riset, komputasi, dan sains data untuk menjawab kebutuhan industri, pemerintahan, kesehatan, aktuaria, dan akademik.",
+    heroAsk: "Tanya Chatbot",
+    heroCurriculum: "Lihat Kurikulum",
+    statSks: "SKS kurikulum OBE",
+    statSchemes: "skema studi",
+    statAreas: "bahan kajian",
+    statCurriculum: "kurikulum OBE",
+    profileKicker: "Profil Program",
+    profileTitle: "Pusat pendidikan magister statistika yang unggul dalam pendidikan dan riset.",
+    profileText: "Program ini menyiapkan lulusan yang mampu mengembangkan metode statistika, mengelola riset, dan menerapkan analisis data pada masalah nyata melalui pendekatan interdisipliner.",
+    pillBusiness: "Bisnis dan Industri",
+    pillSocial: "Sosial",
+    pillActuarial: "Aktuaria",
+    pillBiostat: "Biostatistik",
+    pillDataScience: "Sains Data",
+    curriculumKicker: "Struktur Kurikulum",
+    curriculumTitle: "Struktur 42 SKS dengan jalur kuliah, riset, dan RPL.",
+    curriculumText: "Kurikulum OBE 2026 dirancang untuk memperkuat penguasaan teori, kemampuan analitik, kompetensi riset, rekognisi pembelajaran, dan publikasi ilmiah.",
+    courseworkTitle: "Magister Berbasis Kuliah",
+    coursework1: "21 SKS mata kuliah wajib.",
+    coursework2: "9 SKS mata kuliah pilihan.",
+    coursework3: "12 SKS tesis: SUR 2 SKS, SKR 4 SKS, Sidang Akhir Magister 6 SKS.",
+    researchTitle: "Magister Berbasis Riset",
+    research1: "12 SKS mata kuliah wajib.",
+    research2: "9 SKS keterampilan dan 9 SKS publikasi.",
+    research3: "12 SKS tesis dengan fokus penelitian inovatif dan diseminasi ilmiah.",
+    rplTitle: "Rekognisi Pembelajaran Lampau",
+    rpl1: "Rekognisi capaian pembelajaran formal, nonformal, informal, atau pengalaman kerja.",
+    rpl2: "Mata kuliah yang dapat direkognisi mengikuti tabel RPL Kurikulum 2026.",
+    rpl3: "Mata kuliah tesis dan fondasi tertentu tetap ditempuh di prodi.",
+    curriculumDocsKicker: "Dokumen Kurikulum",
+    curriculumDocsTitle: "Arsip dokumen kurikulum 2020-2026",
+    curriculumDocsText: "Empat PDF kurikulum ditempatkan sebagai rujukan resmi dan arsip akademik yang dapat dibuka langsung dari website.",
+    curriculumDocsCountLabel: "dokumen kurikulum",
+    curriculumDocsAsk: "Tanyakan dokumen ke chatbot",
+    curriculumDocPeriod: "Periode",
+    curriculumDocArchive: "Arsip PDF",
+    thesisGuideKicker: "Panduan Tesis",
+    thesisGuideTitle: "Dokumen panduan penulisan dan pelaksanaan tesis.",
+    thesisGuideText: "Rujukan resmi untuk penyusunan naskah tesis, Seminar Usulan Riset, Seminar Kemajuan Riset, dan Sidang Akhir Magister.",
+    thesisGuideCountLabel: "dokumen panduan",
+    thesisGuideAsk: "Tanyakan panduan ke chatbot",
+    graduateCompetencyKicker: "Kompetensi Lulusan",
+    graduateCompetencyTitle: "Profil karier yang fleksibel untuk akademik, riset, konsultansi, dan industri.",
+    academicianTitle: "Akademisi",
+    academicianText: "Siap berkarier sebagai dosen, instruktur, dan pembina akademik melalui Tri Dharma Perguruan Tinggi.",
+    researcherTitle: "Peneliti",
+    researcherText: "Mampu melakukan riset inovatif dalam statistika teoritis dan terapan serta menghasilkan karya ilmiah bermutu.",
+    consultantTitle: "Konsultan",
+    consultantText: "Memberikan layanan analisis data dan pemecahan masalah berbasis statistika untuk lembaga dan organisasi.",
+    practitionerTitle: "Praktisi",
+    practitionerText: "Bekerja sebagai profesional analitik di perusahaan, pemerintahan, industri, lembaga riset, dan jasa konsultansi.",
+    alumniKicker: "Lulusan & Tesis",
+    alumniTitle: "Jejak riset lulusan 2022-2026",
+    alumniText: "Ringkasan judul tesis, pembimbing, tema riset, dan tahun lulus berdasarkan data lulusan program magister.",
+    alumniSearchLabel: "Cari lulusan atau tesis",
+    alumniSearchPlaceholder: "Nama, topik, pembimbing, tahun...",
+    alumniDisplayed: "tesis tampil",
+    alumniYearDistribution: "Distribusi Tahun Lulus",
+    alumniResearchThemes: "Tema Riset Dominan",
+    tracerKicker: "Tracer Studi",
+    tracerTitle: "Tracer Studi lulusan 2022-2025",
+    tracerText: "Laporan tahunan tracer study diringkas sebagai blok akses cepat untuk melihat waktu tunggu kerja pertama, respons lulusan, dan indikator awal serapan lulusan.",
+    tracerCountLabel: "laporan tracer study",
+    tracerAsk: "Tanyakan tracer study ke chatbot",
+    coursesKicker: "Mata Kuliah",
+    coursesTitle: "Daftar mata kuliah Kurikulum 2026",
+    coursesSearchLabel: "Cari mata kuliah",
+    coursesSearchPlaceholder: "Machine learning, spasial, survival...",
+    filterAll: "Semua",
+    filterRequired: "Wajib",
+    filterElective: "Pilihan",
+    filterResearch: "Riset",
+    filterSkills: "Keterampilan",
+    filterPublication: "Publikasi",
+    tableCourseId: "Mata Kuliah",
+    tableCourseEn: "Course",
+    tableCredits: "SKS",
+    tableGroup: "Kelompok",
+    materialsKicker: "Materi Kuliah",
+    materialsTitle: "Katalog materi HTML per mata kuliah",
+    materialsText: "Materi dari folder @Materi Kuliah disusun sebagai katalog digital agar mahasiswa dapat mencari dan membuka bahan ajar dengan cepat.",
+    materialsSearchLabel: "Cari materi",
+    materialsSearchPlaceholder: "Spasial, aktuaria, regresi, epidemiologi...",
+    materialsShown: "materi tampil",
+    materialsAsk: "Tanyakan materi ke chatbot",
+    syllabusKicker: "Silabus",
+    syllabusTitle: "Silabus mata kuliah dari Kurikulum 2026",
+    syllabusText: "Setiap entri memuat deskripsi, bahan kajian, dan referensi yang diekstrak dari dokumen kurikulum resmi.",
+    syllabusSearchLabel: "Cari silabus",
+    syllabusSearchPlaceholder: "Pembelajaran Mesin, Basis Data, SUR...",
+    syllabusShown: "silabus tampil",
+    syllabusAsk: "Tanyakan ke chatbot",
+    chatKicker: "Chatbot Akademik",
+    chatTitle: "Tanya Kurikulum S2 Statistika Terapan",
+    chatText: "Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, dokumen kurikulum 2020-2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, tracer study, dan ringkasan administratif dari SMUP Program Magister.",
+    knowledgePieces: "potongan pengetahuan terindeks",
+    assistantName: "Asisten Prodi",
+    loadingKnowledge: "Memuat knowledge base",
+    promptSks: "Berapa SKS?",
+    promptPath: "Jalur studi",
+    promptVision: "Visi misi",
+    promptProfile: "Profil lulusan",
+    promptDataScience: "Sains data",
+    promptSyllabus: "Silabus ML",
+    promptMaterials: "Materi HTML",
+    promptGuide: "Panduan tesis",
+    promptThesisFlow: "SUR SKR SAM",
+    promptAlumni: "Tesis lulusan",
+    promptTracer: "Tracer 2025",
+    promptCurriculumDocs: "Dokumen 2026",
+    welcomeText: "Silakan ajukan pertanyaan tentang kurikulum 2026, dokumen kurikulum 2020-2026, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tracer study, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.",
+    welcomeSources: "Sumber utama: Kurikulum OBE 2026, dokumen kurikulum, panduan tesis, data lulusan, tracer study, dan katalog materi kuliah",
+    questionLabel: "Pertanyaan",
+    questionPlaceholder: "Tulis pertanyaan...",
+    send: "Kirim",
+    footerText: "Website profesional dengan chatbot berbasis knowledge base kurikulum.",
+    backTop: "Kembali ke atas",
+    openPdf: "Buka PDF",
+    openReport: "Buka laporan",
+    openMaterial: "Buka materi",
+    askChatbot: "Tanya chatbot",
+    pages: "halaman",
+    folder: "Folder",
+    fileHtml: "File HTML",
+    noThesisGuides: "Panduan tesis belum tersedia.",
+    noCurriculumDocs: "Dokumen kurikulum belum tersedia.",
+    noCourses: "Tidak ada mata kuliah yang cocok.",
+    noSyllabus: "Silabus yang dicari belum ditemukan.",
+    noMaterials: "Materi yang dicari belum ditemukan.",
+    noTracer: "Laporan tracer study belum tersedia.",
+    noAlumni: "Data lulusan yang dicari belum ditemukan.",
+    studyMaterials: "Bahan kajian dan referensi",
+    topics: "Bahan Kajian",
+    references: "Referensi",
+    noTopics: "Bahan kajian belum tersedia.",
+    noReferences: "Referensi belum tersedia.",
+    responses: "Respons",
+    medianWait: "Median tunggu",
+    under3Months: "<= 3 bulan",
+    beforeGraduation: "Sebelum lulus",
+    graduationYear: "Tahun lulus",
+    appliedStatistics: "Statistika Terapan",
+    npmUnavailable: "NPM tidak tersedia",
+    advisors: "Pembimbing",
+    notAvailable: "Belum tersedia",
+    and: "dan",
+    you: "Anda",
+    searchingKnowledge: "Sedang mencari jawaban pada knowledge base kurikulum...",
+    source: "Sumber",
+    pageShort: "Hal.",
+    modePrefix: "Mode",
+    modeServer: "Server retrieval",
+    modeServerApi: "API + retrieval",
+    modeLocal: "Local retrieval",
+    modeLocalStatic: "Local static retrieval",
+    modeLocalFallback: "Local fallback",
+    modeFallbackLocal: "Fallback lokal"
+  },
+  en: {
+    topbarCampus: "Faculty of Mathematics and Natural Sciences, Universitas Padjadjaran",
+    topbarCurriculum: "2026 OBE Curriculum",
+    navProfile: "Profile",
+    navCurriculum: "Curriculum",
+    navDocs: "Documents",
+    navGuide: "Guides",
+    navCourses: "Courses",
+    navMaterials: "Materials",
+    navGraduates: "Graduates",
+    navTracer: "Tracer",
+    navSyllabus: "Syllabus",
+    navChatbot: "Chatbot",
+    navAsk: "Ask Program",
+    heroKicker: "Master's Program",
+    heroLead: "A 42-credit master's program in applied statistics, research, computing, and data science for industry, government, health, actuarial, and academic needs.",
+    heroAsk: "Ask Chatbot",
+    heroCurriculum: "View Curriculum",
+    statSks: "OBE curriculum credits",
+    statSchemes: "study schemes",
+    statAreas: "knowledge areas",
+    statCurriculum: "OBE curriculum",
+    profileKicker: "Program Profile",
+    profileTitle: "A master's education center in statistics with strength in teaching and research.",
+    profileText: "The program prepares graduates to develop statistical methods, manage research, and apply data analysis to real problems through interdisciplinary approaches.",
+    pillBusiness: "Business and Industry",
+    pillSocial: "Social Statistics",
+    pillActuarial: "Actuarial",
+    pillBiostat: "Biostatistics",
+    pillDataScience: "Data Science",
+    curriculumKicker: "Curriculum Structure",
+    curriculumTitle: "A 42-credit structure with coursework, research, and RPL pathways.",
+    curriculumText: "The 2026 OBE curriculum strengthens theoretical mastery, analytical ability, research competence, learning recognition, and scientific publication.",
+    courseworkTitle: "Coursework-Based Master's",
+    coursework1: "21 credits of required courses.",
+    coursework2: "9 credits of elective courses.",
+    coursework3: "12 thesis credits: SUR 2 credits, SKR 4 credits, and Master's Final Defense 6 credits.",
+    researchTitle: "Research-Based Master's",
+    research1: "12 credits of required courses.",
+    research2: "9 credits of research skills and 9 credits of publication.",
+    research3: "12 thesis credits focused on innovative research and scientific dissemination.",
+    rplTitle: "Recognition of Prior Learning",
+    rpl1: "Recognition of formal, non-formal, informal learning outcomes, or work experience.",
+    rpl2: "Courses eligible for recognition follow the RPL table in the 2026 curriculum.",
+    rpl3: "Thesis courses and selected foundation courses are still taken in the program.",
+    curriculumDocsKicker: "Curriculum Documents",
+    curriculumDocsTitle: "Curriculum document archive 2020-2026",
+    curriculumDocsText: "Four curriculum PDFs are provided as official references and academic archives that can be opened directly from the website.",
+    curriculumDocsCountLabel: "curriculum documents",
+    curriculumDocsAsk: "Ask the chatbot about documents",
+    curriculumDocPeriod: "Period",
+    curriculumDocArchive: "PDF Archive",
+    thesisGuideKicker: "Thesis Guides",
+    thesisGuideTitle: "Thesis writing and implementation guide documents.",
+    thesisGuideText: "Official references for thesis writing, Research Proposal Seminar, Research Progress Seminar, and Master's Final Defense.",
+    thesisGuideCountLabel: "guide documents",
+    thesisGuideAsk: "Ask the chatbot about guides",
+    graduateCompetencyKicker: "Graduate Competencies",
+    graduateCompetencyTitle: "Flexible career profiles for academia, research, consulting, and industry.",
+    academicianTitle: "Academician",
+    academicianText: "Prepared for careers as lecturers, instructors, and academic mentors through higher education's three missions.",
+    researcherTitle: "Researcher",
+    researcherText: "Able to conduct innovative research in theoretical and applied statistics and produce quality scientific work.",
+    consultantTitle: "Consultant",
+    consultantText: "Provides statistical data analysis and problem-solving services for institutions and organizations.",
+    practitionerTitle: "Practitioner",
+    practitionerText: "Works as an analytics professional in companies, government, industry, research institutions, and consulting services.",
+    alumniKicker: "Graduates & Theses",
+    alumniTitle: "Graduate research record 2022-2026",
+    alumniText: "A summary of thesis titles, supervisors, research themes, and graduation years based on master's program graduate data.",
+    alumniSearchLabel: "Search graduates or theses",
+    alumniSearchPlaceholder: "Name, topic, supervisor, year...",
+    alumniDisplayed: "theses shown",
+    alumniYearDistribution: "Graduation Year Distribution",
+    alumniResearchThemes: "Dominant Research Themes",
+    tracerKicker: "Tracer Study",
+    tracerTitle: "Graduate tracer studies 2022-2025",
+    tracerText: "Annual tracer study reports are summarized as quick-access blocks for first-job waiting time, graduate responses, and early employment indicators.",
+    tracerCountLabel: "tracer study reports",
+    tracerAsk: "Ask the chatbot about tracer studies",
+    coursesKicker: "Courses",
+    coursesTitle: "Course list in the 2026 Curriculum",
+    coursesSearchLabel: "Search courses",
+    coursesSearchPlaceholder: "Machine learning, spatial, survival...",
+    filterAll: "All",
+    filterRequired: "Required",
+    filterElective: "Elective",
+    filterResearch: "Research",
+    filterSkills: "Skills",
+    filterPublication: "Publication",
+    tableCourseId: "Course",
+    tableCourseEn: "Indonesian Name",
+    tableCredits: "Credits",
+    tableGroup: "Group",
+    materialsKicker: "Learning Materials",
+    materialsTitle: "HTML learning material catalog by course",
+    materialsText: "Materials from the @Materi Kuliah folder are organized as a digital catalog so students can search and open learning resources quickly.",
+    materialsSearchLabel: "Search materials",
+    materialsSearchPlaceholder: "Spatial, actuarial, regression, epidemiology...",
+    materialsShown: "materials shown",
+    materialsAsk: "Ask the chatbot about materials",
+    syllabusKicker: "Syllabus",
+    syllabusTitle: "Course syllabi from the 2026 Curriculum",
+    syllabusText: "Each entry contains descriptions, topics, and references extracted from the official curriculum document.",
+    syllabusSearchLabel: "Search syllabus",
+    syllabusSearchPlaceholder: "Machine Learning, Database, SUR...",
+    syllabusShown: "syllabi shown",
+    syllabusAsk: "Ask the chatbot",
+    chatKicker: "Academic Chatbot",
+    chatTitle: "Ask About the Applied Statistics Master's Curriculum",
+    chatText: "The chatbot answers are grounded in the 2026 OBE curriculum extraction, 2020-2026 curriculum documents, thesis guides, course syllabi, HTML learning material catalog, graduate data, tracer studies, and administrative summaries from SMUP.",
+    knowledgePieces: "indexed knowledge chunks",
+    assistantName: "Program Assistant",
+    loadingKnowledge: "Loading knowledge base",
+    promptSks: "Credits?",
+    promptPath: "Study paths",
+    promptVision: "Vision mission",
+    promptProfile: "Graduate profile",
+    promptDataScience: "Data science",
+    promptSyllabus: "ML syllabus",
+    promptMaterials: "HTML material",
+    promptGuide: "Thesis guide",
+    promptThesisFlow: "SUR SKR SAM",
+    promptAlumni: "Graduate theses",
+    promptTracer: "Tracer 2025",
+    promptCurriculumDocs: "2026 Document",
+    welcomeText: "Ask about the 2026 curriculum, 2020-2026 curriculum documents, study pathways, credits, learning outcomes, thesis guides, SUR, SKR, SAM, syllabi, HTML learning materials, tracer studies, graduate theses, fees, admissions, and graduate profiles.",
+    welcomeSources: "Main sources: 2026 OBE Curriculum, curriculum documents, thesis guides, graduate data, tracer studies, and learning material catalog",
+    questionLabel: "Question",
+    questionPlaceholder: "Type a question...",
+    send: "Send",
+    footerText: "A professional website with a curriculum knowledge-base chatbot.",
+    backTop: "Back to top",
+    openPdf: "Open PDF",
+    openReport: "Open report",
+    openMaterial: "Open material",
+    askChatbot: "Ask chatbot",
+    pages: "pages",
+    folder: "Folder",
+    fileHtml: "HTML file",
+    noThesisGuides: "Thesis guides are not available yet.",
+    noCurriculumDocs: "Curriculum documents are not available yet.",
+    noCourses: "No matching courses found.",
+    noSyllabus: "No matching syllabus found.",
+    noMaterials: "No matching materials found.",
+    noTracer: "Tracer study reports are not available yet.",
+    noAlumni: "No matching graduate data found.",
+    studyMaterials: "Topics and references",
+    topics: "Topics",
+    references: "References",
+    noTopics: "Topics are not available yet.",
+    noReferences: "References are not available yet.",
+    responses: "Responses",
+    medianWait: "Median wait",
+    under3Months: "<= 3 months",
+    beforeGraduation: "Before graduation",
+    graduationYear: "Graduation year",
+    appliedStatistics: "Applied Statistics",
+    npmUnavailable: "Student ID unavailable",
+    advisors: "Supervisors",
+    notAvailable: "Not available",
+    and: "and",
+    you: "You",
+    searchingKnowledge: "Searching the curriculum knowledge base...",
+    source: "Source",
+    pageShort: "p.",
+    modePrefix: "Mode",
+    modeServer: "Server retrieval",
+    modeServerApi: "API + retrieval",
+    modeLocal: "Local retrieval",
+    modeLocalStatic: "Local static retrieval",
+    modeLocalFallback: "Local fallback",
+    modeFallbackLocal: "Local fallback"
+  }
+};
+
+const GROUP_LABELS = {
+  id: {
+    Semua: "Semua",
+    Wajib: "Wajib",
+    Pilihan: "Pilihan",
+    Riset: "Riset",
+    "Keterampilan Riset": "Keterampilan Riset",
+    Publikasi: "Publikasi",
+    "Mata Kuliah": "Mata Kuliah",
+    "Materi Kuliah": "Materi Kuliah"
+  },
+  en: {
+    Semua: "All",
+    Wajib: "Required",
+    Pilihan: "Elective",
+    Riset: "Research",
+    "Keterampilan Riset": "Research Skills",
+    Publikasi: "Publication",
+    "Mata Kuliah": "Course",
+    "Materi Kuliah": "Learning Material"
+  }
+};
+
+const LANGUAGE_KEY = "s2-statistika-language";
+let currentLang = "id";
+try {
+  currentLang = localStorage.getItem(LANGUAGE_KEY) === "en" ? "en" : "id";
+} catch (error) {
+  currentLang = "id";
+}
 
 function escapeHTML(value) {
   return String(value ?? "")
@@ -168,6 +553,50 @@ function normalize(value) {
     .replace(/[^a-z0-9\s]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function t(key) {
+  return I18N[currentLang]?.[key] || I18N.id[key] || key;
+}
+
+function groupLabel(value) {
+  return GROUP_LABELS[currentLang]?.[value] || GROUP_LABELS.id[value] || value || "";
+}
+
+function setMode(key) {
+  if (!modeLabel) return;
+  modeLabel.dataset.i18n = key;
+  modeLabel.textContent = t(key);
+}
+
+function applyLanguage() {
+  document.documentElement.lang = currentLang;
+  document.querySelectorAll("[data-i18n]").forEach((element) => {
+    const key = element.dataset.i18n;
+    if (key) element.textContent = t(key);
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((element) => {
+    const key = element.dataset.i18nPlaceholder;
+    if (key) element.setAttribute("placeholder", t(key));
+  });
+  document.querySelectorAll("[data-lang]").forEach((button) => {
+    const isActive = button.dataset.lang === currentLang;
+    button.classList.toggle("active", isActive);
+    button.setAttribute("aria-pressed", String(isActive));
+  });
+  renderCourses();
+  renderCurriculumDocs();
+  renderThesisGuides();
+  renderSyllabus();
+  renderMaterials();
+  renderTracerStudies();
+  renderAlumni();
+}
+
+function promptQuestion(button) {
+  return currentLang === "en"
+    ? button.dataset.qEn || button.dataset.qId || button.dataset.q
+    : button.dataset.qId || button.dataset.q || button.dataset.qEn;
 }
 
 function tokenize(value) {
@@ -207,6 +636,9 @@ function expandQuestion(question) {
   if (/(tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus)/.test(normalized)) {
     synonyms.push("tracer study tracer studi waktu tunggu pekerjaan pertama serapan lulusan respons lulusan bekerja sebelum lulus");
   }
+  if (/(dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|kurikulum 2020|kurikulum 2021|kurikulum 2022|kurikulum 2023|kurikulum 2024|kurikulum 2025|kurikulum 2026|curriculum document|curriculum pdf)/.test(normalized)) {
+    synonyms.push("dokumen kurikulum file kurikulum pdf kurikulum arsip kurikulum curriculum document curriculum pdf 2020 2021 2022 2023 2024 2025 2026");
+  }
 
   return [question, ...synonyms].join(" ");
 }
@@ -226,6 +658,7 @@ function scoreChunk(question, chunk) {
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
     && !/silabus|sylabus|rps/.test(normalizedQuestion);
   const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(normalizedQuestion);
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
@@ -235,6 +668,8 @@ function scoreChunk(question, chunk) {
   if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
   if (asksTracer && chunk.id?.startsWith("tracer-study-")) score += 170;
   if (asksTracer && chunk.id?.startsWith("syllabus-")) score -= 60;
+  if (asksCurriculumDoc && chunk.id?.startsWith("curriculum-doc-")) score += 180;
+  if (asksCurriculumDoc && chunk.id?.startsWith("syllabus-")) score -= 50;
 
   for (const token of tokens) {
     if (text.includes(token)) score += 4;
@@ -288,12 +723,22 @@ function scoreChunk(question, chunk) {
 
   if (chunk.id?.startsWith("tracer-study-")) {
     const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
-    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    const specificTokens = tokens.filter((token) => !GENERIC_QUERY_TERMS.has(token));
     for (const token of specificTokens) {
       if (metadata.includes(token)) score += 20;
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
+  }
+
+  if (chunk.id?.startsWith("curriculum-doc-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !GENERIC_QUERY_TERMS.has(token));
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 22;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 70;
   }
 
   return score;
@@ -406,7 +851,7 @@ function renderThesisGuides() {
   if (thesisGuideCount) thesisGuideCount.textContent = String(guides.length);
 
   if (!guides.length) {
-    thesisGuideRows.innerHTML = '<p class="empty-note">Panduan tesis belum tersedia.</p>';
+    thesisGuideRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noThesisGuides"))}</p>`;
     return;
   }
 
@@ -415,7 +860,7 @@ function renderThesisGuides() {
       <article class="guide-card">
         <div class="guide-card-head">
           <span class="badge">PDF</span>
-          <span>${escapeHTML(guide.pages || "-")} halaman · ${escapeHTML(formatFileSize(guide.sizeKb))}</span>
+          <span>${escapeHTML(guide.pages || "-")} ${escapeHTML(t("pages"))} · ${escapeHTML(formatFileSize(guide.sizeKb))}</span>
         </div>
         <h3>${escapeHTML(guide.title)}</h3>
         <p>${escapeHTML(guide.description)}</p>
@@ -423,8 +868,8 @@ function renderThesisGuides() {
           ${(guide.topics || []).map((topic) => `<li>${escapeHTML(topic)}</li>`).join("")}
         </ul>
         <div class="guide-actions">
-          <a href="${escapeHTML(guide.href)}" target="_blank" rel="noopener">Buka PDF</a>
-          <button type="button" data-guide-q="Apa isi ${escapeHTML(guide.title)}?">Tanya chatbot</button>
+          <a href="${escapeHTML(guide.href)}" target="_blank" rel="noopener">${escapeHTML(t("openPdf"))}</a>
+          <button type="button" data-guide-q="${currentLang === "en" ? `What is in ${escapeHTML(guide.title)}?` : `Apa isi ${escapeHTML(guide.title)}?`}">${escapeHTML(t("askChatbot"))}</button>
         </div>
       </article>
     `)
@@ -595,6 +1040,74 @@ function buildTracerStudyAnswer(question, hits = []) {
   };
 }
 
+function curriculumDocTitle(doc) {
+  return currentLang === "en" ? doc.titleEn || doc.title : doc.titleId || doc.title;
+}
+
+function curriculumDocDescription(doc) {
+  return currentLang === "en" ? doc.descriptionEn || doc.description : doc.descriptionId || doc.description;
+}
+
+function findCurriculumDoc(question, hits = []) {
+  const docs = curriculumDocsData?.documents || [];
+  const text = normalize(question);
+  const year = text.match(/\b(2020|2021|2022|2023|2024|2025|2026)\b/)?.[1];
+  if (year) {
+    if (["2020", "2021", "2022"].includes(year)) {
+      return docs.find((doc) => doc.period === "2020-2022") || null;
+    }
+    if (["2023", "2024"].includes(year)) {
+      return docs.find((doc) => doc.period === "2023-2024") || null;
+    }
+    return docs.find((doc) => doc.period === year) || null;
+  }
+
+  for (const hit of hits) {
+    if (!String(hit.id || "").startsWith("curriculum-doc-")) continue;
+    const id = String(hit.id).replace(/^curriculum-doc-/, "");
+    const doc = docs.find((item) => item.id === id || normalize(item.title) === normalize(hit.title));
+    if (doc) return doc;
+  }
+
+  return null;
+}
+
+function buildCurriculumDocAnswer(question, hits = []) {
+  const text = normalize(question);
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(text)
+    || hits.some((hit) => String(hit.id || "").startsWith("curriculum-doc-"));
+  if (!asksCurriculumDoc) return null;
+
+  const selected = findCurriculumDoc(question, hits);
+  const docs = selected ? [selected] : (curriculumDocsData?.documents || []);
+  if (!docs.length) return null;
+
+  const answer = docs
+    .map((doc) => {
+      if (currentLang === "en") {
+        return [
+          `${curriculumDocTitle(doc)}: ${curriculumDocDescription(doc)}`,
+          `Period: ${doc.period}.`,
+          `File size: ${formatFileSize(doc.sizeKb)}.`,
+          `PDF: ${doc.href}`
+        ].join("\n");
+      }
+      return [
+        `${curriculumDocTitle(doc)}: ${curriculumDocDescription(doc)}`,
+        `Periode: ${doc.period}.`,
+        `Ukuran file: ${formatFileSize(doc.sizeKb)}.`,
+        `PDF: ${doc.href}`
+      ].join("\n");
+    })
+    .join("\n\n");
+
+  return {
+    answer,
+    sources: docs.map((doc) => ({ title: curriculumDocTitle(doc), url: doc.href })),
+    mode: "Local knowledge base"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -605,6 +1118,7 @@ function matchFact(question) {
   const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
   const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(text);
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(text);
   const asksThesisGuide = (
     (/tesis/.test(text) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(text))
     || /panduan tesis|sur|skr|sam|sidang akhir|seminar usulan|seminar kemajuan/.test(text)
@@ -619,6 +1133,7 @@ function matchFact(question) {
   if (asksSyllabus) return null;
   if (asksMaterial) return null;
   if (asksTracer) return null;
+  if (asksCurriculumDoc) return null;
   if (asksThesisGuide) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return FACTS.rpl;
@@ -641,11 +1156,13 @@ function buildLocalAnswer(question) {
   const structuredSyllabus = buildSyllabusAnswer(question, hits);
   const structuredMaterial = buildMaterialAnswer(question, hits);
   const structuredTracerStudy = buildTracerStudyAnswer(question, hits);
+  const structuredCurriculumDoc = buildCurriculumDocAnswer(question, hits);
   const structuredThesisGuide = buildThesisGuideAnswer(question);
 
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
   if (structuredTracerStudy) return structuredTracerStudy;
+  if (structuredCurriculumDoc) return structuredCurriculumDoc;
   if (structuredThesisGuide) return structuredThesisGuide;
 
   if (fact) {
@@ -657,7 +1174,9 @@ function buildLocalAnswer(question) {
 
   if (!hits.length) {
     return {
-      answer: "Saya belum menemukan informasi tersebut dalam knowledge base kurikulum. Untuk jawaban resmi, tambahkan dokumen terkait ke folder data lalu indeks ulang knowledge base.",
+      answer: currentLang === "en"
+        ? "I have not found that information in the curriculum knowledge base. For an official answer, add the related document to the data folder and rebuild the knowledge base index."
+        : "Saya belum menemukan informasi tersebut dalam knowledge base kurikulum. Untuk jawaban resmi, tambahkan dokumen terkait ke folder data lalu indeks ulang knowledge base.",
       sources: [],
       mode: "Local knowledge base"
     };
@@ -669,14 +1188,18 @@ function buildLocalAnswer(question) {
     .join("\n\n");
 
   const intro = hits[0]?.id?.startsWith("alumni-")
-    ? "Saya menemukan data lulusan yang relevan:"
+    ? (currentLang === "en" ? "I found relevant graduate data:" : "Saya menemukan data lulusan yang relevan:")
     : hits[0]?.id?.startsWith("material-")
-      ? "Saya menemukan materi HTML yang relevan:"
+      ? (currentLang === "en" ? "I found relevant HTML learning materials:" : "Saya menemukan materi HTML yang relevan:")
       : hits[0]?.id?.startsWith("thesis-guide-")
-        ? "Saya menemukan panduan tesis yang relevan:"
+        ? (currentLang === "en" ? "I found relevant thesis guides:" : "Saya menemukan panduan tesis yang relevan:")
         : hits[0]?.id?.startsWith("tracer-study-")
-          ? "Saya menemukan laporan tracer study yang relevan:"
-          : "Saya menemukan potongan knowledge base yang relevan:";
+          ? (currentLang === "en" ? "I found relevant tracer study reports:" : "Saya menemukan laporan tracer study yang relevan:")
+          : hits[0]?.id?.startsWith("curriculum-doc-")
+            ? (currentLang === "en" ? "I found relevant curriculum documents:" : "Saya menemukan dokumen kurikulum yang relevan:")
+            : currentLang === "en"
+              ? "I found relevant knowledge base excerpts:"
+              : "Saya menemukan potongan knowledge base yang relevan:";
 
   return {
     answer: `${intro}\n\n${excerpts}`,
@@ -700,8 +1223,8 @@ function sourceHTML(sources = []) {
     .slice(0, 5)
     .map((source) => {
       const label = source.page
-        ? `Hal. ${escapeHTML(source.page)}${source.title ? ` · ${escapeHTML(source.title)}` : ""}`
-        : `${escapeHTML(source.title || source.source || "Sumber")}${source.updated ? ` · ${escapeHTML(source.updated)}` : ""}`;
+        ? `${escapeHTML(t("pageShort"))} ${escapeHTML(source.page)}${source.title ? ` · ${escapeHTML(source.title)}` : ""}`
+        : `${escapeHTML(source.title || source.source || t("source"))}${source.updated ? ` · ${escapeHTML(source.updated)}` : ""}`;
       if (source.url) {
         return `<a href="${escapeHTML(source.url)}" target="_blank" rel="noopener">${label}</a>`;
       }
@@ -713,7 +1236,7 @@ function sourceHTML(sources = []) {
 function addMessage(role, text, sources = [], meta = "") {
   const message = document.createElement("div");
   message.className = `message ${role}`;
-  const label = role === "user" ? "Anda" : "Asisten Prodi";
+  const label = role === "user" ? t("you") : t("assistantName");
   message.innerHTML = `
     <strong>${label}</strong>
     <p>${escapeHTML(text).replace(/\n/g, "<br>")}</p>
@@ -727,40 +1250,40 @@ function addMessage(role, text, sources = [], meta = "") {
 
 async function ask(question) {
   addMessage("user", question);
-  const pending = addMessage("bot", "Sedang mencari jawaban pada knowledge base kurikulum...");
+  const pending = addMessage("bot", t("searchingKnowledge"));
 
   if (serverChatAvailable) {
     try {
       const response = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ question })
+        body: JSON.stringify({ question, language: currentLang })
       });
       if (response.ok) {
         const data = await response.json();
         pending.innerHTML = `
-          <strong>Asisten Prodi</strong>
+          <strong>${escapeHTML(t("assistantName"))}</strong>
           <p>${escapeHTML(data.answer).replace(/\n/g, "<br>")}</p>
           ${sourceHTML(data.sources || [])}
-          <small>Mode: ${escapeHTML(data.mode || "server")}</small>
+          <small>${escapeHTML(t("modePrefix"))}: ${escapeHTML(data.mode || "server")}</small>
         `;
-        modeLabel.textContent = data.mode?.includes("API") ? "API + retrieval" : "Server retrieval";
+        setMode(data.mode?.includes("API") ? "modeServerApi" : "modeServer");
         chatMessages.scrollTop = chatMessages.scrollHeight;
         return;
       }
     } catch (error) {
-      modeLabel.textContent = "Fallback lokal";
+      setMode("modeFallbackLocal");
     }
   }
 
   const local = buildLocalAnswer(question);
   pending.innerHTML = `
-    <strong>Asisten Prodi</strong>
+    <strong>${escapeHTML(t("assistantName"))}</strong>
     <p>${escapeHTML(local.answer).replace(/\n/g, "<br>")}</p>
     ${sourceHTML(local.sources)}
-    <small>Mode: ${escapeHTML(local.mode)}</small>
+    <small>${escapeHTML(t("modePrefix"))}: ${escapeHTML(local.mode)}</small>
   `;
-  modeLabel.textContent = "Local retrieval";
+  setMode("modeLocal");
   chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
@@ -768,24 +1291,28 @@ function renderCourses() {
   const query = normalize(courseSearch.value);
   const rows = COURSES.filter((course) => {
     const matchesFilter = activeFilter === "Semua" || course[3] === activeFilter;
-    const matchesQuery = !query || normalize(course.join(" ")).includes(query);
+    const matchesQuery = !query || normalize([...course, groupLabel(course[3])].join(" ")).includes(query);
     return matchesFilter && matchesQuery;
   });
 
   if (!rows.length) {
-    courseRows.innerHTML = '<tr class="empty-row"><td colspan="4">Tidak ada mata kuliah yang cocok.</td></tr>';
+    courseRows.innerHTML = `<tr class="empty-row"><td colspan="4">${escapeHTML(t("noCourses"))}</td></tr>`;
     return;
   }
 
   courseRows.innerHTML = rows
-    .map((course) => `
-      <tr>
-        <td><strong>${escapeHTML(course[0])}</strong></td>
-        <td>${escapeHTML(course[1])}</td>
-        <td><strong>${escapeHTML(course[2])}</strong></td>
-        <td><span class="badge">${escapeHTML(course[3])}</span></td>
-      </tr>
-    `)
+    .map((course) => {
+      const mainTitle = currentLang === "en" ? course[1] : course[0];
+      const secondaryTitle = currentLang === "en" ? course[0] : course[1];
+      return `
+        <tr>
+          <td><strong>${escapeHTML(mainTitle)}</strong></td>
+          <td>${escapeHTML(secondaryTitle)}</td>
+          <td><strong>${escapeHTML(course[2])}</strong></td>
+          <td><span class="badge">${escapeHTML(groupLabel(course[3]))}</span></td>
+        </tr>
+      `;
+    })
     .join("");
 }
 
@@ -812,31 +1339,36 @@ function renderSyllabus() {
   if (syllabusCount) syllabusCount.textContent = String(rows.length);
 
   if (!rows.length) {
-    syllabusRows.innerHTML = '<p class="empty-note">Silabus yang dicari belum ditemukan.</p>';
+    syllabusRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noSyllabus"))}</p>`;
     return;
   }
 
   syllabusRows.innerHTML = rows
-    .map((entry) => `
-      <article class="syllabus-card">
-        <div class="syllabus-card-head">
-          <span class="badge">${escapeHTML(entry.group || "Mata Kuliah")}</span>
-          <span>${escapeHTML(entry.credits || "-")} SKS</span>
-        </div>
-        <h3>${escapeHTML(entry.title)}</h3>
-        <p class="syllabus-code">${escapeHTML(entry.code)}</p>
-        <p>${escapeHTML(entry.description)}</p>
-        <details>
-          <summary>Bahan kajian dan referensi</summary>
-          <div class="syllabus-detail">
-            <h4>Bahan Kajian</h4>
-            ${renderList(entry.topics, "Bahan kajian belum tersedia.")}
-            <h4>Referensi</h4>
-            ${renderList(entry.references, "Referensi belum tersedia.")}
+    .map((entry) => {
+      const course = COURSES.find((item) => normalize(item[0]) === normalize(entry.title));
+      const title = currentLang === "en" && course ? course[1] : entry.title;
+      const subtitle = currentLang === "en" && course ? `${entry.code} · ${entry.title}` : entry.code;
+      return `
+        <article class="syllabus-card">
+          <div class="syllabus-card-head">
+            <span class="badge">${escapeHTML(groupLabel(entry.group || "Mata Kuliah"))}</span>
+            <span>${escapeHTML(entry.credits || "-")} ${escapeHTML(currentLang === "en" ? "credits" : "SKS")}</span>
           </div>
-        </details>
-      </article>
-    `)
+          <h3>${escapeHTML(title)}</h3>
+          <p class="syllabus-code">${escapeHTML(subtitle)}</p>
+          <p>${escapeHTML(entry.description)}</p>
+          <details>
+            <summary>${escapeHTML(t("studyMaterials"))}</summary>
+            <div class="syllabus-detail">
+              <h4>${escapeHTML(t("topics"))}</h4>
+              ${renderList(entry.topics, t("noTopics"))}
+              <h4>${escapeHTML(t("references"))}</h4>
+              ${renderList(entry.references, t("noReferences"))}
+            </div>
+          </details>
+        </article>
+      `;
+    })
     .join("");
 }
 
@@ -858,7 +1390,7 @@ function renderMaterials() {
   if (materialCount) materialCount.textContent = String(filtered.length);
 
   if (!filtered.length) {
-    materialRows.innerHTML = '<p class="empty-note">Materi yang dicari belum ditemukan.</p>';
+    materialRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noMaterials"))}</p>`;
     return;
   }
 
@@ -866,15 +1398,15 @@ function renderMaterials() {
     .map((material) => `
       <article class="material-card">
         <div class="material-card-head">
-          <span class="badge">${escapeHTML(material.category || "Materi Kuliah")}</span>
+          <span class="badge">${escapeHTML(groupLabel(material.category || "Materi Kuliah"))}</span>
           <span>${escapeHTML(formatFileSize(material.sizeKb))}</span>
         </div>
         <h3>${escapeHTML(material.title)}</h3>
-        <p class="syllabus-code">${escapeHTML(material.file || "File HTML")}</p>
-        <p>Folder: ${escapeHTML(material.folder || material.source || "@Materi Kuliah")}</p>
+        <p class="syllabus-code">${escapeHTML(material.file || t("fileHtml"))}</p>
+        <p>${escapeHTML(t("folder"))}: ${escapeHTML(material.folder || material.source || "@Materi Kuliah")}</p>
         <div class="material-actions">
-          <a href="${escapeHTML(material.viewerHref || material.href)}" target="_blank" rel="noopener">Buka materi</a>
-          <button type="button" data-material-q="Ada materi kuliah ${escapeHTML(material.title)}?">Tanya chatbot</button>
+          <a href="${escapeHTML(material.viewerHref || material.href)}" target="_blank" rel="noopener">${escapeHTML(t("openMaterial"))}</a>
+          <button type="button" data-material-q="${currentLang === "en" ? `Is there HTML learning material for ${escapeHTML(material.title)}?` : `Ada materi kuliah ${escapeHTML(material.title)}?`}">${escapeHTML(t("askChatbot"))}</button>
         </div>
       </article>
     `)
@@ -888,41 +1420,78 @@ function renderTracerStudies() {
   if (tracerStudyCount) tracerStudyCount.textContent = String(reports.length);
 
   if (!reports.length) {
-    tracerStudyRows.innerHTML = '<p class="empty-note">Laporan tracer study belum tersedia.</p>';
+    tracerStudyRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noTracer"))}</p>`;
     return;
   }
 
   tracerStudyRows.innerHTML = reports
-    .map((report) => `
-      <article class="tracer-card">
-        <span class="badge">${escapeHTML(report.reportTitle || report.title)}</span>
-        <div class="tracer-year">${escapeHTML(report.year)}</div>
-        <h3>${escapeHTML(report.title)}</h3>
-        <p>${escapeHTML(report.summary)}</p>
-        <dl class="tracer-metrics">
-          <div>
-            <dt>Respons</dt>
-            <dd>${escapeHTML(report.metrics?.responses || "-")}</dd>
+    .map((report) => {
+      const title = currentLang === "en" ? `Tracer Study ${report.year}` : report.title;
+      return `
+        <article class="tracer-card">
+          <span class="badge">${escapeHTML(currentLang === "en" ? "Tracer Study Report" : (report.reportTitle || report.title))}</span>
+          <div class="tracer-year">${escapeHTML(report.year)}</div>
+          <h3>${escapeHTML(title)}</h3>
+          <p>${escapeHTML(report.summary)}</p>
+          <dl class="tracer-metrics">
+            <div>
+              <dt>${escapeHTML(t("responses"))}</dt>
+              <dd>${escapeHTML(report.metrics?.responses || "-")}</dd>
+            </div>
+            <div>
+              <dt>${escapeHTML(t("medianWait"))}</dt>
+              <dd>${escapeHTML(report.metrics?.medianWait || "-")}</dd>
+            </div>
+            <div>
+              <dt>${escapeHTML(t("under3Months"))}</dt>
+              <dd>${escapeHTML(report.metrics?.firstJobUnder3Months || "-")}</dd>
+            </div>
+            <div>
+              <dt>${escapeHTML(t("beforeGraduation"))}</dt>
+              <dd>${escapeHTML(report.metrics?.workingBeforeGraduation || "-")}</dd>
+            </div>
+          </dl>
+          <div class="tracer-actions">
+            <a href="${escapeHTML(report.href)}" target="_blank" rel="noopener">${escapeHTML(t("openReport"))}</a>
+            <button type="button" data-tracer-q="${currentLang === "en" ? `What is in the ${escapeHTML(title)}?` : `Apa isi ${escapeHTML(report.title)}?`}">${escapeHTML(t("askChatbot"))}</button>
           </div>
-          <div>
-            <dt>Median tunggu</dt>
-            <dd>${escapeHTML(report.metrics?.medianWait || "-")}</dd>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function renderCurriculumDocs() {
+  if (!curriculumDocRows) return;
+  const docs = curriculumDocsData?.documents || [];
+
+  if (curriculumDocCount) curriculumDocCount.textContent = String(docs.length);
+
+  if (!docs.length) {
+    curriculumDocRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noCurriculumDocs"))}</p>`;
+    return;
+  }
+
+  curriculumDocRows.innerHTML = docs
+    .map((doc) => {
+      const title = curriculumDocTitle(doc);
+      return `
+        <article class="curriculum-doc-card">
+          <span class="badge">${escapeHTML(t("curriculumDocArchive"))}</span>
+          <div class="curriculum-doc-period">${escapeHTML(doc.period)}</div>
+          <h3>${escapeHTML(title)}</h3>
+          <p>${escapeHTML(curriculumDocDescription(doc))}</p>
+          <div class="curriculum-doc-meta">
+            <span>${escapeHTML(t("curriculumDocPeriod"))}: ${escapeHTML(doc.period)}</span>
+            <span>${escapeHTML(formatFileSize(doc.sizeKb))}</span>
           </div>
-          <div>
-            <dt>&le; 3 bulan</dt>
-            <dd>${escapeHTML(report.metrics?.firstJobUnder3Months || "-")}</dd>
+          <div class="curriculum-doc-actions">
+            <a href="${escapeHTML(doc.href)}" target="_blank" rel="noopener">${escapeHTML(t("openPdf"))}</a>
+            <button type="button" data-curriculum-doc-q="${currentLang === "en" ? `Open ${escapeHTML(title)}` : `Buka dokumen ${escapeHTML(title)}`}">${escapeHTML(t("askChatbot"))}</button>
           </div>
-          <div>
-            <dt>Sebelum lulus</dt>
-            <dd>${escapeHTML(report.metrics?.workingBeforeGraduation || "-")}</dd>
-          </div>
-        </dl>
-        <div class="tracer-actions">
-          <a href="${escapeHTML(report.href)}" target="_blank" rel="noopener">Buka laporan</a>
-          <button type="button" data-tracer-q="Apa isi ${escapeHTML(report.title)}?">Tanya chatbot</button>
-        </div>
-      </article>
-    `)
+        </article>
+      `;
+    })
     .join("");
 }
 
@@ -973,7 +1542,7 @@ function renderAlumni() {
   }
 
   if (!filtered.length) {
-    alumniRows.innerHTML = '<p class="empty-note">Data lulusan yang dicari belum ditemukan.</p>';
+    alumniRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noAlumni"))}</p>`;
     return;
   }
 
@@ -981,13 +1550,13 @@ function renderAlumni() {
     .map((record) => `
       <article class="alumni-card">
         <div class="alumni-card-head">
-          <span class="badge">${escapeHTML(record.tahun_lulus || "Tahun lulus")}</span>
-          <span>${escapeHTML(record.tema || "Statistika Terapan")}</span>
+          <span class="badge">${escapeHTML(record.tahun_lulus || t("graduationYear"))}</span>
+          <span>${escapeHTML(record.tema || t("appliedStatistics"))}</span>
         </div>
         <h3>${escapeHTML(record.nama)}</h3>
-        <p class="syllabus-code">${escapeHTML(record.npm || "NPM tidak tersedia")}</p>
+        <p class="syllabus-code">${escapeHTML(record.npm || t("npmUnavailable"))}</p>
         <p>${escapeHTML(record.judul)}</p>
-        <small>Pembimbing: ${escapeHTML([record.pembimbing1, record.pembimbing2].filter(Boolean).join(" dan ") || "Belum tersedia")}</small>
+        <small>${escapeHTML(t("advisors"))}: ${escapeHTML([record.pembimbing1, record.pembimbing2].filter(Boolean).join(` ${t("and")} `) || t("notAvailable"))}</small>
       </article>
     `)
     .join("");
@@ -1058,6 +1627,19 @@ async function loadTracerStudies() {
   renderTracerStudies();
 }
 
+async function loadCurriculumDocs() {
+  try {
+    const response = await fetch("data/curriculum_docs.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Dokumen kurikulum tidak dapat dimuat.");
+    const data = await response.json();
+    if (!data?.documents?.length) throw new Error("Dokumen kurikulum kosong.");
+    curriculumDocsData = data;
+  } catch (error) {
+    curriculumDocsData = { total: 0, documents: [] };
+  }
+  renderCurriculumDocs();
+}
+
 async function loadKnowledge() {
   try {
     const response = await fetch("data/knowledge_chunks.json", { cache: "no-store" });
@@ -1065,7 +1647,7 @@ async function loadKnowledge() {
     const chunks = await response.json();
     if (!Array.isArray(chunks) || !chunks.length) throw new Error("Knowledge base kosong.");
     knowledge = chunks;
-    knowledgeCount.textContent = String(chunks.length);
+    if (knowledgeCount) knowledgeCount.textContent = String(chunks.length);
     if (location.protocol.startsWith("http")) {
       try {
         const health = await fetch("/api/health", { cache: "no-store" });
@@ -1074,12 +1656,12 @@ async function loadKnowledge() {
         serverChatAvailable = false;
       }
     }
-    modeLabel.textContent = serverChatAvailable ? "Server retrieval" : "Local static retrieval";
+    setMode(serverChatAvailable ? "modeServer" : "modeLocalStatic");
   } catch (error) {
     knowledge = FALLBACK_KNOWLEDGE;
     serverChatAvailable = false;
-    knowledgeCount.textContent = String(FALLBACK_KNOWLEDGE.length);
-    modeLabel.textContent = "Local fallback";
+    if (knowledgeCount) knowledgeCount.textContent = String(FALLBACK_KNOWLEDGE.length);
+    setMode("modeLocalFallback");
   }
 }
 
@@ -1092,8 +1674,20 @@ document.querySelectorAll(".filter-tabs button").forEach((button) => {
   });
 });
 
-document.querySelectorAll("[data-q]").forEach((button) => {
-  button.addEventListener("click", () => ask(button.dataset.q));
+document.querySelectorAll("[data-lang]").forEach((button) => {
+  button.addEventListener("click", () => {
+    currentLang = button.dataset.lang === "en" ? "en" : "id";
+    try {
+      localStorage.setItem(LANGUAGE_KEY, currentLang);
+    } catch (error) {
+      // Ignore storage errors; the current page still updates.
+    }
+    applyLanguage();
+  });
+});
+
+document.querySelectorAll("[data-q-id], [data-q]").forEach((button) => {
+  button.addEventListener("click", () => ask(promptQuestion(button)));
 });
 
 courseSearch.addEventListener("input", renderCourses);
@@ -1115,6 +1709,11 @@ tracerStudyRows?.addEventListener("click", (event) => {
   if (!button) return;
   ask(button.dataset.tracerQ);
 });
+curriculumDocRows?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-curriculum-doc-q]");
+  if (!button) return;
+  ask(button.dataset.curriculumDocQ);
+});
 
 chatForm.addEventListener("submit", (event) => {
   event.preventDefault();
@@ -1124,10 +1723,11 @@ chatForm.addEventListener("submit", (event) => {
   ask(question);
 });
 
-renderCourses();
+applyLanguage();
 loadKnowledge();
 loadSyllabus();
 loadMaterials();
 loadThesisGuides();
 loadTracerStudies();
+loadCurriculumDocs();
 loadAlumni();

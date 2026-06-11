@@ -34,6 +34,10 @@ const tracerStudiesPath = path.join(__dirname, "data", "tracer_studies.json");
 const tracerStudies = fs.existsSync(tracerStudiesPath)
   ? JSON.parse(fs.readFileSync(tracerStudiesPath, "utf8"))
   : { total: 0, reports: [], years: [] };
+const curriculumDocsPath = path.join(__dirname, "data", "curriculum_docs.json");
+const curriculumDocs = fs.existsSync(curriculumDocsPath)
+  ? JSON.parse(fs.readFileSync(curriculumDocsPath, "utf8"))
+  : { total: 0, documents: [] };
 const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun s2 apa saja berapa".split(" "));
 const genericQueryTerms = new Set("silabus sylabus rps materi referensi deskripsi bahan kajian topik perkuliahan mata kuliah matakuliah course".split(" "));
 
@@ -162,6 +166,9 @@ function expandQuestion(question) {
   if (/(tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus)/.test(text)) {
     expansions.push("tracer study tracer studi waktu tunggu pekerjaan pertama serapan lulusan respons lulusan bekerja sebelum lulus");
   }
+  if (/(dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|kurikulum 2020|kurikulum 2021|kurikulum 2022|kurikulum 2023|kurikulum 2024|kurikulum 2025|kurikulum 2026|curriculum document|curriculum pdf)/.test(text)) {
+    expansions.push("dokumen kurikulum file kurikulum pdf kurikulum arsip kurikulum curriculum document curriculum pdf 2020 2021 2022 2023 2024 2025 2026");
+  }
 
   return [question, ...expansions].join(" ");
 }
@@ -180,6 +187,7 @@ function scoreChunk(question, chunk) {
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(normalizedQuestion)
     && !/silabus|sylabus|rps/.test(normalizedQuestion);
   const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(normalizedQuestion);
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
@@ -189,6 +197,8 @@ function scoreChunk(question, chunk) {
   if (asksMaterial && chunk.id?.startsWith("syllabus-")) score -= 40;
   if (asksTracer && chunk.id?.startsWith("tracer-study-")) score += 170;
   if (asksTracer && chunk.id?.startsWith("syllabus-")) score -= 60;
+  if (asksCurriculumDoc && chunk.id?.startsWith("curriculum-doc-")) score += 180;
+  if (asksCurriculumDoc && chunk.id?.startsWith("syllabus-")) score -= 50;
 
   for (const token of tokens) {
     if (text.includes(token)) score += 4;
@@ -248,6 +258,16 @@ function scoreChunk(question, chunk) {
     }
     const specificPhrase = specificTokens.join(" ");
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 60;
+  }
+
+  if (chunk.id?.startsWith("curriculum-doc-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    for (const token of specificTokens) {
+      if (metadata.includes(token)) score += 22;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 70;
   }
 
   return score;
@@ -517,6 +537,74 @@ function tracerStudyAnswer(question, hits = []) {
   };
 }
 
+function curriculumDocTitle(doc, language = "id") {
+  return language === "en" ? doc.titleEn || doc.title : doc.titleId || doc.title;
+}
+
+function curriculumDocDescription(doc, language = "id") {
+  return language === "en" ? doc.descriptionEn || doc.description : doc.descriptionId || doc.description;
+}
+
+function findCurriculumDoc(question, hits = []) {
+  const docs = curriculumDocs.documents || [];
+  const text = normalize(question);
+  const year = text.match(/\b(2020|2021|2022|2023|2024|2025|2026)\b/)?.[1];
+  if (year) {
+    if (["2020", "2021", "2022"].includes(year)) {
+      return docs.find((doc) => doc.period === "2020-2022") || null;
+    }
+    if (["2023", "2024"].includes(year)) {
+      return docs.find((doc) => doc.period === "2023-2024") || null;
+    }
+    return docs.find((doc) => doc.period === year) || null;
+  }
+
+  for (const hit of hits) {
+    if (!String(hit.id || "").startsWith("curriculum-doc-")) continue;
+    const id = String(hit.id).replace(/^curriculum-doc-/, "");
+    const doc = docs.find((item) => item.id === id || normalize(item.title) === normalize(hit.title));
+    if (doc) return doc;
+  }
+
+  return null;
+}
+
+function curriculumDocAnswer(question, hits = [], language = "id") {
+  const text = normalize(question);
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(text)
+    || hits.some((hit) => String(hit.id || "").startsWith("curriculum-doc-"));
+  if (!asksCurriculumDoc) return null;
+
+  const selected = findCurriculumDoc(question, hits);
+  const docs = selected ? [selected] : (curriculumDocs.documents || []);
+  if (!docs.length) return null;
+
+  const answer = docs
+    .map((doc) => {
+      if (language === "en") {
+        return [
+          `${curriculumDocTitle(doc, language)}: ${curriculumDocDescription(doc, language)}`,
+          `Period: ${doc.period}.`,
+          `File size: ${formatFileSize(doc.sizeKb)}.`,
+          `PDF: ${doc.href}`
+        ].join("\n");
+      }
+      return [
+        `${curriculumDocTitle(doc, language)}: ${curriculumDocDescription(doc, language)}`,
+        `Periode: ${doc.period}.`,
+        `Ukuran file: ${formatFileSize(doc.sizeKb)}.`,
+        `PDF: ${doc.href}`
+      ].join("\n");
+    })
+    .join("\n\n");
+
+  return {
+    answer,
+    sources: docs.map((doc) => ({ title: curriculumDocTitle(doc, language), url: doc.href })),
+    mode: "server retrieval"
+  };
+}
+
 function matchFact(question) {
   const text = normalize(question);
   const asksBiaya = /biaya|bpp|ukt|ipi|bayar|tagihan/.test(text);
@@ -527,6 +615,7 @@ function matchFact(question) {
   const asksSyllabus = /silabus|sylabus|rps|referensi mata kuliah|topik kuliah|bahan kajian/.test(text);
   const asksMaterial = /materi|bahan ajar|modul|html|katalog|slide|pertemuan|file kuliah/.test(text);
   const asksTracer = /tracer|tacer|waktu tunggu|pekerjaan pertama|serapan lulusan|bekerja sebelum lulus/.test(text);
+  const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(text);
   const asksThesisGuide = (
     (/tesis/.test(text) && /panduan|penulisan|format|pelaksanaan|proposal|naskah|bimbingan|penguji|sidang|seminar|sur|skr|sam/.test(text))
     || /panduan tesis|sur|skr|sam|sidang akhir|seminar usulan|seminar kemajuan/.test(text)
@@ -541,6 +630,7 @@ function matchFact(question) {
   if (asksSyllabus) return null;
   if (asksMaterial) return null;
   if (asksTracer) return null;
+  if (asksCurriculumDoc) return null;
   if (asksThesisGuide) return null;
   if (asksAlumniData && !/profil lulusan/.test(text)) return null;
   if (/rpl|rekognisi/.test(text)) return facts.rpl;
@@ -572,17 +662,19 @@ function uniqueSources(sources) {
   return unique.slice(0, 6);
 }
 
-function localAnswer(question) {
+function localAnswer(question, language = "id") {
   const fact = matchFact(question);
   const hits = retrieve(question, 5);
   const structuredSyllabus = syllabusAnswer(question, hits);
   const structuredMaterial = materialAnswer(question, hits);
   const structuredTracerStudy = tracerStudyAnswer(question, hits);
+  const structuredCurriculumDoc = curriculumDocAnswer(question, hits, language);
   const structuredThesisGuide = thesisGuideAnswer(question);
 
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
   if (structuredTracerStudy) return structuredTracerStudy;
+  if (structuredCurriculumDoc) return structuredCurriculumDoc;
   if (structuredThesisGuide) return structuredThesisGuide;
 
   if (fact) {
@@ -613,7 +705,9 @@ function localAnswer(question) {
         ? "Saya menemukan panduan tesis yang relevan:"
         : hits[0]?.id?.startsWith("tracer-study-")
           ? "Saya menemukan laporan tracer study yang relevan:"
-          : "Saya menemukan potongan knowledge base yang relevan:";
+          : hits[0]?.id?.startsWith("curriculum-doc-")
+            ? "Saya menemukan dokumen kurikulum yang relevan:"
+            : "Saya menemukan potongan knowledge base yang relevan:";
   const answer = [
     intro,
     "",
@@ -636,6 +730,7 @@ app.get("/api/health", (_req, res) => {
     materials: materials.total || materials.materials?.length || 0,
     thesisGuides: thesisGuides.total || thesisGuides.guides?.length || 0,
     tracerStudies: tracerStudies.total || tracerStudies.reports?.length || 0,
+    curriculumDocs: curriculumDocs.total || curriculumDocs.documents?.length || 0,
     apiReady: Boolean(client),
     model: client ? model : null
   });
@@ -661,13 +756,22 @@ app.get("/api/tracer-studies", (_req, res) => {
   res.json(tracerStudies);
 });
 
+app.get("/api/curriculum-docs", (_req, res) => {
+  res.json(curriculumDocs);
+});
+
 app.post("/api/chat", async (req, res) => {
   const question = String(req.body?.question || "").trim();
+  const language = req.body?.language === "en" ? "en" : "id";
   if (!question) return res.status(400).json({ error: "Pertanyaan tidak boleh kosong." });
 
   const fact = matchFact(question);
   const hits = retrieve(question, 8);
-  const directAnswer = syllabusAnswer(question, hits) || materialAnswer(question, hits) || tracerStudyAnswer(question, hits) || thesisGuideAnswer(question);
+  const directAnswer = syllabusAnswer(question, hits)
+    || materialAnswer(question, hits)
+    || tracerStudyAnswer(question, hits)
+    || curriculumDocAnswer(question, hits, language)
+    || thesisGuideAnswer(question);
 
   if (directAnswer) {
     return res.json({
@@ -682,7 +786,7 @@ app.post("/api/chat", async (req, res) => {
   ]);
 
   if (fact === facts.administrasi || !client) {
-    return res.json(localAnswer(question));
+    return res.json(localAnswer(question, language));
   }
 
   const contextParts = [];
@@ -702,7 +806,10 @@ app.post("/api/chat", async (req, res) => {
         "Jangan mengarang biaya, jadwal PMB, link pendaftaran, atau RPL.",
         "Jika pengguna menanyakan silabus/RPS mata kuliah, susun jawaban dari deskripsi, bahan kajian, dan referensi yang tersedia.",
         "Jika pengguna menanyakan panduan tesis, format penulisan tesis, SUR, SKR, atau SAM, jawab berdasarkan konteks Panduan Penulisan Tesis dan Panduan Pelaksanaan Tesis.",
-        "Gunakan bahasa Indonesia yang profesional, ringkas, dan sertakan rujukan halaman bila tersedia."
+        "Jika pengguna menanyakan dokumen kurikulum atau PDF kurikulum, arahkan ke dokumen kurikulum yang relevan dari konteks.",
+        language === "en"
+          ? "Use professional, concise English and include page or source references when available."
+          : "Gunakan bahasa Indonesia yang profesional, ringkas, dan sertakan rujukan halaman bila tersedia."
       ].join(" "),
       input: `Pertanyaan pengguna:\n${question}\n\nKonteks knowledge base:\n${contextParts.join("\n\n") || "Tidak ada konteks yang ditemukan."}`
     });
@@ -713,7 +820,7 @@ app.post("/api/chat", async (req, res) => {
       mode: "OpenAI API + retrieval"
     });
   } catch (error) {
-    const fallback = localAnswer(question);
+    const fallback = localAnswer(question, language);
     res.json({
       ...fallback,
       mode: "fallback server retrieval",

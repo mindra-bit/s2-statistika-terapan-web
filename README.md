@@ -1,10 +1,12 @@
 # S2 Statistika Terapan FMIPA Unpad
 
-Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA Universitas Padjadjaran, dilengkapi chatbot akademik berbasis knowledge base Kurikulum OBE 2026 dan data lulusan.
+Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA Universitas Padjadjaran, dilengkapi pilihan Bahasa Indonesia/English dan chatbot akademik berbasis knowledge base Kurikulum OBE 2026, dokumen kurikulum, tracer study, materi kuliah, serta data lulusan.
 
 ## Fitur Utama
 
 - Landing page profesional dengan visual kampus/prodi, profil program, struktur kurikulum, profil lulusan, dan daftar mata kuliah.
+- Pilihan bahasa Indonesia dan English untuk navigasi, heading utama, label, tombol, filter, kartu data, dan form chatbot.
+- Seksi Dokumen Kurikulum yang menampilkan PDF Kurikulum 2020-2022, 2023-2024, 2025, dan 2026 sebagai arsip akademik.
 - Seksi Panduan Tesis yang menampilkan dokumen penulisan tesis dan pelaksanaan SUR, SKR, serta SAM tanpa label tahun akademik pada website.
 - Tabel mata kuliah dengan pencarian dan filter kelompok: Wajib, Pilihan, Riset, Keterampilan Riset, dan Publikasi.
 - Halaman silabus yang menampilkan deskripsi, bahan kajian, dan referensi dari PDF Kurikulum S2 Statistika 2026.
@@ -29,8 +31,10 @@ Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA
 │   ├── knowledge_base.md
 │   ├── knowledge_chunks.json
 │   ├── alumni.json
+│   ├── curriculum_docs.json
 │   ├── materials.json
 │   ├── thesis_guides.json
+│   ├── tracer_studies.json
 │   └── syllabus.json
 ├── dokumen/
 │   ├── panduan-pelaksanaan-tesis-sur-skr-sam-s2-statistika-terapan.pdf
@@ -38,8 +42,15 @@ Website profesional satu halaman untuk Program Magister Statistika Terapan FMIPA
 ├── scripts/
 │   ├── build-materials.mjs
 │   ├── build-thesis-guides.mjs
+│   ├── build-curriculum-docs.mjs
+│   ├── build-tracer-studies.mjs
 │   └── build-syllabus.mjs
 ├── @Materi Kuliah/
+├── @Tracer Study/
+├── Kurikulum 2020-2022.pdf
+├── Kurikulum 2023-2024.pdf
+├── Kurikulum 2025.pdf
+├── Kurikulum 2026.pdf
 ├── KURIKULUM S2 STATISTIKA 2026.pdf
 ├── Lulusan.xlsx
 ├── index.html
@@ -72,6 +83,25 @@ PORT=3000
 ```
 
 Jika `OPENAI_API_KEY` kosong, chatbot tetap berjalan dengan retrieval lokal dari knowledge base.
+
+## Memperbarui Dokumen Kurikulum
+
+Simpan PDF kurikulum publik di root proyek dengan nama:
+
+```text
+Kurikulum 2020-2022.pdf
+Kurikulum 2023-2024.pdf
+Kurikulum 2025.pdf
+Kurikulum 2026.pdf
+```
+
+Lalu jalankan:
+
+```bash
+npm run build:curriculum-docs
+```
+
+Perintah ini membuat ulang `data/curriculum_docs.json` dan menambahkan indeks `curriculum-doc-*` ke `data/knowledge_chunks.json`, sehingga blok Dokumen Kurikulum dan chatbot memakai daftar PDF terbaru.
 
 ## Memperbarui Silabus Dari PDF
 
@@ -188,7 +218,8 @@ Langkah ringkas:
 Catatan penting:
 
 - GitHub Pages hanya menjalankan file statis. `server.js`, `/api/chat`, dan OpenAI API tidak berjalan di sana.
-- Chatbot tetap bisa menjawab dari `data/knowledge_chunks.json`, `data/syllabus.json`, `data/materials.json`, `data/thesis_guides.json`, dan `data/alumni.json` dengan mode local static retrieval.
+- Chatbot tetap bisa menjawab dari `data/knowledge_chunks.json`, `data/syllabus.json`, `data/curriculum_docs.json`, `data/materials.json`, `data/thesis_guides.json`, `data/tracer_studies.json`, dan `data/alumni.json` dengan mode local static retrieval.
+- PDF `Kurikulum 2020-2022.pdf`, `Kurikulum 2023-2024.pdf`, `Kurikulum 2025.pdf`, dan `Kurikulum 2026.pdf` ikut di-upload agar blok Dokumen Kurikulum dapat dibuka publik.
 - Folder `@Materi Kuliah/` ikut di-upload ke repository agar link materi HTML bisa dibuka publik.
 - Folder `dokumen/` ikut di-upload ke repository agar panduan tesis dapat dibuka publik.
 - Jangan pernah menaruh `OPENAI_API_KEY` di file frontend seperti `index.html` atau `assets/app.js`.
