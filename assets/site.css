@@ -980,6 +980,86 @@ tbody tr:hover td {
   text-decoration: none;
 }
 
+.tracer-cta {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  margin: 0 0 22px;
+  padding: 24px;
+  overflow: hidden;
+  border-radius: 8px;
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(20, 61, 93, 0.94), rgba(14, 107, 88, 0.94) 54%, rgba(169, 15, 38, 0.9)),
+    #143d5d;
+  box-shadow: 0 20px 46px rgba(23, 23, 23, 0.14);
+}
+
+.tracer-cta::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 5px;
+  background: linear-gradient(90deg, var(--gold), #fff2bf, var(--red));
+}
+
+.tracer-cta-copy {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  max-width: 760px;
+}
+
+.tracer-cta-copy span {
+  width: max-content;
+  border-radius: 6px;
+  padding: 6px 10px;
+  color: #241800;
+  background: linear-gradient(135deg, var(--gold), #ffe7a8);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tracer-cta h3 {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.12;
+}
+
+.tracer-cta p {
+  max-width: 680px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.tracer-cta a {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  flex: 0 0 auto;
+  border-radius: 6px;
+  padding: 12px 18px;
+  color: #231600;
+  background: linear-gradient(135deg, var(--gold), #fff2bf);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 950;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.tracer-cta a:hover {
+  filter: saturate(1.08) brightness(1.03);
+  transform: translateY(-1px);
+}
+
 .tracer-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -1834,6 +1914,16 @@ tbody tr:hover td {
   .tracer-toolbar {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .tracer-cta {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 22px;
+  }
+
+  .tracer-cta a {
+    width: 100%;
   }
 
   .stat-item {
