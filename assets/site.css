@@ -132,7 +132,7 @@ img {
 
 .nav-links {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, max-content));
+  grid-template-columns: repeat(6, minmax(0, max-content));
   align-items: center;
   justify-content: center;
   gap: 6px 7px;
@@ -173,6 +173,10 @@ img {
 
 .nav-links a:nth-child(5n) {
   background: linear-gradient(135deg, #302822, #6a5f55);
+}
+
+.nav-links a:nth-child(6n) {
+  background: linear-gradient(135deg, #5f3d87, #8560b6);
 }
 
 .nav-links a:hover {
@@ -1283,6 +1287,91 @@ tbody tr:hover td {
   background: #fff;
 }
 
+.comments-section {
+  background:
+    linear-gradient(180deg, rgba(247, 243, 234, 0.82), rgba(255, 255, 255, 0.96)),
+    #fff;
+}
+
+.comments-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.comment-panel {
+  min-height: 320px;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  border: 1px solid #e6dccd;
+  border-radius: var(--radius);
+  padding: 22px;
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(23, 23, 23, 0.08);
+}
+
+.comment-panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.comment-panel-head strong {
+  color: var(--ink);
+  font-size: 18px;
+}
+
+.comment-panel p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.integration-box {
+  display: grid;
+  align-items: center;
+  min-height: 120px;
+  border: 1px dashed #ccbda8;
+  border-radius: var(--radius);
+  padding: 18px;
+  color: var(--ink-soft);
+  background:
+    linear-gradient(135deg, rgba(14, 107, 88, 0.08), rgba(242, 169, 0, 0.16)),
+    #fffaf1;
+}
+
+.visitor-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.visitor-metrics div {
+  display: grid;
+  gap: 6px;
+  border-radius: var(--radius);
+  padding: 14px;
+  color: #fff;
+  background: linear-gradient(135deg, #143d5d, #0e6b58);
+}
+
+.visitor-metrics div:nth-child(2) {
+  background: linear-gradient(135deg, #a90f26, #302822);
+}
+
+.visitor-metrics span {
+  font-size: 12px;
+  font-weight: 850;
+  opacity: 0.82;
+}
+
+.visitor-metrics strong {
+  font-size: 22px;
+  line-height: 1;
+}
+
 .chat-section {
   color: #fff;
   background: #151515;
@@ -1614,6 +1703,7 @@ tbody tr:hover td {
   .role-grid,
   .guide-grid,
   .curriculum-doc-grid,
+  .comments-grid,
   .tracer-grid,
   .syllabus-grid,
   .material-list,
@@ -1702,6 +1792,7 @@ tbody tr:hover td {
   .role-grid,
   .guide-grid,
   .curriculum-doc-grid,
+  .comments-grid,
   .tracer-grid,
   .syllabus-grid,
   .material-list,

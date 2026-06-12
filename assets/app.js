@@ -130,6 +130,20 @@ let activeFilter = "Semua";
 let serverChatAvailable = false;
 let serverApiReady = false;
 
+const COMMENT_INTEGRATION = {
+  giscus: {
+    repo: "mindra-bit/s2-statistika-terapan-web",
+    repoId: "R_kgDOS0LQzg",
+    category: "General",
+    categoryId: "DIC_kwDOS0LQzs4C_B4p"
+  }
+};
+
+const ANALYTICS_INTEGRATION = {
+  goatCounterEndpoint: "",
+  cloudflareToken: ""
+};
+
 const courseSearch = document.getElementById("courseSearch");
 const courseRows = document.getElementById("courseRows");
 const syllabusSearch = document.getElementById("syllabusSearch");
@@ -154,6 +168,8 @@ const chatMessages = document.getElementById("chatMessages");
 const chatForm = document.getElementById("chatForm");
 const questionInput = document.getElementById("questionInput");
 const knowledgeCount = document.getElementById("knowledgeCount");
+const localVisitCount = document.getElementById("localVisitCount");
+const visitorOriginPreview = document.getElementById("visitorOriginPreview");
 
 const I18N = {
   id: {
@@ -168,6 +184,7 @@ const I18N = {
     navGraduates: "Lulusan",
     navTracer: "Tracer",
     navSyllabus: "Silabus",
+    navComments: "Komentar",
     navChatbot: "Chatbot",
     navAsk: "Tanya Prodi",
     heroKicker: "Program Magister",
@@ -264,6 +281,17 @@ const I18N = {
     syllabusSearchPlaceholder: "Pembelajaran Mesin, Basis Data, SUR...",
     syllabusShown: "silabus tampil",
     syllabusAsk: "Tanyakan ke chatbot",
+    commentsKicker: "Komentar & Jejak Pengunjung",
+    commentsTitle: "Ruang komentar dan ringkasan kunjungan website.",
+    commentsText: "Section ini disiapkan untuk komentar publik dan analytics pengunjung berbasis layanan eksternal yang aman untuk website statis.",
+    commentsPublicTitle: "Komentar pengunjung",
+    commentsPublicText: "Komentar publik dapat dihubungkan ke GitHub Discussions melalui Giscus, sehingga komentar tersimpan di repositori dan bisa dimoderasi.",
+    commentsConfigNeeded: "Komentar siap diaktifkan setelah konfigurasi Giscus diisi.",
+    visitorTitle: "Statistik pengunjung",
+    visitorText: "Jumlah kunjungan, halaman populer, rujukan, perangkat, dan lokasi negara/kota sebaiknya dibaca dari dashboard analytics privat.",
+    visitorTotal: "Kunjungan lokal",
+    visitorOrigin: "Asal pengunjung",
+    analyticsConfigNeeded: "Analytics siap diaktifkan setelah kode GoatCounter atau Cloudflare Web Analytics tersedia.",
     chatKicker: "Chatbot Akademik",
     chatTitle: "Tanya Kurikulum S2 Statistika Terapan",
     chatText: "Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, dokumen kurikulum 2020-2026, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, tracer study, dan ringkasan administratif dari SMUP Program Magister.",
@@ -342,6 +370,7 @@ const I18N = {
     navGraduates: "Graduates",
     navTracer: "Tracer",
     navSyllabus: "Syllabus",
+    navComments: "Comments",
     navChatbot: "Chatbot",
     navAsk: "Ask Program",
     heroKicker: "Master's Program",
@@ -438,6 +467,17 @@ const I18N = {
     syllabusSearchPlaceholder: "Machine Learning, Database, SUR...",
     syllabusShown: "syllabi shown",
     syllabusAsk: "Ask the chatbot",
+    commentsKicker: "Comments & Visitor Trace",
+    commentsTitle: "Comment space and website visit summary.",
+    commentsText: "This section is prepared for public comments and visitor analytics using external services that work safely with static websites.",
+    commentsPublicTitle: "Visitor comments",
+    commentsPublicText: "Public comments can be connected to GitHub Discussions through Giscus, so comments are stored in the repository and can be moderated.",
+    commentsConfigNeeded: "Comments are ready to activate after the Giscus configuration is added.",
+    visitorTitle: "Visitor statistics",
+    visitorText: "Visit totals, popular pages, referrers, devices, and country/city locations should be viewed from a private analytics dashboard.",
+    visitorTotal: "Local visits",
+    visitorOrigin: "Visitor origin",
+    analyticsConfigNeeded: "Analytics are ready to activate after a GoatCounter or Cloudflare Web Analytics code is available.",
     chatKicker: "Academic Chatbot",
     chatTitle: "Ask About the Applied Statistics Master's Curriculum",
     chatText: "The chatbot answers are grounded in the 2026 OBE curriculum extraction, 2020-2026 curriculum documents, thesis guides, course syllabi, HTML learning material catalog, graduate data, tracer studies, and administrative summaries from SMUP.",
@@ -592,6 +632,77 @@ function applyLanguage() {
   renderMaterials();
   renderTracerStudies();
   renderAlumni();
+  renderLocalVisitorTrace();
+}
+
+function renderLocalVisitorTrace() {
+  if (!localVisitCount) return;
+  let visits = Number(localVisitCount.textContent.replace(/\D/g, "") || "0");
+  try {
+    visits = Number(localStorage.getItem("s2WebsiteLocalVisits") || visits || "0");
+  } catch (error) {
+    visits = visits || 0;
+  }
+  localVisitCount.textContent = new Intl.NumberFormat(currentLang === "en" ? "en-US" : "id-ID").format(visits);
+  if (visitorOriginPreview) {
+    visitorOriginPreview.textContent = currentLang === "en" ? "Private dashboard" : "Dashboard privat";
+  }
+}
+
+function updateLocalVisitorTrace() {
+  let visits = 1;
+  try {
+    visits = Number(localStorage.getItem("s2WebsiteLocalVisits") || "0") + 1;
+    localStorage.setItem("s2WebsiteLocalVisits", String(visits));
+  } catch (error) {
+    visits = 1;
+  }
+  if (localVisitCount) {
+    localVisitCount.textContent = String(visits);
+  }
+  renderLocalVisitorTrace();
+}
+
+function mountCommentIntegration() {
+  const mount = document.getElementById("commentsMount");
+  const config = COMMENT_INTEGRATION.giscus;
+  if (!mount || !config.repo || !config.repoId || !config.category || !config.categoryId) return;
+
+  mount.innerHTML = "";
+  const script = document.createElement("script");
+  script.src = "https://giscus.app/client.js";
+  script.dataset.repo = config.repo;
+  script.dataset.repoId = config.repoId;
+  script.dataset.category = config.category;
+  script.dataset.categoryId = config.categoryId;
+  script.dataset.mapping = "pathname";
+  script.dataset.strict = "0";
+  script.dataset.reactionsEnabled = "1";
+  script.dataset.emitMetadata = "0";
+  script.dataset.inputPosition = "bottom";
+  script.dataset.theme = "light";
+  script.dataset.lang = currentLang === "en" ? "en" : "id";
+  script.crossOrigin = "anonymous";
+  script.async = true;
+  mount.appendChild(script);
+}
+
+function mountAnalyticsIntegration() {
+  if (ANALYTICS_INTEGRATION.goatCounterEndpoint) {
+    const script = document.createElement("script");
+    script.dataset.goatcounter = ANALYTICS_INTEGRATION.goatCounterEndpoint;
+    script.src = "https://gc.zgo.at/count.js";
+    script.async = true;
+    document.head.appendChild(script);
+  }
+
+  if (ANALYTICS_INTEGRATION.cloudflareToken) {
+    const script = document.createElement("script");
+    script.defer = true;
+    script.src = "https://static.cloudflareinsights.com/beacon.min.js";
+    script.dataset.cfBeacon = JSON.stringify({ token: ANALYTICS_INTEGRATION.cloudflareToken });
+    document.head.appendChild(script);
+  }
 }
 
 function promptQuestion(button) {
@@ -1784,6 +1895,9 @@ chatForm.addEventListener("submit", (event) => {
 });
 
 applyLanguage();
+updateLocalVisitorTrace();
+mountCommentIntegration();
+mountAnalyticsIntegration();
 loadKnowledge();
 loadSyllabus();
 loadMaterials();

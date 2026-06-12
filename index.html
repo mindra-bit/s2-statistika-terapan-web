@@ -39,6 +39,7 @@
         <a href="#lulusan" data-i18n="navGraduates">Lulusan</a>
         <a href="#tracer-studi" data-i18n="navTracer">Tracer</a>
         <a href="#silabus" data-i18n="navSyllabus">Silabus</a>
+        <a href="#komentar" data-i18n="navComments">Komentar</a>
         <a href="#chatbot" data-i18n="navChatbot">Chatbot</a>
       </nav>
       <div class="language-switch" role="group" aria-label="Pilihan bahasa">
@@ -321,6 +322,50 @@
           <a href="#chatbot" data-i18n="syllabusAsk">Tanyakan ke chatbot</a>
         </div>
         <div class="syllabus-grid" id="syllabusRows" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section comments-section" id="komentar">
+      <div class="container">
+        <div class="course-head">
+          <div>
+            <p class="section-kicker" data-i18n="commentsKicker">Komentar & Jejak Pengunjung</p>
+            <h2 data-i18n="commentsTitle">Ruang komentar dan ringkasan kunjungan website.</h2>
+            <p data-i18n="commentsText">Section ini disiapkan untuk komentar publik dan analytics pengunjung berbasis layanan eksternal yang aman untuk website statis.</p>
+          </div>
+        </div>
+        <div class="comments-grid">
+          <article class="comment-panel">
+            <div class="comment-panel-head">
+              <span class="badge">Comments</span>
+              <strong data-i18n="commentsPublicTitle">Komentar pengunjung</strong>
+            </div>
+            <p data-i18n="commentsPublicText">Komentar publik dapat dihubungkan ke GitHub Discussions melalui Giscus, sehingga komentar tersimpan di repositori dan bisa dimoderasi.</p>
+            <div class="integration-box" id="commentsMount">
+              <strong data-i18n="commentsConfigNeeded">Komentar siap diaktifkan setelah konfigurasi Giscus diisi.</strong>
+            </div>
+          </article>
+          <article class="comment-panel">
+            <div class="comment-panel-head">
+              <span class="badge">Analytics</span>
+              <strong data-i18n="visitorTitle">Statistik pengunjung</strong>
+            </div>
+            <p data-i18n="visitorText">Jumlah kunjungan, halaman populer, rujukan, perangkat, dan lokasi negara/kota sebaiknya dibaca dari dashboard analytics privat.</p>
+            <div class="visitor-metrics">
+              <div>
+                <span data-i18n="visitorTotal">Kunjungan</span>
+                <strong id="localVisitCount">0</strong>
+              </div>
+              <div>
+                <span data-i18n="visitorOrigin">Asal pengunjung</span>
+                <strong id="visitorOriginPreview">Analytics</strong>
+              </div>
+            </div>
+            <div class="integration-box">
+              <strong data-i18n="analyticsConfigNeeded">Analytics siap diaktifkan setelah kode GoatCounter atau Cloudflare Web Analytics tersedia.</strong>
+            </div>
+          </article>
+        </div>
       </div>
     </section>
 
