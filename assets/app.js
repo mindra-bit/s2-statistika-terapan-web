@@ -129,7 +129,9 @@ let specialMomentsData = null;
 let curriculumDocsData = null;
 let lectureEvaluationsData = null;
 let pbmEvaluationsData = null;
+let rpsDocsData = null;
 let activeFilter = "Semua";
+let activeRpsFilter = "Semua";
 let activeSpecialMomentYear = "";
 let serverChatAvailable = false;
 let serverApiReady = false;
@@ -153,6 +155,10 @@ const courseRows = document.getElementById("courseRows");
 const syllabusSearch = document.getElementById("syllabusSearch");
 const syllabusRows = document.getElementById("syllabusRows");
 const syllabusCount = document.getElementById("syllabusCount");
+const rpsSearch = document.getElementById("rpsSearch");
+const rpsRows = document.getElementById("rpsRows");
+const rpsCount = document.getElementById("rpsCount");
+const rpsSummary = document.getElementById("rpsSummary");
 const alumniSearch = document.getElementById("alumniSearch");
 const alumniRows = document.getElementById("alumniRows");
 const alumniCount = document.getElementById("alumniCount");
@@ -191,6 +197,7 @@ const workspacePanelIds = [
   "dokumen-kurikulum",
   "mata-kuliah",
   "silabus",
+  "rps",
   "materi",
   "panduan-tesis",
   "evaluasi-perkuliahan",
@@ -219,6 +226,7 @@ const I18N = {
     navTracer: "Tracer",
     navSpecialMoment: "Momen",
     navSyllabus: "Silabus",
+    navRps: "RPS",
     navLectureEvaluations: "Monitoring",
     navComments: "Komentar",
     navChatbot: "Chatbot",
@@ -230,6 +238,7 @@ const I18N = {
     workspaceCurriculumDocs: "Dokumen Kurikulum",
     workspaceCourses: "Daftar Mata Kuliah",
     workspaceSyllabus: "Silabus Mata Kuliah",
+    workspaceRps: "RPS Mata Kuliah",
     workspaceMaterials: "Materi Mata Kuliah",
     workspaceThesisGuide: "Panduan Tesis",
     workspaceLectureEvaluation: "Evaluasi Perkuliahan",
@@ -416,6 +425,18 @@ const I18N = {
     syllabusSearchPlaceholder: "Pembelajaran Mesin, Basis Data, SUR...",
     syllabusShown: "silabus tampil",
     syllabusAsk: "Tanyakan ke chatbot",
+    rpsKicker: "RPS 2026",
+    rpsTitle: "Dokumen RPS mata kuliah wajib dan pilihan.",
+    rpsText: "Seluruh Rencana Pembelajaran Semester dari folder @RPS 2026 disusun sebagai katalog PDF yang mudah dicari dan dibuka langsung.",
+    rpsSearchLabel: "Cari RPS",
+    rpsSearchPlaceholder: "Regresi, Survival, Basis Data...",
+    rpsShown: "RPS tampil",
+    rpsAsk: "Tanyakan RPS ke chatbot",
+    rpsRequired: "Mata Kuliah Wajib",
+    rpsElective: "Mata Kuliah Pilihan",
+    rpsDocument: "Dokumen RPS",
+    rpsCredits: "SKS",
+    rpsCourseCode: "Kode MK",
     commentsKicker: "Komentar & Jejak Pengunjung",
     commentsTitle: "Ruang komentar dan ringkasan kunjungan website.",
     commentsText: "Section ini disiapkan untuk komentar publik dan analytics pengunjung berbasis layanan eksternal yang aman untuk website statis.",
@@ -430,7 +451,7 @@ const I18N = {
     metricUnavailable: "Lihat dashboard",
     chatKicker: "Chatbot Akademik",
     chatTitle: "Tanya Kurikulum S2 Statistika Terapan",
-    chatText: "Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, dokumen kurikulum 2020-2026, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, panduan tesis, silabus mata kuliah, katalog materi HTML, data lulusan, tracer study, Special Moment, dan ringkasan administratif dari SMUP Program Magister.",
+    chatText: "Jawaban chatbot ditambatkan pada ekstraksi dokumen Kurikulum OBE 2026, dokumen kurikulum 2020-2026, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, panduan tesis, silabus mata kuliah, PDF RPS, katalog materi HTML, data lulusan, tracer study, Special Moment, dan ringkasan administratif dari SMUP Program Magister.",
     knowledgePieces: "potongan pengetahuan terindeks",
     assistantName: "Asisten Prodi",
     loadingKnowledge: "Memuat knowledge base",
@@ -440,6 +461,7 @@ const I18N = {
     promptProfile: "Profil lulusan",
     promptDataScience: "Sains data",
     promptSyllabus: "Silabus ML",
+    promptRps: "RPS Regresi",
     promptMaterials: "Materi HTML",
     promptGuide: "Panduan tesis",
     promptThesisFlow: "SUR SKR SAM",
@@ -448,8 +470,8 @@ const I18N = {
     promptCurriculumDocs: "Dokumen 2026",
     promptLectureEvaluation: "Evaluasi Perkuliahan",
     promptPbmEvaluation: "Evaluasi PBM",
-    welcomeText: "Silakan ajukan pertanyaan tentang kurikulum 2026, dokumen kurikulum 2020-2026, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, materi kuliah HTML, tracer study, Special Moment, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.",
-    welcomeSources: "Sumber utama: Kurikulum OBE 2026, dokumen kurikulum, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, panduan tesis, data lulusan, tracer study, Special Moment, dan katalog materi kuliah",
+    welcomeText: "Silakan ajukan pertanyaan tentang kurikulum 2026, dokumen kurikulum 2020-2026, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, jalur studi, SKS, CPL, panduan tesis, SUR, SKR, SAM, silabus, PDF RPS, materi kuliah HTML, tracer study, Special Moment, tesis lulusan, biaya, pendaftaran, dan profil lulusan S2 Statistika Terapan.",
+    welcomeSources: "Sumber utama: Kurikulum OBE 2026, dokumen kurikulum, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, panduan tesis, data lulusan, tracer study, Special Moment, RPS 2026, dan katalog materi kuliah",
     questionLabel: "Pertanyaan",
     questionPlaceholder: "Tulis pertanyaan...",
     send: "Kirim",
@@ -468,6 +490,7 @@ const I18N = {
     noPbmEvaluations: "Dokumen Evaluasi PBM belum tersedia.",
     noCourses: "Tidak ada mata kuliah yang cocok.",
     noSyllabus: "Silabus yang dicari belum ditemukan.",
+    noRpsDocs: "Dokumen RPS yang dicari belum ditemukan.",
     noMaterials: "Materi yang dicari belum ditemukan.",
     noTracer: "Laporan tracer study belum tersedia.",
     noSpecialMoments: "Foto Special Moment belum tersedia.",
@@ -515,6 +538,7 @@ const I18N = {
     navTracer: "Tracer",
     navSpecialMoment: "Moments",
     navSyllabus: "Syllabus",
+    navRps: "RPS",
     navLectureEvaluations: "Monitoring",
     navComments: "Comments",
     navChatbot: "Chatbot",
@@ -526,6 +550,7 @@ const I18N = {
     workspaceCurriculumDocs: "Curriculum Documents",
     workspaceCourses: "Course List",
     workspaceSyllabus: "Course Syllabus",
+    workspaceRps: "Course RPS",
     workspaceMaterials: "Course Materials",
     workspaceThesisGuide: "Thesis Guides",
     workspaceLectureEvaluation: "Course Evaluation",
@@ -712,6 +737,18 @@ const I18N = {
     syllabusSearchPlaceholder: "Machine Learning, Database, SUR...",
     syllabusShown: "syllabi shown",
     syllabusAsk: "Ask the chatbot",
+    rpsKicker: "RPS 2026",
+    rpsTitle: "RPS documents for required and elective courses.",
+    rpsText: "All Semester Learning Plan documents from the @RPS 2026 folder are organized as a searchable PDF catalog that can be opened directly.",
+    rpsSearchLabel: "Search RPS",
+    rpsSearchPlaceholder: "Regression, Survival, Database...",
+    rpsShown: "RPS shown",
+    rpsAsk: "Ask the chatbot about RPS",
+    rpsRequired: "Required Courses",
+    rpsElective: "Elective Courses",
+    rpsDocument: "RPS Document",
+    rpsCredits: "Credits",
+    rpsCourseCode: "Course code",
     commentsKicker: "Comments & Visitor Trace",
     commentsTitle: "Comment space and website visit summary.",
     commentsText: "This section is prepared for public comments and visitor analytics using external services that work safely with static websites.",
@@ -726,7 +763,7 @@ const I18N = {
     metricUnavailable: "View dashboard",
     chatKicker: "Academic Chatbot",
     chatTitle: "Ask About the Applied Statistics Master's Curriculum",
-    chatText: "The chatbot answers are grounded in the 2026 OBE curriculum extraction, 2020-2026 curriculum documents, course delivery evaluations, PBM evaluations, thesis guides, course syllabi, HTML learning material catalog, graduate data, tracer studies, Special Moment gallery, and administrative summaries from SMUP.",
+    chatText: "The chatbot answers are grounded in the 2026 OBE curriculum extraction, 2020-2026 curriculum documents, course delivery evaluations, PBM evaluations, thesis guides, course syllabi, RPS PDFs, HTML learning material catalog, graduate data, tracer studies, Special Moment gallery, and administrative summaries from SMUP.",
     knowledgePieces: "indexed knowledge chunks",
     assistantName: "Program Assistant",
     loadingKnowledge: "Loading knowledge base",
@@ -736,6 +773,7 @@ const I18N = {
     promptProfile: "Graduate profile",
     promptDataScience: "Data science",
     promptSyllabus: "ML syllabus",
+    promptRps: "Regression RPS",
     promptMaterials: "HTML material",
     promptGuide: "Thesis guide",
     promptThesisFlow: "SUR SKR SAM",
@@ -744,8 +782,8 @@ const I18N = {
     promptCurriculumDocs: "2026 Document",
     promptLectureEvaluation: "Course Evaluation",
     promptPbmEvaluation: "PBM Evaluation",
-    welcomeText: "Ask about the 2026 curriculum, 2020-2026 curriculum documents, course delivery evaluations, PBM evaluations, study pathways, credits, learning outcomes, thesis guides, SUR, SKR, SAM, syllabi, HTML learning materials, tracer studies, Special Moment gallery, graduate theses, fees, admissions, and graduate profiles.",
-    welcomeSources: "Main sources: 2026 OBE Curriculum, curriculum documents, course delivery evaluations, PBM evaluations, thesis guides, graduate data, tracer studies, Special Moment gallery, and learning material catalog",
+    welcomeText: "Ask about the 2026 curriculum, 2020-2026 curriculum documents, course delivery evaluations, PBM evaluations, study pathways, credits, learning outcomes, thesis guides, SUR, SKR, SAM, syllabi, RPS PDFs, HTML learning materials, tracer studies, Special Moment gallery, graduate theses, fees, admissions, and graduate profiles.",
+    welcomeSources: "Main sources: 2026 OBE Curriculum, curriculum documents, course delivery evaluations, PBM evaluations, thesis guides, graduate data, tracer studies, Special Moment gallery, RPS 2026, and learning material catalog",
     questionLabel: "Question",
     questionPlaceholder: "Type a question...",
     send: "Send",
@@ -764,6 +802,7 @@ const I18N = {
     noPbmEvaluations: "PBM evaluation documents are not available yet.",
     noCourses: "No matching courses found.",
     noSyllabus: "No matching syllabus found.",
+    noRpsDocs: "No matching RPS document found.",
     noMaterials: "No matching materials found.",
     noTracer: "Tracer study reports are not available yet.",
     noSpecialMoments: "Special Moment photos are not available yet.",
@@ -910,6 +949,7 @@ function applyLanguage() {
   renderCurriculumDocs();
   renderThesisGuides();
   renderSyllabus();
+  renderRpsDocs();
   renderMaterials();
   renderTracerStudies();
   renderSpecialMoments();
@@ -1038,6 +1078,9 @@ function expandQuestion(question) {
   if (/(silabus|sylabus|rps|materi|referensi|bahan kajian)/.test(normalized)) {
     synonyms.push("silabus rps deskripsi mata kuliah bahan kajian topik perkuliahan referensi");
   }
+  if (/(rps|rencana pembelajaran semester|course plan|semester learning plan|download rps|unduh rps|buka rps)/.test(normalized)) {
+    synonyms.push("rps rencana pembelajaran semester course plan semester learning plan dokumen pdf mata kuliah wajib pilihan");
+  }
   if (/(materi|bahan ajar|modul|html|katalog|slide|pertemuan)/.test(normalized)) {
     synonyms.push("materi html bahan ajar modul pembelajaran katalog kuliah file html");
   }
@@ -1079,6 +1122,7 @@ function scoreChunk(question, chunk) {
   const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(normalizedQuestion);
   const asksLectureEvaluation = /evaluasi pelaksanaan perkuliahan|evaluasi perkuliahan|monitoring perkuliahan|monitoring mahasiswa|pertemuan perkuliahan|sesi perkuliahan|course delivery evaluation|course evaluation|student monitoring/.test(normalizedQuestion);
   const asksPbmEvaluation = /evaluasi pbm|pbm|evaluasi pembelajaran|proses belajar mengajar|mutu akademik|learning evaluation|teaching learning evaluation|buka evaluasi|download evaluasi|unduh evaluasi/.test(normalizedQuestion);
+  const asksRpsDoc = /rps|rencana pembelajaran semester|course plan|semester learning plan|buka rps|download rps|unduh rps/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
@@ -1096,6 +1140,8 @@ function scoreChunk(question, chunk) {
   if (asksLectureEvaluation && chunk.id?.startsWith("pbm-evaluation-")) score -= 45;
   if (asksPbmEvaluation && chunk.id?.startsWith("pbm-evaluation-")) score += 185;
   if (asksPbmEvaluation && chunk.id?.startsWith("syllabus-")) score -= 50;
+  if (asksRpsDoc && chunk.id?.startsWith("rps-doc-")) score += 195;
+  if (asksRpsDoc && chunk.id?.startsWith("syllabus-")) score -= 55;
 
   for (const token of tokens) {
     const matches = wholeTokenMatches(text, token);
@@ -1196,6 +1242,16 @@ function scoreChunk(question, chunk) {
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 74;
   }
 
+  if (chunk.id?.startsWith("rps-doc-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !GENERIC_QUERY_TERMS.has(token));
+    for (const token of specificTokens) {
+      if (hasWholeToken(metadata, token)) score += 26;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 78;
+  }
+
   return score > 0 && chunk.id?.startsWith("manual") ? score + 2 : score;
 }
 
@@ -1262,7 +1318,7 @@ function buildCapabilityAnswer(question) {
     ? [
       "I can answer questions using the website knowledge base, including:",
       "1. 2026 curriculum, credits, study pathways, RPL, CPL, and graduate profiles.",
-      "2. Course syllabi, topics, references, and HTML learning materials.",
+      "2. Course syllabi, RPS/course plan PDFs, topics, references, and HTML learning materials.",
       "3. Thesis guides, SUR, SKR, and Master's Final Defense.",
       "4. Graduate thesis data, tracer study reports, Special Moment gallery, curriculum PDF archives, course delivery evaluation reports, PBM evaluation documents, fees, and SMUP admissions.",
       "",
@@ -1273,7 +1329,7 @@ function buildCapabilityAnswer(question) {
     : [
       "Saya bisa menjawab pertanyaan berdasarkan knowledge base website, terutama:",
       "1. Kurikulum 2026, SKS, jalur studi, RPL, CPL, dan profil lulusan.",
-      "2. Silabus mata kuliah, bahan kajian, referensi, dan materi HTML.",
+      "2. Silabus mata kuliah, PDF RPS, bahan kajian, referensi, dan materi HTML.",
       "3. Panduan tesis, SUR, SKR, dan Sidang Akhir Magister.",
       "4. Data tesis lulusan, tracer study, Special Moment, arsip PDF kurikulum, Evaluasi Pelaksanaan Perkuliahan, dokumen Evaluasi PBM, biaya, dan pendaftaran SMUP.",
       "",
@@ -1555,6 +1611,14 @@ function lectureEvaluationDescription(doc) {
   return currentLang === "en" ? doc.descriptionEn || doc.description : doc.descriptionId || doc.description;
 }
 
+function rpsDocTitle(doc) {
+  return currentLang === "en" ? doc.titleEn || doc.title : doc.titleId || doc.title;
+}
+
+function rpsDocDescription(doc) {
+  return currentLang === "en" ? doc.descriptionEn || doc.description : doc.descriptionId || doc.description;
+}
+
 function findCurriculumDoc(question, hits = []) {
   const docs = curriculumDocsData?.documents || [];
   const text = normalize(question);
@@ -1577,6 +1641,37 @@ function findCurriculumDoc(question, hits = []) {
   }
 
   return null;
+}
+
+function findRpsDoc(question, hits = []) {
+  const docs = rpsDocsData?.documents || [];
+  const text = normalize(question);
+
+  for (const doc of docs) {
+    const titles = [doc.courseTitle, doc.title, doc.courseTitleEn, doc.titleEn].map(normalize).filter(Boolean);
+    if (titles.some((title) => title && text.includes(title))) return doc;
+  }
+
+  for (const hit of hits) {
+    if (!String(hit.id || "").startsWith("rps-doc-")) continue;
+    const id = String(hit.id).replace(/^rps-doc-/, "");
+    const doc = docs.find((item) => item.id === id || normalize(item.title) === normalize(hit.title));
+    if (doc) return doc;
+  }
+
+  const queryTokens = tokenize(question).filter((token) => !GENERIC_QUERY_TERMS.has(token));
+  if (!queryTokens.length) return null;
+
+  const scored = docs
+    .map((doc) => {
+      const metadata = normalize([doc.courseTitle, doc.title, doc.courseTitleEn, doc.code, doc.group].join(" "));
+      const score = queryTokens.reduce((sum, token) => sum + (hasWholeToken(metadata, token) ? 1 : 0), 0);
+      return { doc, score };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  return scored[0]?.score >= 2 ? scored[0].doc : null;
 }
 
 function findLectureEvaluation(question, hits = []) {
@@ -1666,6 +1761,60 @@ function buildCurriculumDocAnswer(question, hits = []) {
   return {
     answer,
     sources: docs.map((doc) => ({ title: curriculumDocTitle(doc), url: doc.href })),
+    mode: "Local knowledge base"
+  };
+}
+
+function buildRpsDocAnswer(question, hits = []) {
+  const text = normalize(question);
+  const asksRpsDoc = /rps|rencana pembelajaran semester|course plan|semester learning plan|buka rps|download rps|unduh rps/.test(text)
+    || hits.some((hit) => String(hit.id || "").startsWith("rps-doc-"));
+  if (!asksRpsDoc) return null;
+
+  const selected = findRpsDoc(question, hits);
+  const group = /pilihan|elective/.test(text) ? "Pilihan" : (/wajib|required/.test(text) ? "Wajib" : "");
+  const docs = selected
+    ? [selected]
+    : (rpsDocsData?.documents || []).filter((doc) => !group || doc.group === group);
+  if (!docs.length) return null;
+
+  if (selected) {
+    const answer = currentLang === "en"
+      ? [
+        `${rpsDocTitle(selected)}: ${rpsDocDescription(selected)}`,
+        `Course group: ${selected.groupEn || selected.group}.`,
+        `Credits: ${selected.credits || "-"}.`,
+        selected.code ? `Course code: ${selected.code}.` : "",
+        `File size: ${formatFileSize(selected.sizeKb)}.`,
+        `PDF: ${selected.href}`
+      ].filter(Boolean).join("\n")
+      : [
+        `${rpsDocTitle(selected)}: ${rpsDocDescription(selected)}`,
+        `Kelompok mata kuliah: ${selected.group}.`,
+        `SKS: ${selected.credits || "-"}.`,
+        selected.code ? `Kode mata kuliah: ${selected.code}.` : "",
+        `Ukuran file: ${formatFileSize(selected.sizeKb)}.`,
+        `PDF: ${selected.href}`
+      ].filter(Boolean).join("\n");
+
+    return {
+      answer,
+      sources: [{ title: rpsDocTitle(selected), url: selected.href }],
+      mode: "Local knowledge base"
+    };
+  }
+
+  const label = group || (currentLang === "en" ? "all groups" : "semua kelompok");
+  const list = docs
+    .slice(0, 28)
+    .map((doc, index) => `${index + 1}. ${currentLang === "en" ? doc.courseTitleEn || doc.courseTitle : doc.courseTitle} (${currentLang === "en" ? doc.groupEn || doc.group : doc.group}, ${doc.credits || "-"} SKS) - ${doc.href}`)
+    .join("\n");
+
+  return {
+    answer: currentLang === "en"
+      ? `There are ${docs.length} RPS 2026 documents for ${label}. They are separated into required and elective courses on the website.\n\n${list}`
+      : `Tersedia ${docs.length} dokumen RPS 2026 untuk ${label}. Di website, RPS dipisahkan antara mata kuliah wajib dan pilihan.\n\n${list}`,
+    sources: docs.slice(0, 12).map((doc) => ({ title: rpsDocTitle(doc), url: doc.href })),
     mode: "Local knowledge base"
   };
 }
@@ -1797,6 +1946,7 @@ function buildLocalAnswer(question) {
 
   const fact = matchFact(question);
   const hits = retrieve(question, 4);
+  const structuredRpsDoc = buildRpsDocAnswer(question, hits);
   const structuredSyllabus = buildSyllabusAnswer(question, hits);
   const structuredMaterial = buildMaterialAnswer(question, hits);
   const structuredTracerStudy = buildTracerStudyAnswer(question, hits);
@@ -1805,6 +1955,7 @@ function buildLocalAnswer(question) {
   const structuredPbmEvaluation = buildPbmEvaluationAnswer(question, hits);
   const structuredThesisGuide = buildThesisGuideAnswer(question);
 
+  if (structuredRpsDoc) return structuredRpsDoc;
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
   if (structuredTracerStudy) return structuredTracerStudy;
@@ -1823,8 +1974,8 @@ function buildLocalAnswer(question) {
   if (!hits.length) {
     return {
       answer: currentLang === "en"
-        ? "I have not found that information in the program knowledge base. I can answer the curriculum, syllabi, HTML learning materials, thesis guides, graduate data, tracer studies, curriculum documents, course delivery evaluations, PBM evaluations, fees, and admissions that have been indexed. Free-form answers outside this knowledge base require enabling a generative AI API on the server."
-        : "Saya belum menemukan informasi tersebut dalam knowledge base prodi. Saat ini saya bisa menjawab kurikulum, silabus, materi HTML, panduan tesis, data lulusan, tracer study, dokumen kurikulum, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, biaya, dan pendaftaran yang sudah terindeks. Jawaban bebas di luar knowledge base memerlukan API AI generatif yang aktif di server.",
+        ? "I have not found that information in the program knowledge base. I can answer the curriculum, syllabi, RPS/course plan PDFs, HTML learning materials, thesis guides, graduate data, tracer studies, curriculum documents, course delivery evaluations, PBM evaluations, fees, and admissions that have been indexed. Free-form answers outside this knowledge base require enabling a generative AI API on the server."
+        : "Saya belum menemukan informasi tersebut dalam knowledge base prodi. Saat ini saya bisa menjawab kurikulum, silabus, PDF RPS, materi HTML, panduan tesis, data lulusan, tracer study, dokumen kurikulum, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, biaya, dan pendaftaran yang sudah terindeks. Jawaban bebas di luar knowledge base memerlukan API AI generatif yang aktif di server.",
       sources: [],
       mode: "Local knowledge base"
     };
@@ -1851,9 +2002,11 @@ function buildLocalAnswer(question) {
                 ? (currentLang === "en" ? "I found relevant course delivery evaluation reports:" : "Saya menemukan laporan Evaluasi Pelaksanaan Perkuliahan yang relevan:")
                 : hits[0]?.id?.startsWith("pbm-evaluation-")
                   ? (currentLang === "en" ? "I found relevant PBM evaluation documents:" : "Saya menemukan dokumen Evaluasi PBM yang relevan:")
-                  : currentLang === "en"
-                    ? "I found relevant knowledge base excerpts:"
-                    : "Saya menemukan potongan knowledge base yang relevan:";
+                  : hits[0]?.id?.startsWith("rps-doc-")
+                    ? (currentLang === "en" ? "I found relevant RPS documents:" : "Saya menemukan dokumen RPS yang relevan:")
+                    : currentLang === "en"
+                      ? "I found relevant knowledge base excerpts:"
+                      : "Saya menemukan potongan knowledge base yang relevan:";
 
   return {
     answer: `${intro}\n\n${excerpts}`,
@@ -2021,6 +2174,87 @@ function renderSyllabus() {
               ${renderList(entry.references, t("noReferences"))}
             </div>
           </details>
+        </article>
+      `;
+    })
+    .join("");
+}
+
+function rpsGroupLabel(doc) {
+  return currentLang === "en" ? doc.groupEn || groupLabel(doc.group) : groupLabel(doc.group);
+}
+
+function renderRpsDocs() {
+  if (!rpsRows) return;
+  const docs = rpsDocsData?.documents || [];
+  const query = normalize(rpsSearch?.value || "");
+  const filtered = docs.filter((doc) => {
+    const matchesFilter = activeRpsFilter === "Semua" || doc.group === activeRpsFilter;
+    const haystack = [
+      doc.title,
+      doc.titleEn,
+      doc.courseTitle,
+      doc.courseTitleEn,
+      doc.code,
+      doc.group,
+      doc.file,
+      doc.folder
+    ].join(" ");
+    return matchesFilter && (!query || normalize(haystack).includes(query));
+  });
+
+  if (rpsCount) rpsCount.textContent = String(filtered.length);
+
+  const groups = rpsDocsData?.groups || [];
+  if (rpsSummary) {
+    rpsSummary.innerHTML = groups
+      .map((group) => {
+        const label = currentLang === "en" ? group.labelEn || group.label : group.labelId || group.label;
+        const groupName = group.id === "pilihan" ? "Pilihan" : "Wajib";
+        return `
+          <button class="rps-summary-card${activeRpsFilter === groupName ? " active" : ""}" type="button" data-rps-filter="${escapeHTML(groupName)}">
+            <span>${escapeHTML(label)}</span>
+            <strong>${escapeHTML(group.total || 0)}</strong>
+            <small>${escapeHTML(t("rpsDocument"))}</small>
+          </button>
+        `;
+      })
+      .join("");
+  }
+
+  document.querySelectorAll("[data-rps-filter]").forEach((button) => {
+    const filter = button.dataset.rpsFilter;
+    button.classList.toggle("active", filter === activeRpsFilter);
+  });
+
+  if (!filtered.length) {
+    rpsRows.innerHTML = `<p class="empty-note">${escapeHTML(t("noRpsDocs"))}</p>`;
+    return;
+  }
+
+  rpsRows.innerHTML = filtered
+    .map((doc) => {
+      const title = currentLang === "en" ? doc.courseTitleEn || doc.courseTitle : doc.courseTitle;
+      const subtitle = currentLang === "en" && doc.courseTitleEn ? doc.courseTitle : doc.courseTitleEn || "";
+      const code = doc.code || "-";
+      return `
+        <article class="rps-card">
+          <div class="rps-card-head">
+            <span class="badge">${escapeHTML(rpsGroupLabel(doc))}</span>
+            <span>${escapeHTML(t("rpsDocument"))}</span>
+          </div>
+          <h3>${escapeHTML(title)}</h3>
+          ${subtitle && subtitle !== title ? `<p class="rps-subtitle">${escapeHTML(subtitle)}</p>` : ""}
+          <p>${escapeHTML(rpsDocDescription(doc))}</p>
+          <div class="rps-meta">
+            <span>${escapeHTML(t("rpsCourseCode"))}: ${escapeHTML(code)}</span>
+            <span>${escapeHTML(t("rpsCredits"))}: ${escapeHTML(doc.credits || "-")}</span>
+            <span>${escapeHTML(formatFileSize(doc.sizeKb))}</span>
+          </div>
+          <div class="rps-actions">
+            <a href="${escapeHTML(doc.href)}" target="_blank" rel="noopener">${escapeHTML(t("openPdf"))}</a>
+            <button type="button" data-rps-q="${currentLang === "en" ? `Open ${escapeHTML(doc.titleEn || doc.title)}` : `Buka ${escapeHTML(doc.titleId || doc.title)}`}">${escapeHTML(t("askChatbot"))}</button>
+          </div>
         </article>
       `;
     })
@@ -2391,6 +2625,19 @@ async function loadSyllabus() {
   renderSyllabus();
 }
 
+async function loadRpsDocs() {
+  try {
+    const response = await fetch("data/rps_docs.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Dokumen RPS tidak dapat dimuat.");
+    const data = await response.json();
+    if (!data?.documents?.length) throw new Error("Dokumen RPS kosong.");
+    rpsDocsData = data;
+  } catch (error) {
+    rpsDocsData = { total: 0, groups: [], documents: [] };
+  }
+  renderRpsDocs();
+}
+
 async function loadMaterials() {
   try {
     const response = await fetch("data/materials.json", { cache: "no-store" });
@@ -2560,8 +2807,22 @@ document.querySelectorAll("[data-q-id], [data-q]").forEach((button) => {
 
 courseSearch.addEventListener("input", renderCourses);
 syllabusSearch?.addEventListener("input", renderSyllabus);
+rpsSearch?.addEventListener("input", renderRpsDocs);
 alumniSearch?.addEventListener("input", renderAlumni);
 materialSearch?.addEventListener("input", renderMaterials);
+rpsRows?.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-rps-q]");
+  if (!button) return;
+  ask(button.dataset.rpsQ);
+});
+function handleRpsFilterClick(event) {
+  const button = event.target.closest("[data-rps-filter]");
+  if (!button) return;
+  activeRpsFilter = button.dataset.rpsFilter || "Semua";
+  renderRpsDocs();
+}
+document.querySelector(".rps-filter-tabs")?.addEventListener("click", handleRpsFilterClick);
+rpsSummary?.addEventListener("click", handleRpsFilterClick);
 materialRows?.addEventListener("click", (event) => {
   const button = event.target.closest("[data-material-q]");
   if (!button) return;
@@ -2616,6 +2877,7 @@ mountCommentIntegration();
 mountAnalyticsIntegration();
 loadKnowledge();
 loadSyllabus();
+loadRpsDocs();
 loadMaterials();
 loadThesisGuides();
 loadTracerStudies();

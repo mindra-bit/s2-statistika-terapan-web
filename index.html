@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>S2 Statistika Terapan FMIPA Unpad</title>
-  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, panduan tesis, data lulusan, tracer study, silabus, dan materi kuliah HTML." />
+  <meta name="description" content="Website profesional Program Magister Statistika Terapan FMIPA Universitas Padjadjaran dengan chatbot kurikulum OBE 2026, RPS, panduan tesis, data lulusan, tracer study, silabus, dan materi kuliah HTML." />
   <link rel="preload" href="assets/campus-hero.jpg" as="image" />
   <link rel="stylesheet" href="assets/site.css" />
 </head>
@@ -38,6 +38,7 @@
         <a href="#dokumen-kurikulum" data-i18n="navDocs">Dokumen</a>
         <a href="#mata-kuliah" data-i18n="navCourses">Mata Kuliah</a>
         <a href="#silabus" data-i18n="navSyllabus">Silabus</a>
+        <a href="#rps" data-i18n="navRps">RPS</a>
         <a href="#materi" data-i18n="navMaterials">Materi</a>
         <a href="#panduan-tesis" data-i18n="navGuide">Panduan</a>
         <a href="#evaluasi-perkuliahan" data-i18n="navLectureEvaluations">Monitoring</a>
@@ -103,6 +104,7 @@
           <a href="#dokumen-kurikulum" data-workspace-target="dokumen-kurikulum" data-i18n="workspaceCurriculumDocs">Dokumen Kurikulum</a>
           <a href="#mata-kuliah" data-workspace-target="mata-kuliah" data-i18n="workspaceCourses">Daftar Mata Kuliah</a>
           <a href="#silabus" data-workspace-target="silabus" data-i18n="workspaceSyllabus">Silabus Mata Kuliah</a>
+          <a href="#rps" data-workspace-target="rps" data-i18n="workspaceRps">RPS Mata Kuliah</a>
           <a href="#materi" data-workspace-target="materi" data-i18n="workspaceMaterials">Materi Mata Kuliah</a>
           <a href="#panduan-tesis" data-workspace-target="panduan-tesis" data-i18n="workspaceThesisGuide">Panduan Tesis</a>
           <a href="#evaluasi-perkuliahan" data-workspace-target="evaluasi-perkuliahan" data-i18n="workspaceLectureEvaluation">Evaluasi Perkuliahan</a>
@@ -519,6 +521,33 @@
       </div>
     </section>
 
+    <section class="section rps-section" id="rps">
+      <div class="container">
+        <div class="course-head">
+          <div>
+            <p class="section-kicker" data-i18n="rpsKicker">RPS 2026</p>
+            <h2 data-i18n="rpsTitle">Dokumen RPS mata kuliah wajib dan pilihan.</h2>
+            <p data-i18n="rpsText">Seluruh Rencana Pembelajaran Semester dari folder @RPS 2026 disusun sebagai katalog PDF yang mudah dicari dan dibuka langsung.</p>
+          </div>
+          <label class="search-field">
+            <span data-i18n="rpsSearchLabel">Cari RPS</span>
+            <input id="rpsSearch" type="search" placeholder="Regresi, Survival, Basis Data..." data-i18n-placeholder="rpsSearchPlaceholder" autocomplete="off" />
+          </label>
+        </div>
+        <div class="rps-summary" id="rpsSummary" aria-label="Ringkasan RPS wajib dan pilihan"></div>
+        <div class="rps-toolbar">
+          <div class="rps-filter-tabs" role="tablist" aria-label="Filter RPS">
+            <button class="active" type="button" data-rps-filter="Semua" data-i18n="filterAll">Semua</button>
+            <button type="button" data-rps-filter="Wajib" data-i18n="filterRequired">Wajib</button>
+            <button type="button" data-rps-filter="Pilihan" data-i18n="filterElective">Pilihan</button>
+          </div>
+          <span><strong id="rpsCount">28</strong> <span data-i18n="rpsShown">RPS tampil</span></span>
+          <a href="#chatbot" data-i18n="rpsAsk">Tanyakan RPS ke chatbot</a>
+        </div>
+        <div class="rps-grid" id="rpsRows" aria-live="polite"></div>
+      </div>
+    </section>
+
     <section class="section" id="materi">
       <div class="container">
         <div class="course-head">
@@ -735,6 +764,7 @@
             <button type="button" data-i18n="promptProfile" data-q-id="Apa profil lulusan S2 Statistika Terapan?" data-q-en="What are the graduate profiles of the Applied Statistics master's program?">Profil lulusan</button>
             <button type="button" data-i18n="promptDataScience" data-q-id="Apa saja mata kuliah sains data?" data-q-en="Which courses are related to data science?">Sains data</button>
             <button type="button" data-i18n="promptSyllabus" data-q-id="Apa silabus Pembelajaran Mesin?" data-q-en="What is the Machine Learning syllabus?">Silabus ML</button>
+            <button type="button" data-i18n="promptRps" data-q-id="Buka RPS Analisis Regresi Tingkat Lanjut" data-q-en="Open the Advanced Regression Analysis RPS">RPS Regresi</button>
             <button type="button" data-i18n="promptMaterials" data-q-id="Ada materi kuliah Analisis Spasial?" data-q-en="Is there HTML learning material for Spatial Analysis?">Materi HTML</button>
             <button type="button" data-i18n="promptGuide" data-q-id="Apa panduan penulisan tesis?" data-q-en="What is in the thesis writing guide?">Panduan tesis</button>
             <button type="button" data-i18n="promptThesisFlow" data-q-id="Bagaimana alur SUR, SKR, dan SAM?" data-q-en="How do SUR, SKR, and SAM work?">SUR SKR SAM</button>

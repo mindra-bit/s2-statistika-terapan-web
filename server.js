@@ -50,6 +50,10 @@ const pbmEvaluationsPath = path.join(__dirname, "data", "pbm_evaluations.json");
 const pbmEvaluations = fs.existsSync(pbmEvaluationsPath)
   ? JSON.parse(fs.readFileSync(pbmEvaluationsPath, "utf8"))
   : { total: 0, documents: [] };
+const rpsDocsPath = path.join(__dirname, "data", "rps_docs.json");
+const rpsDocs = fs.existsSync(rpsDocsPath)
+  ? JSON.parse(fs.readFileSync(rpsDocsPath, "utf8"))
+  : { total: 0, groups: [], documents: [] };
 const stopwords = new Set("yang dan untuk dengan pada dalam sebagai dari ke di ini itu adalah atau serta oleh agar akan dapat karena maka jika sudah telah juga yaitu bagi antara menjadi memiliki secara program studi magister statistika terapan unpad fmipa universitas padjadjaran kurikulum dokumen tahun prodi pertanyaan jawaban jawab chatbot chatboot luar s2 apa saja berapa".split(" "));
 const genericQueryTerms = new Set("silabus sylabus rps materi referensi deskripsi bahan kajian topik perkuliahan mata kuliah matakuliah course".split(" "));
 
@@ -181,6 +185,9 @@ function expandQuestion(question) {
   if (/(silabus|sylabus|rps|materi|referensi|bahan kajian)/.test(text)) {
     expansions.push("silabus rps deskripsi mata kuliah bahan kajian topik perkuliahan referensi");
   }
+  if (/(rps|rencana pembelajaran semester|course plan|semester learning plan|download rps|unduh rps|buka rps)/.test(text)) {
+    expansions.push("rps rencana pembelajaran semester course plan semester learning plan dokumen pdf mata kuliah wajib pilihan");
+  }
   if (/(materi|bahan ajar|modul|html|katalog|slide|pertemuan)/.test(text)) {
     expansions.push("materi html bahan ajar modul pembelajaran katalog kuliah file html");
   }
@@ -221,6 +228,7 @@ function scoreChunk(question, chunk) {
   const asksCurriculumDoc = /dokumen kurikulum|file kurikulum|pdf kurikulum|arsip kurikulum|curriculum document|curriculum pdf|buka kurikulum|download kurikulum|unduh kurikulum/.test(normalizedQuestion);
   const asksLectureEvaluation = /evaluasi pelaksanaan perkuliahan|evaluasi perkuliahan|monitoring perkuliahan|monitoring mahasiswa|pertemuan perkuliahan|sesi perkuliahan|course delivery evaluation|course evaluation|student monitoring/.test(normalizedQuestion);
   const asksPbmEvaluation = /evaluasi pbm|pbm|evaluasi pembelajaran|proses belajar mengajar|mutu akademik|learning evaluation|teaching learning evaluation|buka evaluasi|download evaluasi|unduh evaluasi/.test(normalizedQuestion);
+  const asksRpsDoc = /rps|rencana pembelajaran semester|course plan|semester learning plan|buka rps|download rps|unduh rps/.test(normalizedQuestion);
 
   if (asksAlumni && chunk.id?.startsWith("alumni-")) score += 140;
   if (asksAlumni && chunk.id?.startsWith("syllabus-")) score -= 80;
@@ -238,6 +246,8 @@ function scoreChunk(question, chunk) {
   if (asksLectureEvaluation && chunk.id?.startsWith("pbm-evaluation-")) score -= 45;
   if (asksPbmEvaluation && chunk.id?.startsWith("pbm-evaluation-")) score += 185;
   if (asksPbmEvaluation && chunk.id?.startsWith("syllabus-")) score -= 50;
+  if (asksRpsDoc && chunk.id?.startsWith("rps-doc-")) score += 195;
+  if (asksRpsDoc && chunk.id?.startsWith("syllabus-")) score -= 55;
 
   for (const token of tokens) {
     const matches = wholeTokenMatches(text, token);
@@ -338,6 +348,16 @@ function scoreChunk(question, chunk) {
     if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 74;
   }
 
+  if (chunk.id?.startsWith("rps-doc-")) {
+    const metadata = normalize([chunk.id, chunk.sourceTitle, chunk.title, chunk.text].join(" "));
+    const specificTokens = tokens.filter((token) => !genericQueryTerms.has(token));
+    for (const token of specificTokens) {
+      if (hasWholeToken(metadata, token)) score += 26;
+    }
+    const specificPhrase = specificTokens.join(" ");
+    if (specificPhrase.length > 4 && metadata.includes(specificPhrase)) score += 78;
+  }
+
   return score > 0 && chunk.id?.startsWith("manual") ? score + 2 : score;
 }
 
@@ -404,7 +424,7 @@ function capabilityAnswer(question, language = "id") {
     ? [
       "I can answer questions using the website knowledge base, including:",
       "1. 2026 curriculum, credits, study pathways, RPL, CPL, and graduate profiles.",
-      "2. Course syllabi, topics, references, and HTML learning materials.",
+      "2. Course syllabi, RPS/course plan PDFs, topics, references, and HTML learning materials.",
       "3. Thesis guides, SUR, SKR, and Master's Final Defense.",
       "4. Graduate thesis data, tracer study reports, Special Moment gallery, curriculum PDF archives, course delivery evaluation reports, PBM evaluation documents, fees, and SMUP admissions.",
       "",
@@ -415,7 +435,7 @@ function capabilityAnswer(question, language = "id") {
     : [
       "Saya bisa menjawab pertanyaan berdasarkan knowledge base website, terutama:",
       "1. Kurikulum 2026, SKS, jalur studi, RPL, CPL, dan profil lulusan.",
-      "2. Silabus mata kuliah, bahan kajian, referensi, dan materi HTML.",
+      "2. Silabus mata kuliah, PDF RPS, bahan kajian, referensi, dan materi HTML.",
       "3. Panduan tesis, SUR, SKR, dan Sidang Akhir Magister.",
       "4. Data tesis lulusan, tracer study, Special Moment, arsip PDF kurikulum, Evaluasi Pelaksanaan Perkuliahan, dokumen Evaluasi PBM, biaya, dan pendaftaran SMUP.",
       "",
@@ -665,6 +685,14 @@ function lectureEvaluationDescription(doc, language = "id") {
   return language === "en" ? doc.descriptionEn || doc.description : doc.descriptionId || doc.description;
 }
 
+function rpsDocTitle(doc, language = "id") {
+  return language === "en" ? doc.titleEn || doc.title : doc.titleId || doc.title;
+}
+
+function rpsDocDescription(doc, language = "id") {
+  return language === "en" ? doc.descriptionEn || doc.description : doc.descriptionId || doc.description;
+}
+
 function findCurriculumDoc(question, hits = []) {
   const docs = curriculumDocs.documents || [];
   const text = normalize(question);
@@ -687,6 +715,37 @@ function findCurriculumDoc(question, hits = []) {
   }
 
   return null;
+}
+
+function findRpsDoc(question, hits = []) {
+  const docs = rpsDocs.documents || [];
+  const text = normalize(question);
+
+  for (const doc of docs) {
+    const titles = [doc.courseTitle, doc.title, doc.courseTitleEn, doc.titleEn].map(normalize).filter(Boolean);
+    if (titles.some((title) => title && text.includes(title))) return doc;
+  }
+
+  for (const hit of hits) {
+    if (!String(hit.id || "").startsWith("rps-doc-")) continue;
+    const id = String(hit.id).replace(/^rps-doc-/, "");
+    const doc = docs.find((item) => item.id === id || normalize(item.title) === normalize(hit.title));
+    if (doc) return doc;
+  }
+
+  const queryTokens = tokenize(question).filter((token) => !genericQueryTerms.has(token));
+  if (!queryTokens.length) return null;
+
+  const scored = docs
+    .map((doc) => {
+      const metadata = normalize([doc.courseTitle, doc.title, doc.courseTitleEn, doc.code, doc.group].join(" "));
+      const score = queryTokens.reduce((sum, token) => sum + (hasWholeToken(metadata, token) ? 1 : 0), 0);
+      return { doc, score };
+    })
+    .filter((item) => item.score > 0)
+    .sort((a, b) => b.score - a.score);
+
+  return scored[0]?.score >= 2 ? scored[0].doc : null;
 }
 
 function findLectureEvaluation(question, hits = []) {
@@ -776,6 +835,60 @@ function curriculumDocAnswer(question, hits = [], language = "id") {
   return {
     answer,
     sources: docs.map((doc) => ({ title: curriculumDocTitle(doc, language), url: doc.href })),
+    mode: "Knowledge base server"
+  };
+}
+
+function rpsDocAnswer(question, hits = [], language = "id") {
+  const text = normalize(question);
+  const asksRpsDoc = /rps|rencana pembelajaran semester|course plan|semester learning plan|buka rps|download rps|unduh rps/.test(text)
+    || hits.some((hit) => String(hit.id || "").startsWith("rps-doc-"));
+  if (!asksRpsDoc) return null;
+
+  const selected = findRpsDoc(question, hits);
+  const group = /pilihan|elective/.test(text) ? "Pilihan" : (/wajib|required/.test(text) ? "Wajib" : "");
+  const docs = selected
+    ? [selected]
+    : (rpsDocs.documents || []).filter((doc) => !group || doc.group === group);
+  if (!docs.length) return null;
+
+  if (selected) {
+    const answer = language === "en"
+      ? [
+        `${rpsDocTitle(selected, language)}: ${rpsDocDescription(selected, language)}`,
+        `Course group: ${selected.groupEn || selected.group}.`,
+        `Credits: ${selected.credits || "-"}.`,
+        selected.code ? `Course code: ${selected.code}.` : "",
+        `File size: ${formatFileSize(selected.sizeKb)}.`,
+        `PDF: ${selected.href}`
+      ].filter(Boolean).join("\n")
+      : [
+        `${rpsDocTitle(selected, language)}: ${rpsDocDescription(selected, language)}`,
+        `Kelompok mata kuliah: ${selected.group}.`,
+        `SKS: ${selected.credits || "-"}.`,
+        selected.code ? `Kode mata kuliah: ${selected.code}.` : "",
+        `Ukuran file: ${formatFileSize(selected.sizeKb)}.`,
+        `PDF: ${selected.href}`
+      ].filter(Boolean).join("\n");
+
+    return {
+      answer,
+      sources: [{ title: rpsDocTitle(selected, language), url: selected.href }],
+      mode: "Knowledge base server"
+    };
+  }
+
+  const label = group || (language === "en" ? "all groups" : "semua kelompok");
+  const list = docs
+    .slice(0, 28)
+    .map((doc, index) => `${index + 1}. ${language === "en" ? doc.courseTitleEn || doc.courseTitle : doc.courseTitle} (${language === "en" ? doc.groupEn || doc.group : doc.group}, ${doc.credits || "-"} SKS) - ${doc.href}`)
+    .join("\n");
+
+  return {
+    answer: language === "en"
+      ? `There are ${docs.length} RPS 2026 documents for ${label}. They are separated into required and elective courses on the website.\n\n${list}`
+      : `Tersedia ${docs.length} dokumen RPS 2026 untuk ${label}. Di website, RPS dipisahkan antara mata kuliah wajib dan pilihan.\n\n${list}`,
+    sources: docs.slice(0, 12).map((doc) => ({ title: rpsDocTitle(doc, language), url: doc.href })),
     mode: "Knowledge base server"
   };
 }
@@ -922,6 +1035,7 @@ function localAnswer(question, language = "id") {
 
   const fact = matchFact(question);
   const hits = retrieve(question, 5);
+  const structuredRpsDoc = rpsDocAnswer(question, hits, language);
   const structuredSyllabus = syllabusAnswer(question, hits);
   const structuredMaterial = materialAnswer(question, hits);
   const structuredTracerStudy = tracerStudyAnswer(question, hits);
@@ -930,6 +1044,7 @@ function localAnswer(question, language = "id") {
   const structuredPbmEvaluation = pbmEvaluationAnswer(question, hits, language);
   const structuredThesisGuide = thesisGuideAnswer(question);
 
+  if (structuredRpsDoc) return structuredRpsDoc;
   if (structuredSyllabus) return structuredSyllabus;
   if (structuredMaterial) return structuredMaterial;
   if (structuredTracerStudy) return structuredTracerStudy;
@@ -953,8 +1068,8 @@ function localAnswer(question, language = "id") {
   if (!hits.length) {
     return {
       answer: language === "en"
-        ? "I have not found that information in the program knowledge base. I can answer the curriculum, syllabi, HTML learning materials, thesis guides, graduate data, tracer studies, curriculum documents, course delivery evaluations, PBM evaluations, fees, and admissions that have been indexed. Free-form answers outside this knowledge base require enabling a generative AI API on the server."
-        : "Saya belum menemukan informasi tersebut dalam knowledge base prodi. Saat ini saya bisa menjawab kurikulum, silabus, materi HTML, panduan tesis, data lulusan, tracer study, dokumen kurikulum, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, biaya, dan pendaftaran yang sudah terindeks. Jawaban bebas di luar knowledge base memerlukan API AI generatif yang aktif di server.",
+        ? "I have not found that information in the program knowledge base. I can answer the curriculum, syllabi, RPS/course plan PDFs, HTML learning materials, thesis guides, graduate data, tracer studies, curriculum documents, course delivery evaluations, PBM evaluations, fees, and admissions that have been indexed. Free-form answers outside this knowledge base require enabling a generative AI API on the server."
+        : "Saya belum menemukan informasi tersebut dalam knowledge base prodi. Saat ini saya bisa menjawab kurikulum, silabus, PDF RPS, materi HTML, panduan tesis, data lulusan, tracer study, dokumen kurikulum, Evaluasi Pelaksanaan Perkuliahan, Evaluasi PBM, biaya, dan pendaftaran yang sudah terindeks. Jawaban bebas di luar knowledge base memerlukan API AI generatif yang aktif di server.",
       sources: [],
       mode: "Knowledge base server"
     };
@@ -976,7 +1091,9 @@ function localAnswer(question, language = "id") {
                 ? "Saya menemukan laporan Evaluasi Pelaksanaan Perkuliahan yang relevan:"
                 : hits[0]?.id?.startsWith("pbm-evaluation-")
                   ? "Saya menemukan dokumen Evaluasi PBM yang relevan:"
-                  : "Saya menemukan potongan knowledge base yang relevan:";
+                  : hits[0]?.id?.startsWith("rps-doc-")
+                    ? "Saya menemukan dokumen RPS yang relevan:"
+                    : "Saya menemukan potongan knowledge base yang relevan:";
   const answer = [
     intro,
     "",
@@ -1004,6 +1121,7 @@ app.get("/api/health", (_req, res) => {
     curriculumDocs: curriculumDocs.total || curriculumDocs.documents?.length || 0,
     lectureEvaluations: lectureEvaluations.total || lectureEvaluations.documents?.length || 0,
     pbmEvaluations: pbmEvaluations.total || pbmEvaluations.documents?.length || 0,
+    rpsDocs: rpsDocs.total || rpsDocs.documents?.length || 0,
     apiReady: Boolean(client),
     model: client ? model : null
   });
@@ -1045,6 +1163,10 @@ app.get("/api/pbm-evaluations", (_req, res) => {
   res.json(pbmEvaluations);
 });
 
+app.get("/api/rps-docs", (_req, res) => {
+  res.json(rpsDocs);
+});
+
 app.post("/api/chat", async (req, res) => {
   const question = String(req.body?.question || "").trim();
   const language = req.body?.language === "en" ? "en" : "id";
@@ -1055,7 +1177,8 @@ app.post("/api/chat", async (req, res) => {
 
   const fact = matchFact(question);
   const hits = retrieve(question, 8);
-  const directAnswer = syllabusAnswer(question, hits)
+  const directAnswer = rpsDocAnswer(question, hits, language)
+    || syllabusAnswer(question, hits)
     || materialAnswer(question, hits)
     || tracerStudyAnswer(question, hits)
     || curriculumDocAnswer(question, hits, language)
@@ -1094,7 +1217,7 @@ app.post("/api/chat", async (req, res) => {
         "Jawab hanya berdasarkan konteks knowledge base yang diberikan.",
         "Jika konteks tidak memuat informasi yang ditanyakan, katakan belum tersedia dan sarankan menghubungi admin prodi.",
         "Jangan mengarang biaya, jadwal PMB, link pendaftaran, atau RPL.",
-        "Jika pengguna menanyakan silabus/RPS mata kuliah, susun jawaban dari deskripsi, bahan kajian, dan referensi yang tersedia.",
+        "Jika pengguna menanyakan RPS, arahkan ke PDF RPS yang relevan. Jika pengguna menanyakan silabus, susun jawaban dari deskripsi, bahan kajian, dan referensi yang tersedia.",
         "Jika pengguna menanyakan panduan tesis, format penulisan tesis, SUR, SKR, atau SAM, jawab berdasarkan konteks Panduan Penulisan Tesis dan Panduan Pelaksanaan Tesis.",
         "Jika pengguna menanyakan dokumen kurikulum atau PDF kurikulum, arahkan ke dokumen kurikulum yang relevan dari konteks.",
         language === "en"

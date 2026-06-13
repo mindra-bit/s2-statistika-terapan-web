@@ -631,6 +631,7 @@ h1 {
 .workspace-panels > .academic-calendar-section,
 .workspace-panels > .lecture-evaluation-section,
 .workspace-panels > .pbm-evaluation-section,
+.workspace-panels > .rps-section,
 .workspace-panels > .special-moment-section,
 .workspace-panels > .comments-section,
 .workspace-panels > .chat-section {
@@ -2540,6 +2541,224 @@ tbody tr:hover td {
   font-size: 13px;
 }
 
+.rps-section {
+  background:
+    linear-gradient(180deg, #ffffff, #f7fbf9 54%, #fffaf0),
+    var(--surface);
+}
+
+.rps-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.rps-summary-card {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 14px;
+  align-items: center;
+  min-height: 104px;
+  border: 1px solid rgba(221, 210, 193, 0.95);
+  border-radius: 8px;
+  padding: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, .95), rgba(255, 250, 240, .92)),
+    #fff;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(23, 23, 23, 0.06);
+}
+
+.rps-summary-card span {
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.rps-summary-card strong {
+  color: var(--green);
+  font-size: 42px;
+  line-height: 1;
+}
+
+.rps-summary-card small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.rps-summary-card.active {
+  border-color: rgba(14, 107, 88, 0.45);
+  background:
+    linear-gradient(135deg, rgba(20, 83, 69, .97), rgba(14, 107, 88, .93)),
+    var(--green);
+  color: #fff;
+}
+
+.rps-summary-card.active strong,
+.rps-summary-card.active small {
+  color: #fff;
+}
+
+.rps-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin: 4px 0 18px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.rps-toolbar strong {
+  color: var(--red);
+}
+
+.rps-toolbar a {
+  color: var(--green);
+  text-decoration: none;
+}
+
+.rps-filter-tabs {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.rps-filter-tabs button {
+  min-height: 38px;
+  border: 1px solid rgba(221, 210, 193, 0.95);
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: #fff;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.rps-filter-tabs button.active {
+  border-color: var(--green);
+  background: var(--green);
+  color: #fff;
+}
+
+.rps-grid {
+  max-height: 760px;
+  overflow: auto;
+  padding-right: 8px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  scroll-padding: 16px;
+}
+
+.rps-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 11px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  background: #fff;
+  box-shadow: 0 12px 30px rgba(23, 23, 23, 0.06);
+}
+
+.rps-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
+}
+
+.rps-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.rps-card h3 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.rps-subtitle {
+  margin: 0;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.rps-card p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 14px;
+}
+
+.rps-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.rps-meta span {
+  border-radius: 999px;
+  padding: 7px 9px;
+  background: #f7f1e8;
+}
+
+.rps-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.rps-actions a,
+.rps-actions button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 38px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 850;
+  padding: 8px 12px;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.rps-actions a {
+  color: #fff;
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.rps-actions button:hover {
+  border-color: var(--green);
+  color: var(--green);
+}
+
 .empty-note {
   margin: 0;
   padding: 18px;
@@ -3035,8 +3254,10 @@ tbody tr:hover td {
   .calendar-summary-grid,
   .comments-grid,
   .tracer-grid,
+  .rps-summary,
   .special-moment-summary,
   .special-moment-gallery,
+  .rps-grid,
   .syllabus-grid,
   .material-list,
   .alumni-dashboard,
@@ -3176,8 +3397,10 @@ tbody tr:hover td {
   .calendar-events,
   .comments-grid,
   .tracer-grid,
+  .rps-summary,
   .special-moment-summary,
   .special-moment-gallery,
+  .rps-grid,
   .syllabus-grid,
   .material-list,
   .alumni-dashboard,
@@ -3190,6 +3413,7 @@ tbody tr:hover td {
   .curriculum-doc-toolbar,
   .lecture-evaluation-toolbar,
   .pbm-evaluation-toolbar,
+  .rps-toolbar,
   .materials-toolbar,
   .tracer-toolbar {
     align-items: flex-start;
