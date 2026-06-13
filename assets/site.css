@@ -132,7 +132,7 @@ img {
 
 .nav-links {
   display: grid;
-  grid-template-columns: repeat(7, minmax(0, max-content));
+  grid-template-columns: repeat(8, minmax(0, max-content));
   align-items: center;
   justify-content: center;
   gap: 6px 7px;
@@ -472,6 +472,95 @@ p {
 .role-card p {
   margin-bottom: 0;
   font-size: 14px;
+}
+
+.vision-mission-section {
+  background:
+    linear-gradient(180deg, #f8f3ea, #ffffff 58%, #f7fbf9),
+    var(--surface);
+}
+
+.vision-mission-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1.25fr;
+  gap: 18px;
+}
+
+.vision-card {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 26px;
+  background: #fff;
+  box-shadow: 0 16px 38px rgba(23, 23, 23, 0.08);
+}
+
+.vision-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 6px;
+  background: linear-gradient(90deg, var(--green), var(--gold), var(--red));
+}
+
+.vision-card-featured {
+  color: #fff;
+  background:
+    linear-gradient(135deg, rgba(20, 61, 93, 0.98), rgba(14, 107, 88, 0.95) 58%, rgba(48, 40, 34, 0.9)),
+    var(--green);
+}
+
+.vision-card h3 {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 34px);
+  line-height: 1.15;
+}
+
+.vision-card p {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+.vision-card-featured p {
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.mission-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding-left: 20px;
+  color: var(--ink-soft);
+  line-height: 1.65;
+}
+
+.vision-source-note {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-top: 18px;
+  border: 1px solid rgba(221, 210, 193, 0.9);
+  border-radius: 8px;
+  padding: 14px 16px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.vision-source-note strong {
+  flex: 0 0 auto;
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: #fff;
+  background: var(--green);
+  font-size: 12px;
+  text-transform: uppercase;
 }
 
 .guide-toolbar {
@@ -2232,6 +2321,7 @@ tbody tr:hover td {
 
   .path-grid,
   .role-grid,
+  .vision-mission-grid,
   .guide-grid,
   .curriculum-doc-grid,
   .pbm-evaluation-grid,
@@ -2328,6 +2418,7 @@ tbody tr:hover td {
   .stat-grid,
   .path-grid,
   .role-grid,
+  .vision-mission-grid,
   .guide-grid,
   .curriculum-doc-grid,
   .pbm-evaluation-grid,
@@ -2379,6 +2470,11 @@ tbody tr:hover td {
   }
 
   .calendar-source-note {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .vision-source-note {
     align-items: flex-start;
     flex-direction: column;
   }
